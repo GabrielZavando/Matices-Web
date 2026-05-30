@@ -1,0 +1,37 @@
+version: "1.0"
+paths:
+  specs: "openspec/specs"
+  changes: "openspec/changes"
+  archive: "openspec/archive"
+  docs: "docs"
+  ai_specs: ".agent"
+
+validation:
+  strict_mode: true
+  require_description: true
+  coverage_threshold: 90
+  allowed_formats:
+    - yaml
+    - md
+
+pipelines:
+  pre_apply:
+    - cmd: "openspec validate"
+  pre_verify:
+    - cmd: "npm run lint:eslint"
+    - cmd: "astro check"
+
+artifacts:
+  propose:
+    required:
+      - "openspec/changes/proposal.md"
+      - "openspec/changes/design.md"
+      - "openspec/changes/tasks.md"
+  apply:
+    required:
+      - "src/components/global/Header.astro"
+      - "src/components/global/Footer.astro"
+      - "src/pages"
+  verify:
+    required:
+      - "openspec/archive"

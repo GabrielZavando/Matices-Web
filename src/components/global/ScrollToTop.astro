@@ -1,0 +1,64 @@
+---
+---
+
+<button
+  id="scroll-to-top"
+  aria-label="Volver arriba"
+  class="fixed bottom-6 right-6 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-verde-bosque text-crema-calido shadow-lg shadow-verde-bosque/20 opacity-0 invisible translate-y-4 pointer-events-none cursor-pointer transition-all duration-300 ease-in-out hover:bg-verde-lima hover:scale-110 hover:-translate-y-0.5 active:scale-95"
+>
+  <svg
+    class="h-6 w-6 stroke-2"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M5 15l7-7 7 7"
+    />
+  </svg>
+</button>
+
+<script>
+  const scrollBtn = document.getElementById('scroll-to-top')
+
+  if (scrollBtn) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        scrollBtn.classList.remove(
+          'opacity-0',
+          'invisible',
+          'translate-y-4',
+          'pointer-events-none'
+        )
+        scrollBtn.classList.add(
+          'opacity-100',
+          'visible',
+          'translate-y-0',
+          'pointer-events-auto'
+        )
+      } else {
+        scrollBtn.classList.add(
+          'opacity-0',
+          'invisible',
+          'translate-y-4',
+          'pointer-events-none'
+        )
+        scrollBtn.classList.remove(
+          'opacity-100',
+          'visible',
+          'translate-y-0',
+          'pointer-events-auto'
+        )
+      }
+    })
+
+    scrollBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      })
+    })
+  }
+</script>

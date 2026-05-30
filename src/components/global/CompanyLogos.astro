@@ -1,0 +1,146 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+// Importación dinámica de todos los logotipos de empresas en src/assets/companys/
+const companyLogos = import.meta.glob<{ default: ImageMetadata }>('../../assets/companys/*.{jpeg,jpg,png,webp,svg}', { eager: true });
+const companyList = Object.values(companyLogos).map((img) => img.default);
+const doubleCompanyList = [...companyList, ...companyList];
+---
+
+<!-- Section: Prueba Social / Clientes -->
+<section class="w-full py-16 bg-white border-y border-verde-bosque/5">
+  <div class="max-w-[1280px] mx-auto px-4 md:px-16 space-y-12">
+    <div class="text-center space-y-3">
+      <h2 class="font-heading text-2xl md:text-3xl font-bold text-verde-bosque">
+        Empresas que han confiado en nosotros
+      </h2>
+      <p class="font-sans text-sm text-verde-bosque/60">
+        Alianzas estratégicas comerciales e institucionales
+      </p>
+    </div>
+
+    {doubleCompanyList.length > 0 ? (
+      <div class="carousel-viewport w-full overflow-hidden relative @container">
+        <div class="carousel-track">
+          {doubleCompanyList.map((logo) => (
+            <div class="carousel-item">
+              <div class="carousel-item-inner">
+                <Image 
+                  src={logo} 
+                  alt="Empresa o institución aliada de Matices" 
+                  class="carousel-logo"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    ) : (
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center opacity-40 font-sans text-xs md:text-sm font-bold tracking-widest uppercase text-verde-bosque/50">
+        <span class="border border-dashed border-verde-bosque/20 py-3 px-6 rounded-lg text-center w-full">Alianza Comercial</span>
+        <span class="border border-dashed border-verde-bosque/20 py-3 px-6 rounded-lg text-center w-full">Sector Público</span>
+        <span class="border border-dashed border-verde-bosque/20 py-3 px-6 rounded-lg text-center w-full">Servicios B2B</span>
+        <span class="border border-dashed border-verde-bosque/20 py-3 px-6 rounded-lg text-center w-full">Consultoría</span>
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .carousel-viewport {
+    container-type: inline-size;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    --carousel-gap: 2.5rem;
+    --items-visible: 2;
+  }
+
+  .carousel-track {
+    display: flex;
+    align-items: center;
+    gap: var(--carousel-gap);
+    width: max-content;
+    animation: marquee 45s linear infinite;
+  }
+
+  .carousel-track:hover {
+    animation-play-state: paused;
+  }
+
+
+  .carousel-item {
+    flex-shrink: 0;
+    width: calc((100cqw - var(--carousel-gap) * (var(--items-visible) - 1)) / var(--items-visible));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .carousel-item-inner {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border-radius: 1rem;
+    background-color: rgba(255, 255, 255, 0.4);
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+    transform: scale3d(1, 1, 1);
+  }
+
+  .carousel-item-inner:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-color: rgba(35, 108, 50, 0.1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    transform: scale3d(1.08, 1.08, 1);
+  }
+
+  .carousel-logo {
+    height: 3.5rem;
+    max-width: 140px;
+    width: auto;
+    object-fit: contain;
+    filter: grayscale(100%);
+    opacity: 0.7;
+    transition: filter 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .carousel-item-inner:hover .carousel-logo {
+    filter: grayscale(0%);
+    opacity: 1;
+  }
+
+
+
+  @keyframes marquee {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(calc(-50% - var(--carousel-gap) / 2), 0, 0);
+    }
+  }
+
+  /* Breakpoints responsivos */
+  @media (min-width: 640px) {
+    .carousel-viewport {
+      --items-visible: 4;
+    }
+  }
+  @media (min-width: 1024px) {
+    .carousel-viewport {
+      --items-visible: 5;
+    }
+  }
+</style>
+

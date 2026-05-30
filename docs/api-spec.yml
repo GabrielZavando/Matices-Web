@@ -1,0 +1,65 @@
+openapi: 3.0.3
+info:
+  title: B2B Lead Capture Serverless Contract - Matices
+  version: 1.0.0
+  description: Formal definition of the outgoing payload from the Astro static frontend to the external serverless handlers (Formbold / Formspree).
+servers:
+  - url: https://api.formbold.com/s/{form_id}
+    description: Unified serverless data processing endpoint for shared hosting environments.
+paths:
+  /:
+    post:
+      summary: Structured Corporate Qualification Form Submission
+      parameters:
+        - name: form_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/B2BLeadPayload'
+      responses:
+        '302':
+          description: Successful HTTP redirection to the native Matices Thank You Page.
+        '400':
+          description: Corrupted payload or passive activation of the Honeypot anti-bot field.
+components:
+  schemas:
+    B2BLeadPayload:
+      type: object
+      required:
+        - name
+        - email
+        - phone
+        - _honeypot
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        company:
+          type: string
+        role:
+          type: string
+        services_of_interest:
+          type: array
+          items:
+            type: string
+        organizational_challenges:
+          type: array
+          items:
+            type: string
+        organization_size:
+          type: string
+        contact_preference:
+          type: string
+        _honeypot:
+          type: string
+          description: Visually hidden technical trap field. Must be processed strictly empty.

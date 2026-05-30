@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+@theme {
+  --color-matices-primary: #243B55;
+  --color-matices-blue: #5A7FA3;
+  --color-matices-green: #98C245;
+  --color-matices-orange: #F09E46;
+  --color-matices-bg: #F4F7F9;
+
+  /* Mapeo de compatibilidad para aplicar la nueva identidad sobre las clases existentes */
+  --color-crema-calido: var(--color-matices-bg);
+  --color-verde-bosque: var(--color-matices-primary);
+  --color-verde-lima: var(--color-matices-green);
+  --color-azul-celeste: var(--color-matices-blue);
+  
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Playfair Display", ui-serif, Georgia, serif;
+}

@@ -1,0 +1,362 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/global/Header.astro';
+import Footer from '../components/global/Footer.astro';
+import { Image } from 'astro:assets';
+import CompanyLogos from '../components/global/CompanyLogos.astro';
+import EvidenceGallery from '../components/ui/EvidenceGallery.astro';
+
+import heroBusiness from '../assets/hero-business.png';
+import collaborativeDiscussion from '../assets/collaborative-discussion.png';
+---
+
+<Layout title="Reclutamiento y Selección Estratégica">
+  <Header activePath="/" />
+   <main class="w-full">
+    <!-- Hero Section: Mobile-First, Asymmetrical Curves & Overlapping Elements -->
+    <section class="relative w-full overflow-hidden pt-12 pb-24 md:pt-20 md:pb-32 bg-radial from-verde-lima/5 to-transparent">
+      <div class="max-w-[1280px] mx-auto px-4 md:px-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Hero Text content: Primary on Mobile, pushes graphics bottom -->
+        <div class="lg:col-span-7 space-y-6 md:space-y-8 z-10 text-left">
+          <span class="inline-block px-4 py-1.5 rounded-full bg-verde-lima/10 text-verde-bosque font-sans text-xs font-semibold tracking-wider uppercase">
+            Talento &amp; Evolución B2B
+          </span>
+          <h1 class="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-verde-bosque leading-tight">
+            Reclutamiento y <span class="text-verde-lima font-normal italic">Selección Estratégica</span>
+          </h1>
+          <p class="font-sans text-lg text-verde-bosque/80 max-w-xl leading-relaxed">
+            Soluciones integrales para tu capital humano. Encontramos el equilibrio perfecto entre la vitalidad del talento y la precisión técnica de tu empresa, identificando los perfiles clave para liderar el cambio.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 pt-2 font-sans">
+            <a 
+              href="/contacto" 
+              class="bg-verde-bosque text-white font-semibold py-4 px-8 rounded-xl hover:opacity-90 active:scale-95 transition-all flex items-center justify-center gap-2 shadow-sm"
+            >
+              Comenzar Proceso
+              <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </a>
+            <a 
+              href="#servicios" 
+              class="border border-verde-bosque/20 text-verde-bosque text-center font-semibold py-4 px-8 rounded-xl hover:bg-verde-bosque/5 transition-all"
+            >
+              Conoce Nuestra Metodología
+            </a>
+          </div>
+        </div>
+
+        <!-- Hero Graphic Content: Collapses gracefully to bottom on Mobile -->
+        <div class="lg:col-span-5 relative w-full flex justify-center">
+          <div class="w-full max-w-md aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl relative border-4 border-white/40">
+            <Image 
+              src={heroBusiness} 
+              alt="Líder profesional B2B analizando estrategias corporativas en una oficina iluminada"
+              class="w-full h-full object-cover"
+              loading="eager"
+            />
+          </div>
+          <!-- Glassmorphism Floating Badge -->
+          <div class="absolute -bottom-6 -left-6 bg-white/70 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-verde-bosque/10 max-w-[200px] hidden sm:block">
+            <div class="flex items-center gap-3 mb-2">
+              <div class="w-10 h-10 rounded-full bg-azul-celeste/10 flex items-center justify-center text-azul-celeste">
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <span class="font-sans font-bold text-sm text-verde-bosque">98% Match</span>
+            </div>
+            <p class="text-xs text-verde-bosque/70 leading-tight">
+              Precisión en selección de mandos medios y cargos directivos.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Section: Nuestros Servicios Bento Grid -->
+    <section id="servicios" class="w-full py-20 bg-white/40 border-y border-verde-bosque/5">
+      <div class="max-w-[1280px] mx-auto px-4 md:px-16 space-y-16">
+        <div class="text-center space-y-4 max-w-2xl mx-auto">
+          <h2 class="font-heading text-3xl md:text-4xl font-bold text-verde-bosque">
+            Nuestros Servicios
+          </h2>
+          <p class="font-sans text-verde-bosque/75 text-base md:text-lg">
+            Soluciones estratégicas para el desarrollo organizacional
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          
+          <!-- Card 1: Salud Laboral -->
+          <article class="bg-crema-calido p-8 rounded-[2rem] flex flex-col justify-between hover:shadow-lg transition-shadow border border-verde-bosque/5 group min-h-[280px]">
+            <div class="space-y-4">
+              <div class="w-12 h-12 rounded-xl bg-verde-lima/10 flex items-center justify-center text-verde-lima group-hover:scale-105 transition-transform duration-300">
+                <svg class="h-6 w-6 text-verde-bosque" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+              </div>
+              <h3 class="font-heading text-2xl font-bold text-verde-bosque">Salud Laboral</h3>
+              <p class="font-sans text-sm text-verde-bosque/75">
+                Implementación de programas integrales para el bienestar psicofísico y prevención de riesgos psicosociales en tu organización.
+              </p>
+            </div>
+            <a href="/psicologia" class="font-sans text-xs font-semibold text-verde-bosque uppercase tracking-wider mt-6 inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+              Ver detalles &rarr;
+            </a>
+          </article>
+
+          <!-- Card 2: Reclutamiento y Selección -->
+          <article class="bg-crema-calido p-8 rounded-[2rem] flex flex-col justify-between hover:shadow-lg transition-shadow border border-verde-bosque/5 group min-h-[280px]">
+            <div class="space-y-4">
+              <div class="w-12 h-12 rounded-xl bg-verde-lima/10 flex items-center justify-center text-verde-lima group-hover:scale-105 transition-transform duration-300">
+                <svg class="h-6 w-6 text-verde-bosque" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </div>
+              <h3 class="font-heading text-2xl font-bold text-verde-bosque">Reclutamiento y Selección</h3>
+              <p class="font-sans text-sm text-verde-bosque/75">
+                Búsqueda estratégica y filtrado riguroso de perfiles idóneos para mandos medios y ejecutivos de alto rendimiento.
+              </p>
+            </div>
+            <a href="/talento" class="font-sans text-xs font-semibold text-verde-bosque uppercase tracking-wider mt-6 inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+              Ver detalles &rarr;
+            </a>
+          </article>
+
+          <!-- Card 3: Evaluación Psicológica -->
+          <article class="bg-crema-calido p-8 rounded-[2rem] flex flex-col justify-between hover:shadow-lg transition-shadow border border-verde-bosque/5 group min-h-[280px]">
+            <div class="space-y-4">
+              <div class="w-12 h-12 rounded-xl bg-verde-lima/10 flex items-center justify-center text-verde-lima group-hover:scale-105 transition-transform duration-300">
+                <svg class="h-6 w-6 text-verde-bosque" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              </div>
+              <h3 class="font-heading text-2xl font-bold text-verde-bosque">Evaluación Psicológica</h3>
+              <p class="font-sans text-sm text-verde-bosque/75">
+                Aplicación de psicometría avanzada y entrevistas por competencias para asegurar el encaje de perfil y de cultura corporativa.
+              </p>
+            </div>
+            <a href="/psicologia" class="font-sans text-xs font-semibold text-verde-bosque uppercase tracking-wider mt-6 inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+              Ver detalles &rarr;
+            </a>
+          </article>
+
+          <!-- Card 4: Capacitación y Formación -->
+          <article class="bg-crema-calido p-8 rounded-[2rem] flex flex-col justify-between hover:shadow-lg transition-shadow border border-verde-bosque/5 group min-h-[280px]">
+            <div class="space-y-4">
+              <div class="w-12 h-12 rounded-xl bg-verde-lima/10 flex items-center justify-center text-verde-lima group-hover:scale-105 transition-transform duration-300">
+                <svg class="h-6 w-6 text-verde-bosque" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+              </div>
+              <h3 class="font-heading text-2xl font-bold text-verde-bosque">Capacitación y Formación</h3>
+              <p class="font-sans text-sm text-verde-bosque/75">
+                Talleres dinámicos y programas adaptados para potenciar habilidades blandas, liderazgo integrativo y competencias técnicas.
+              </p>
+            </div>
+            <a href="/formacion" class="font-sans text-xs font-semibold text-verde-bosque uppercase tracking-wider mt-6 inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+              Ver detalles &rarr;
+            </a>
+          </article>
+
+          <!-- Card 5: Gestión del Talento -->
+          <article class="bg-crema-calido p-8 rounded-[2rem] flex flex-col justify-between hover:shadow-lg transition-shadow border border-verde-bosque/5 group min-h-[280px]">
+            <div class="space-y-4">
+              <div class="w-12 h-12 rounded-xl bg-verde-lima/10 flex items-center justify-center text-verde-lima group-hover:scale-105 transition-transform duration-300">
+                <svg class="h-6 w-6 text-verde-bosque" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                </svg>
+              </div>
+              <h3 class="font-heading text-2xl font-bold text-verde-bosque">Gestión del Talento</h3>
+              <p class="font-sans text-sm text-verde-bosque/75">
+                Evaluaciones de desempeño y desarrollo de planes de carrera enfocados en fidelizar el talento interno y mejorar la productividad.
+              </p>
+            </div>
+            <a href="/talento" class="font-sans text-xs font-semibold text-verde-bosque uppercase tracking-wider mt-6 inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+              Ver detalles &rarr;
+            </a>
+          </article>
+
+          <!-- Card 6: Clima Organizacional -->
+          <article class="bg-crema-calido p-8 rounded-[2rem] flex flex-col justify-between hover:shadow-lg transition-shadow border border-verde-bosque/5 group min-h-[280px]">
+            <div class="space-y-4">
+              <div class="w-12 h-12 rounded-xl bg-verde-lima/10 flex items-center justify-center text-verde-lima group-hover:scale-105 transition-transform duration-300">
+                <svg class="h-6 w-6 text-verde-bosque" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </div>
+              <h3 class="font-heading text-2xl font-bold text-verde-bosque">Clima Organizacional</h3>
+              <p class="font-sans text-sm text-verde-bosque/75">
+                Diagnósticos profundos del ambiente laboral y diseño de intervenciones a la medida para elevar la sinergia colectiva.
+              </p>
+            </div>
+            <a href="/talento" class="font-sans text-xs font-semibold text-verde-bosque uppercase tracking-wider mt-6 inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+              Ver detalles &rarr;
+            </a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Banner de Dolor / Empatía -->
+    <section class="w-full py-20 bg-[#2e3131] text-crema-calido relative overflow-hidden shadow-xl">
+      <div class="absolute top-0 right-0 w-64 h-64 bg-verde-lima/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+      <div class="absolute bottom-0 left-0 w-64 h-64 bg-azul-celeste/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+      
+      <div class="max-w-[1280px] mx-auto px-4 md:px-16 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-8 space-y-6">
+          <h2 class="font-heading text-3xl md:text-5xl font-bold leading-tight">
+            ¿Necesitas apoyo en tu organización?
+          </h2>
+          <p class="font-sans text-base md:text-lg text-crema-calido/80 max-w-3xl leading-relaxed">
+            En Matices Consultoría Integral te brindamos un acompañamiento cercano y estratégico en salud laboral, reclutamiento integral y el desarrollo del capital humano. Fortalecemos las capacidades internas de tu equipo para impulsar la productividad y el bienestar sostenible.
+          </p>
+        </div>
+        <div class="lg:col-span-4 flex justify-start lg:justify-end">
+          <a 
+            href="/contacto" 
+            class="bg-verde-lima hover:bg-verde-lima/90 text-verde-bosque font-sans font-bold py-4 px-10 rounded-full hover:scale-105 transition-all shadow-lg text-center w-full sm:w-auto inline-block"
+          >
+            HABLEMOS AHORA
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Áreas de Especialización -->
+    <section class="w-full py-24 bg-crema-calido/30">
+      <div class="max-w-[1280px] mx-auto px-4 md:px-16 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        
+        <!-- Col 1: Texto Informativo (Top on mobile) -->
+        <div class="space-y-6 order-2 lg:order-1 text-left">
+          <h2 class="font-heading text-3xl md:text-4xl font-bold text-verde-bosque">
+            Especialistas en Potenciar Equipos
+          </h2>
+          <p class="font-sans text-base md:text-lg text-verde-bosque/80 leading-relaxed">
+            Nuestro equipo de consultores multidisciplinarios integra técnicas de vanguardia en psicología, salud laboral y administración para estructurar equipos sólidos y resilientes. Nos enfocamos en impulsar el crecimiento tanto individual como organizacional bajo una perspectiva moderna y de bienestar.
+          </p>
+          
+          <div class="relative w-full max-w-md aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl border-4 border-white/60 hidden lg:block mt-8">
+            <Image 
+              src={collaborativeDiscussion} 
+              alt="Líderes de capital humano participando en taller de consultoría de Matices"
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+        <!-- Col 2: Listado de Especialidades (Collapses under on mobile) -->
+        <div class="order-1 lg:order-2 space-y-8 bg-white p-8 md:p-12 rounded-[2.5rem] shadow-xl border border-verde-bosque/5">
+          <h3 class="font-heading text-2xl font-bold text-verde-bosque">Áreas de Especialización</h3>
+          <ul class="space-y-4">
+            
+            <li class="flex items-start gap-4">
+              <span class="w-6 h-6 rounded-full bg-verde-lima/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="h-4 w-4 text-verde-bosque" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+              </span>
+              <div>
+                <h4 class="font-sans font-bold text-verde-bosque text-base">Reclutamiento y Selección</h4>
+              </div>
+            </li>
+
+            <li class="flex items-start gap-4">
+              <span class="w-6 h-6 rounded-full bg-verde-lima/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="h-4 w-4 text-verde-bosque" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+              </span>
+              <div>
+                <h4 class="font-sans font-bold text-verde-bosque text-base">Evaluación Psicológica</h4>
+              </div>
+            </li>
+
+            <li class="flex items-start gap-4">
+              <span class="w-6 h-6 rounded-full bg-verde-lima/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="h-4 w-4 text-verde-bosque" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+              </span>
+              <div>
+                <h4 class="font-sans font-bold text-verde-bosque text-base">Capacitación y Formación</h4>
+              </div>
+            </li>
+
+            <li class="flex items-start gap-4">
+              <span class="w-6 h-6 rounded-full bg-verde-lima/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="h-4 w-4 text-verde-bosque" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+              </span>
+              <div>
+                <h4 class="font-sans font-bold text-verde-bosque text-base">Gestión del Talento</h4>
+              </div>
+            </li>
+
+            <li class="flex items-start gap-4">
+              <span class="w-6 h-6 rounded-full bg-verde-lima/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="h-4 w-4 text-verde-bosque" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+              </span>
+              <div>
+                <h4 class="font-sans font-bold text-verde-bosque text-base">Clima Organizacional</h4>
+              </div>
+            </li>
+
+            <li class="flex items-start gap-4">
+              <span class="w-6 h-6 rounded-full bg-verde-lima/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="h-4 w-4 text-verde-bosque" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+              </span>
+              <div>
+                <h4 class="font-sans font-bold text-verde-bosque text-base">Salud Laboral</h4>
+              </div>
+            </li>
+
+            <li class="flex items-start gap-4">
+              <span class="w-6 h-6 rounded-full bg-verde-lima/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="h-4 w-4 text-verde-bosque" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+              </span>
+              <div>
+                <h4 class="font-sans font-bold text-verde-bosque text-base">Gestión del Cambio</h4>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Section: Prueba Social / Clientes (Componente Reutilizable) -->
+    <CompanyLogos />
+
+    <!-- Section: Galería Masonry -->
+    <section class="w-full py-20 bg-crema-calido/20">
+      <div class="max-w-[1280px] mx-auto px-4 md:px-16 space-y-12">
+        <div class="text-center space-y-3">
+          <h2 class="font-heading text-3xl md:text-4xl font-bold text-verde-bosque">
+            Galeria de imágenes
+          </h2>
+          <p class="font-sans text-base text-verde-bosque/75">
+            Registros reales de nuestros talleres, conferencias, material de prensa y actividad institucional
+          </p>
+        </div>
+
+        <EvidenceGallery />
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

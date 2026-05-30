@@ -1,0 +1,109 @@
+---
+import { Image } from 'astro:assets'
+import logoBlanco from '../../assets/logo-blanco.webp'
+
+const currentYear = new Date().getFullYear();
+
+const quickLinks = [
+  { name: "Talento B2B", href: "/talento" },
+  { name: "Evaluación Psicología", href: "/psicologia" },
+  { name: "I+D e Innovación", href: "/id" },
+  { name: "Formación de Equipos", href: "/formacion" }
+];
+
+const legalLinks = [
+  { name: "Políticas de Privacidad", href: "/privacidad" },
+  { name: "Términos y Condiciones", href: "/terminos" }
+];
+---
+
+<footer class="w-full bg-verde-bosque text-crema-calido/90 pt-16 pb-0 border-t border-verde-bosque/20">
+  <div class="max-w-[1280px] mx-auto px-4 md:px-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+    
+    <!-- Col 1: Brand -->
+    <div class="flex flex-col gap-4">
+      <a href="/" class="flex items-center gap-3 group focus:outline-none">
+        <Image
+          src={logoBlanco}
+          alt="Logo Matices"
+          class="h-9 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+        />
+      </a>
+      <p class="font-sans text-sm leading-relaxed text-crema-calido/75 max-w-xs">
+        Encontramos el equilibrio perfecto entre la vitalidad del talento humano y la precisión técnica estratégica de tu organización.
+      </p>
+    </div>
+
+    <!-- Col 2: Services -->
+    <div class="flex flex-col gap-4">
+      <h3 class="font-heading text-lg font-bold text-crema-calido">Áreas de Especialidad</h3>
+      <ul class="flex flex-col gap-2.5">
+        {quickLinks.map(link => (
+          <li>
+            <a href={link.href} class="font-sans text-sm hover:text-white transition-colors text-crema-calido/80">
+              {link.name}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <!-- Col 3: Contact -->
+    <div class="flex flex-col gap-4">
+      <h3 class="font-heading text-lg font-bold text-crema-calido">Contacto Corporativo</h3>
+      <ul class="flex flex-col gap-3 font-sans text-sm text-crema-calido/80">
+        <li class="flex items-start gap-3">
+          <svg class="h-5 w-5 text-verde-lima mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+          </svg>
+          <a href="mailto:contacto@maticesconsultora.cl" class="hover:text-white transition-colors">
+            contacto@maticesconsultora.cl
+          </a>
+        </li>
+        <li class="flex items-start gap-3">
+          <svg class="h-5 w-5 text-verde-lima mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          <span>Santiago, Región Metropolitana, Chile</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Col 4: Newsletter / Quick CTA -->
+    <div class="flex flex-col gap-4">
+      <h3 class="font-heading text-lg font-bold text-crema-calido">Alianzas Estratégicas</h3>
+      <p class="font-sans text-sm leading-relaxed text-crema-calido/75">
+        ¿Interesado en diseñar una solución de capital humano a tu medida? Agenda una sesión consultiva inicial sin costo.
+      </p>
+      <a 
+        href="/contacto" 
+        class="bg-verde-lima text-white font-sans text-center font-semibold py-2.5 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm block"
+      >
+        Iniciar Diagnóstico
+      </a>
+    </div>
+
+  </div>
+
+  <!-- Divider & Sub-Footer -->
+  <div class="max-w-[1280px] mx-auto px-4 md:px-16 mt-16 pt-8 pb-12 border-t border-crema-calido/10 flex flex-col md:flex-row justify-between items-center gap-6">
+    <p class="font-sans text-xs text-crema-calido/60 text-center md:text-left">
+      &copy; {currentYear} Matices Consultoría Integral. Todos los derechos reservados.
+    </p>
+    <div class="flex flex-wrap justify-center gap-6">
+      {legalLinks.map(link => (
+        <a href={link.href} class="font-sans text-xs hover:text-white transition-colors text-crema-calido/60">
+          {link.name}
+        </a>
+      ))}
+    </div>
+  </div>
+
+  <!-- Bottom Thin Credit Bar -->
+  <div class="w-full bg-[#5A7FA3] py-2 text-center text-xs text-crema-calido font-sans border-t border-[#5A7FA3]/10">
+    <p class="opacity-95 tracking-wide">
+      Sitio diseñado y desarrollado por: <a href="https://gabrielzavando.cl/" target="_blank" rel="noopener noreferrer" class="font-semibold hover:text-white transition-colors duration-200">Gabriel Zavando</a>
+    </p>
+  </div>
+</footer>

@@ -1,0 +1,234 @@
+---
+import Layout from '../layouts/Layout.astro'
+import Header from '../components/global/Header.astro'
+import Footer from '../components/global/Footer.astro'
+import CompanyLogos from '../components/global/CompanyLogos.astro'
+import { Image } from 'astro:assets'
+import EvidenceGallery from '../components/ui/EvidenceGallery.astro'
+
+// Optimized image imports
+import heroBusiness from '../assets/hero-business.png'
+---
+
+<Layout
+  title="Investigación y Desarrollo (I+D)"
+  description="Matices Consultoría - Innovación, metodologías científicas de vanguardia y desarrollo continuo en psicología organizacional para el ecosistema corporativo."
+>
+  <Header activePath="/id" />
+
+  <main class="w-full">
+    <!-- Hero Section -->
+    <section
+      class="relative w-full overflow-hidden pt-12 pb-24 md:pt-20 md:pb-32 bg-radial from-verde-lima/5 to-transparent"
+    >
+      <div
+        class="max-w-[1280px] mx-auto px-4 md:px-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
+      >
+        <!-- Hero Copy -->
+        <div class="lg:col-span-7 space-y-6 z-10 text-left">
+          <span
+            class="inline-block px-4 py-1.5 rounded-full bg-verde-lima/10 text-verde-bosque font-sans text-xs font-semibold tracking-wider uppercase"
+          >
+            Innovación Científica &amp; Futuro
+          </span>
+          <h1
+            class="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-verde-bosque leading-tight"
+          >
+            Investigación y <span class="text-verde-lima font-normal italic"
+              >Desarrollo (I+D)</span
+            >
+          </h1>
+          <p
+            class="font-sans text-lg text-verde-bosque/80 max-w-xl leading-relaxed"
+          >
+            Diseñamos metodologías y herramientas innovadoras en psicología
+            organizacional, impulsando la evolución constante del capital humano
+            y la resiliencia en el ecosistema corporativo.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 pt-2">
+            <a
+              href="/contacto"
+              class="bg-verde-bosque text-white font-sans text-center font-semibold py-4 px-8 rounded-xl hover:opacity-90 active:scale-95 transition-all text-sm block"
+            >
+              Conocer Investigaciones
+            </a>
+          </div>
+        </div>
+
+        <!-- Graphic Content -->
+        <div class="lg:col-span-5 relative w-full flex justify-center">
+          <div
+            class="w-full max-w-md aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl relative border-4 border-white/40"
+          >
+            <Image
+              src={heroBusiness}
+              alt="Líderes de Matices analizando métricas de investigación B2B"
+              class="w-full h-full object-cover"
+              loading="eager"
+            />
+          </div>
+          <div
+            class="absolute -bottom-6 -right-6 bg-white/70 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-verde-bosque/10 max-w-[200px] hidden sm:block"
+          >
+            <p class="font-heading text-xl font-bold text-verde-bosque mb-1">
+              I+D
+            </p>
+            <p class="text-xs text-verde-bosque/70 leading-tight">
+              Diseño de metodologías de vanguardia.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección Central: Investigación e Innovación Aplicada -->
+    <section class="w-full py-20 bg-white">
+      <div class="max-w-[1280px] mx-auto px-4 md:px-16 text-center space-y-8">
+        <div class="space-y-4 max-w-3xl mx-auto">
+          <span class="inline-block px-4 py-1.5 rounded-full bg-verde-bosque/10 text-verde-bosque font-sans text-xs font-semibold tracking-wider uppercase">
+            Psicología Aplicada al Ecosistema Corporativo
+          </span>
+          <h2 class="font-heading text-3xl md:text-5xl font-bold text-verde-bosque leading-tight">
+            Décadas de Trayectoria e <span class="text-verde-lima font-normal italic">Innovación Internacional</span>
+          </h2>
+          <p class="font-sans text-base md:text-lg text-verde-bosque/75 leading-relaxed">
+            Nuestra consultora reúne la experiencia acumulada en el diseño e implementación de metodologías científicas para el diagnóstico organizacional, el desarrollo de liderazgos y la optimización de procesos de capital humano a nivel global, uniendo la academia y el ecosistema empresarial B2B.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección: Proyecto FONDEF -->
+    <section class="w-full py-20 bg-crema-calido/30 border-y border-verde-bosque/5">
+      <div class="max-w-[1280px] mx-auto px-4 md:px-16 space-y-16">
+        
+        <!-- Encabezado del bloque -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div class="lg:col-span-8 space-y-4">
+            <span class="inline-block px-4 py-1.5 rounded-full bg-verde-lima/10 text-verde-bosque font-sans text-xs font-semibold tracking-wider uppercase">
+              Validación Científica &amp; Innovación
+            </span>
+            <h3 class="font-heading text-3xl md:text-4xl font-bold text-verde-bosque">
+              Proyecto FONDEF IDEA I+D 2025–2026
+            </h3>
+            <p class="font-sans text-base md:text-lg text-verde-bosque/80 leading-relaxed max-w-3xl">
+              Lideramos la investigación aplicada y la validación científica en el desarrollo de software inteligente B2B. A través del prestigioso fondo de fomento científico y tecnológico, impulsamos soluciones de inteligencia artificial éticas y metodológicamente rigurosas para la evaluación del clima y el talento organizacional.
+            </p>
+          </div>
+          <div class="lg:col-span-4 flex lg:justify-end">
+            <div class="bg-white/70 backdrop-blur-md p-6 rounded-2xl border border-verde-bosque/10 max-w-[280px] shadow-sm">
+              <div class="text-xl font-bold text-verde-bosque mb-2">ANID / FONDEF</div>
+              <p class="text-xs text-verde-bosque/70 leading-relaxed font-sans">
+                Proyecto de Investigación y Desarrollo de frontera tecnológica, enfocado en resolver las brechas críticas de fidelización y bienestar laboral.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hitos Tecnológicos (Legibilidad & Grilla) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-4">
+          <!-- Hito 1 -->
+          <article class="bg-white p-8 rounded-2xl hover:shadow-md transition-shadow border border-verde-bosque/5 space-y-4 text-left">
+            <div class="w-10 h-10 rounded-full bg-azul-celeste/10 flex items-center justify-center text-azul-celeste font-bold font-sans text-sm">
+              1
+            </div>
+            <h4 class="font-heading text-xl font-bold text-verde-bosque">IA Predictiva B2B</h4>
+            <p class="font-sans text-sm text-verde-bosque/75 leading-relaxed">
+              Algoritmos avanzados con enfoque ético diseñados para predecir y optimizar la complementariedad cultural de los perfiles en el ecosistema corporativo.
+            </p>
+          </article>
+
+          <!-- Hito 2 -->
+          <article class="bg-white p-8 rounded-2xl hover:shadow-md transition-shadow border border-verde-bosque/5 space-y-4 text-left">
+            <div class="w-10 h-10 rounded-full bg-verde-lima/10 flex items-center justify-center text-verde-bosque font-bold font-sans text-sm">
+              2
+            </div>
+            <h4 class="font-heading text-xl font-bold text-verde-bosque">Monitoreo de Bienestar</h4>
+            <p class="font-sans text-sm text-verde-bosque/75 leading-relaxed">
+              Modelos analíticos orientados a la detección temprana de indicadores de estrés psicosocial y optimización del clima laboral en tiempo real.
+            </p>
+          </article>
+
+          <!-- Hito 3 -->
+          <article class="bg-white p-8 rounded-2xl hover:shadow-md transition-shadow border border-verde-bosque/5 space-y-4 text-left">
+            <div class="w-10 h-10 rounded-full bg-verde-bosque/10 flex items-center justify-center text-verde-bosque font-bold font-sans text-sm">
+              3
+            </div>
+            <h4 class="font-heading text-xl font-bold text-verde-bosque">Rigurosidad Científica</h4>
+            <p class="font-sans text-sm text-verde-bosque/75 leading-relaxed">
+              Validación empírica y metodológica constante en conjunto con centros académicos nacionales e internacionales, garantizando herramientas robustas.
+            </p>
+          </article>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Sección: Cierre y Scouthem -->
+    <section class="w-full py-24 bg-white">
+      <div class="max-w-[1280px] mx-auto px-4 md:px-16 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        
+        <!-- Columna de Texto: Priorizada arriba en móviles con order-1, a la derecha en escritorio con lg:order-2 -->
+        <div class="order-1 lg:order-2 space-y-6 text-left">
+          <span class="inline-block px-4 py-1.5 rounded-full bg-verde-bosque/10 text-verde-bosque font-sans text-xs font-semibold tracking-wider uppercase">
+            Plataforma de Talento Inteligente
+          </span>
+          <h3 class="font-heading text-3xl md:text-5xl font-bold text-verde-bosque leading-tight">
+            Descubre <span class="text-verde-lima font-normal italic">Scouthem</span>
+          </h3>
+          <p class="font-sans text-base md:text-lg text-verde-bosque/75 leading-relaxed">
+            La solución tecnológica definitiva para la gestión del talento, diseñada en base a metodologías de investigación científica validadas por el Proyecto FONDEF. Scouthem automatiza el reclutamiento, la evaluación psicométrica y el ajuste cultural de tu organización en una única plataforma robusta, ágil e intuitiva.
+          </p>
+          
+          <div class="pt-4">
+            <a 
+              href="/contacto" 
+              class="inline-block bg-verde-bosque text-white font-sans text-center font-semibold py-4 px-10 rounded-xl hover:opacity-90 active:scale-95 transition-all text-sm shadow-md hover:shadow-lg"
+            >
+              CONOCER SCOUTHEM
+            </a>
+          </div>
+        </div>
+
+        <!-- Columna de Video: Abajo en móviles con order-2, a la izquierda en escritorio con lg:order-1 -->
+        <div class="order-2 lg:order-1 relative w-full flex justify-center">
+          <div class="w-full aspect-video rounded-3xl overflow-hidden shadow-2xl border-4 border-crema-calido relative">
+            <iframe 
+              src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+              title="Demostración interactiva del software Scouthem para la gestión del talento B2B" 
+              class="w-full h-full" 
+              loading="lazy" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Sección: Prueba Social / Clientes (Componente Reutilizable) -->
+    <CompanyLogos />
+
+    <!-- Sección: Galería de Evidencias estilo Masonry -->
+    <section class="w-full py-24 bg-crema-calido/20 border-t border-verde-bosque/5">
+      <div class="max-w-[1280px] mx-auto px-4 md:px-16 space-y-12">
+        <div class="text-center space-y-3">
+          <span class="inline-block px-4 py-1.5 rounded-full bg-verde-bosque/5 text-verde-bosque/80 font-sans text-xs font-semibold tracking-wider uppercase">
+            Evidencia de Campo
+          </span>
+          <h3 class="font-heading text-3xl md:text-4xl font-bold text-verde-bosque">
+            Nuestra Práctica en Acción
+          </h3>
+          <p class="font-sans text-sm text-verde-bosque/60 max-w-2xl mx-auto">
+            Registro visual del trabajo de campo presencial, talleres de supervisión y actividades de investigación aplicada lideradas por nuestro equipo.
+          </p>
+        </div>
+
+        <EvidenceGallery />
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

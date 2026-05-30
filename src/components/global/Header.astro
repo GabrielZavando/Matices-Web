@@ -1,0 +1,80 @@
+---
+import { Image } from 'astro:assets'
+import logoImage from '../../assets/logo.webp'
+
+interface Props {
+  activePath?: string;
+}
+
+const { activePath = "" } = Astro.props;
+
+const navItems = [
+  { name: 'Inicio', href: '/' },
+  { name: 'Testing', href: '/testing' },
+  { name: 'I+D', href: '/id' },
+  { name: 'Formación', href: '/formacion' },
+  { name: 'Talento', href: '/talento' },
+  { name: 'Psicología', href: '/psicologia' }
+]
+---
+
+<header class="w-full sticky top-0 z-50 bg-crema-calido/80 backdrop-blur-md border-b border-verde-bosque/10 transition-colors duration-300">
+  <nav class="flex justify-between items-center px-4 md:px-16 py-4 max-w-[1280px] mx-auto relative">
+    <!-- Brand / Logo -->
+    <a href="/" class="flex items-center gap-3 group focus:outline-none">
+      <Image
+        src={logoImage}
+        alt="Logo Matices"
+        class="h-9 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+      />
+    </a>
+
+    <!-- Hamburger Button (Pure CSS Trigger) -->
+    <input type="checkbox" id="menu-toggle" class="peer hidden" />
+    <label for="menu-toggle" class="cursor-pointer md:hidden flex flex-col justify-between w-6 h-4.5 z-50" aria-label="Toggle Menu">
+      <span class="w-full h-[2px] bg-verde-bosque rounded transition-all duration-300 origin-left"></span>
+      <span class="w-full h-[2px] bg-verde-bosque rounded transition-all duration-300"></span>
+      <span class="w-full h-[2px] bg-verde-bosque rounded transition-all duration-300 origin-left"></span>
+    </label>
+
+    <!-- Navigation Menu -->
+    <div class="fixed md:static inset-x-0 top-[65px] md:top-auto h-[calc(100vh-65px)] md:h-auto bg-crema-calido/95 md:bg-transparent backdrop-blur-lg md:backdrop-blur-none flex flex-col md:flex-row items-center md:flex gap-8 py-10 md:py-0 px-6 md:px-0 z-40 transform translate-x-full md:translate-x-0 peer-checked:translate-x-0 transition-transform duration-300 ease-in-out shadow-lg md:shadow-none">
+      {navItems.map((item) => {
+        const isActive = activePath === item.href;
+        return (
+          <a
+            href={item.href}
+            class={`font-sans text-lg md:text-base transition-colors relative py-1 hover:text-verde-bosque ${
+              isActive 
+                ? "text-verde-bosque font-semibold border-b-2 border-verde-bosque" 
+                : "text-verde-bosque/80 hover:text-verde-bosque"
+            }`}
+          >
+            {item.name}
+          </a>
+        );
+      })}
+      
+      <!-- Sticky CTA Button -->
+      <a 
+        href="/contacto" 
+        class="mt-6 md:mt-0 bg-verde-bosque text-white px-6 py-2.5 rounded-full font-sans font-semibold hover:opacity-90 active:scale-95 transition-all text-center w-full md:w-auto block"
+      >
+        Solicitar Asesoría
+      </a>
+    </div>
+  </nav>
+</header>
+
+<style>
+  #menu-toggle:checked ~ label span:nth-child(1) {
+    transform: rotate(45deg);
+  }
+  #menu-toggle:checked ~ label span:nth-child(2) {
+    opacity: 0;
+  }
+  #menu-toggle:checked ~ label span:nth-child(3) {
+    transform: rotate(-45deg);
+  }
+</style>
+

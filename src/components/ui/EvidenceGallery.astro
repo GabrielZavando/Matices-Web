@@ -1,0 +1,215 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+// Importación dinámica de todas las imágenes de la galería en src/assets/gallery/
+const galleryImages = import.meta.glob<{ default: ImageMetadata }>('../../assets/gallery/*.{jpeg,jpg,png,webp}', { eager: true });
+const galleryList = Object.values(galleryImages).map((img) => img.default);
+---
+
+<div class="w-full">
+  {galleryList.length > 0 ? (
+    <>
+      {/* GRILLA MASONRY */}
+      <div
+        class="columns-1 sm:columns-2 md:columns-3 lg:columns-4"
+        style="column-gap: 5px;"
+        id="gallery-grid"
+        data-total={galleryList.length}
+      >
+        {galleryList.map((image, index) => (
+          <figure
+            class="break-inside-avoid mb-[5px] overflow-hidden rounded-2xl ring-1 ring-white/60 shadow-md cursor-pointer hover:shadow-xl hover:scale-[1.02] transition-all duration-300"
+            data-index={index}
+            tabindex="0"
+            role="button"
+            aria-label={`Abrir imagen ${index + 1} de ${galleryList.length}`}
+          >
+            <Image 
+              src={image} 
+              width={400}
+              format="avif"
+              alt={`Registro de actividad y talleres profesionales en Matices - Imagen ${index + 1}`}
+              class="w-full h-auto object-cover rounded-2xl"
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+        ))}
+      </div>
+
+      {/* MODAL LIGHTBOX */}
+      <div
+        id="lb-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Galería de evidencia"
+        class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-verde-bosque/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-200"
+      >
+        {/* Capa de cierre por clic exterior */}
+        <div id="lb-backdrop" class="absolute inset-0 cursor-pointer"></div>
+
+        {/* Contenedor imagen + controles (z elevado para no capturar backdrop) */}
+        <div class="relative z-10 flex flex-col items-center max-w-[90vw] max-h-[90dvh]">
+          
+          {/* Botón X (cierre) */}
+          <button
+            id="lb-close"
+            aria-label="Cerrar galería"
+            class="absolute -top-12 right-0 w-9 h-9 flex items-center justify-center font-sans text-sm font-semibold rounded-full bg-[#edeeed] text-[#191c1c] hover:bg-[#ffdad6] transition-colors duration-150 cursor-pointer z-20"
+          >
+            ✕
+          </button>
+
+          {/* Botón anterior */}
+          <button
+            id="lb-prev"
+            aria-label="Imagen anterior"
+            class="absolute left-2 md:-left-16 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center font-sans text-base font-semibold rounded-lg bg-[#edeeed]/90 text-[#191c1c] hover:bg-[#e7e8e7] transition-colors duration-150 cursor-pointer z-20"
+          >
+            &lt;
+          </button>
+
+          {/* Contenedor relativo de imágenes */}
+          <div class="relative flex items-center justify-center w-[90vw] max-w-[1200px] h-[80dvh] overflow-hidden">
+            {galleryList.map((image, index) => (
+              <Image
+                src={image}
+                width={1200}
+                format="avif"
+                alt={`Registro de actividad y talleres profesionales en Matices - Imagen ${index + 1}`}
+                class="absolute max-w-full max-h-full object-contain rounded-3xl shadow-2xl transition-opacity duration-150 opacity-0 pointer-events-none"
+                data-modal-index={index}
+                loading="lazy"
+                decoding="async"
+              />
+            ))}
+          </div>
+
+          {/* Botón siguiente */}
+          <button
+            id="lb-next"
+            aria-label="Imagen siguiente"
+            class="absolute right-2 md:-right-16 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center font-sans text-base font-semibold rounded-lg bg-[#edeeed]/90 text-[#191c1c] hover:bg-[#e7e8e7] transition-colors duration-150 cursor-pointer z-20"
+          >
+            &gt;
+          </button>
+
+          {/* Contador de posición */}
+          <p
+            id="lb-counter"
+            aria-live="polite"
+            class="mt-3 font-sans text-[9px] tracking-widest text-[#f0f1f0] select-none"
+          >
+          </p>
+        </div>
+      </div>
+    </>
+  ) : (
+    <div class="text-center py-12 text-verde-bosque/40 font-sans text-sm">
+      No se encontraron imágenes de evidencia en la galería actualmente.
+    </div>
+  )}
+</div>
+
+<script>
+  const grid = document.getElementById('gallery-grid');
+  const modal = document.getElementById('lb-modal');
+
+  if (grid && modal) {
+    const lbCounter = document.getElementById('lb-counter');
+    const btnClose = document.getElementById('lb-close');
+    const btnPrev = document.getElementById('lb-prev');
+    const btnNext = document.getElementById('lb-next');
+    const backdrop = document.getElementById('lb-backdrop');
+
+    const totalImages = parseInt(grid.dataset.total || '0', 10);
+    let currentIndex = 0;
+    let lastFocusedThumbnail: HTMLElement | null = null;
+    let currentActiveImg: HTMLElement | null = null;
+
+    function updateModalContent() {
+      const nextImg = modal!.querySelector(`[data-modal-index="${currentIndex}"]`) as HTMLElement;
+      if (!nextImg) return;
+
+      if (currentActiveImg && currentActiveImg !== nextImg) {
+        currentActiveImg.classList.add('opacity-0', 'pointer-events-none');
+        currentActiveImg.classList.remove('opacity-100', 'pointer-events-auto');
+      }
+
+      setTimeout(() => {
+        nextImg.classList.remove('opacity-0', 'pointer-events-none');
+        nextImg.classList.add('opacity-100', 'pointer-events-auto');
+        currentActiveImg = nextImg;
+
+        if (lbCounter) {
+          lbCounter.textContent = `${currentIndex + 1} - ${totalImages}`;
+        }
+      }, currentActiveImg ? 150 : 0);
+    }
+
+    function openModal(index: number) {
+      currentIndex = index;
+      updateModalContent();
+      modal!.classList.remove('opacity-0', 'pointer-events-none');
+      modal!.classList.add('opacity-100');
+      lastFocusedThumbnail = document.activeElement as HTMLElement;
+      if (btnClose) btnClose.focus();
+    }
+
+    function closeModal() {
+      modal!.classList.add('opacity-0', 'pointer-events-none');
+      modal!.classList.remove('opacity-100');
+      
+      if (currentActiveImg) {
+        currentActiveImg.classList.add('opacity-0', 'pointer-events-none');
+        currentActiveImg.classList.remove('opacity-100', 'pointer-events-auto');
+        currentActiveImg = null;
+      }
+
+      if (lastFocusedThumbnail) lastFocusedThumbnail.focus();
+    }
+
+    function navigate(dir: number) {
+      currentIndex = (currentIndex + dir + totalImages) % totalImages;
+      updateModalContent();
+    }
+
+    // Grid listeners for opening
+    grid.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      const fig = target.closest('[data-index]') as HTMLElement;
+      if (fig) {
+        openModal(parseInt(fig.dataset.index || '0', 10));
+      }
+    });
+
+    grid.addEventListener('keydown', (e) => {
+      const target = e.target as HTMLElement;
+      const fig = target.closest('[data-index]') as HTMLElement;
+      if (fig && (e.key === 'Enter' || e.key === ' ')) {
+        e.preventDefault();
+        openModal(parseInt(fig.dataset.index || '0', 10));
+      }
+    });
+
+    // Control listeners
+    if (btnClose) btnClose.addEventListener('click', closeModal);
+    if (btnPrev) btnPrev.addEventListener('click', () => navigate(-1));
+    if (btnNext) btnNext.addEventListener('click', () => navigate(1));
+    if (backdrop) backdrop.addEventListener('click', closeModal);
+
+    // Global keyboard listener
+    document.addEventListener('keydown', (e) => {
+      if (modal!.classList.contains('pointer-events-none')) return;
+      
+      if (e.key === 'Escape') {
+        closeModal();
+      } else if (e.key === 'ArrowLeft') {
+        navigate(-1);
+      } else if (e.key === 'ArrowRight') {
+        navigate(1);
+      }
+    });
+  }
+</script>

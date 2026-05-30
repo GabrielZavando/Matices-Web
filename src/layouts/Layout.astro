@@ -1,0 +1,61 @@
+---
+import '../styles/global.css'
+import ScrollToTop from '../components/global/ScrollToTop.astro'
+import favicon from '../assets/favicon.webp'
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const { 
+  title, 
+  description = "Matices Consultoría Integral - Estrategia y Desarrollo B2B. Potenciamos el talento y la salud laboral en tu organización.", 
+  ogImage = "/images/og-default.jpg" 
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://maticesconsultora.cl');
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <!-- Essential Meta Tags -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/webp" href={favicon.src} />
+    <meta name="generator" content={Astro.generator} />
+    
+    <!-- SEO & Canonical -->
+    <title>{title} | Matices Consultoría Integral</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={`${title} | Matices Consultoría Integral`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(ogImage, canonicalURL.origin)} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={`${title} | Matices Consultoría Integral`} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={new URL(ogImage, canonicalURL.origin)} />
+
+    <!-- Google Fonts preconnect & load -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link 
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" 
+      rel="stylesheet" 
+    />
+  </head>
+  <body class="bg-crema-calido text-verde-bosque font-sans antialiased min-h-screen flex flex-col">
+    <slot />
+    <ScrollToTop />
+  </body>
+</html>

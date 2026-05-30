@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Matices - Reclutamiento y Selección Estratégica</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#b9eaff",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-primary": "#8dd891",
+                    "primary-fixed": "#a8f5ab",
+                    "on-surface": "#191c1c",
+                    "on-tertiary-container": "#412700",
+                    "surface-container-highest": "#e1e3e2",
+                    "on-primary-container": "#00340f",
+                    "on-tertiary": "#ffffff",
+                    "on-background": "#191c1c",
+                    "on-secondary-fixed-variant": "#004d61",
+                    "surface-dim": "#d9dad9",
+                    "primary": "#236c32",
+                    "error": "#ba1a1a",
+                    "inverse-on-surface": "#f0f1f0",
+                    "background": "#f9f9f8",
+                    "secondary-fixed-dim": "#94cfe7",
+                    "on-error-container": "#93000a",
+                    "inverse-surface": "#2e3131",
+                    "surface-container-low": "#f3f4f3",
+                    "surface": "#f9f9f8",
+                    "primary-fixed-dim": "#8dd891",
+                    "surface-tint": "#236c32",
+                    "on-secondary": "#ffffff",
+                    "outline-variant": "#c0c9bc",
+                    "surface-bright": "#f9f9f8",
+                    "surface-variant": "#e1e3e2",
+                    "on-primary": "#ffffff",
+                    "tertiary": "#835400",
+                    "secondary-container": "#aae6fe",
+                    "on-secondary-fixed": "#001f29",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed-dim": "#ffb957",
+                    "on-tertiary-fixed-variant": "#643f00",
+                    "tertiary-container": "#cb8500",
+                    "outline": "#707a6e",
+                    "tertiary-fixed": "#ffddb5",
+                    "on-surface-variant": "#40493f",
+                    "on-error": "#ffffff",
+                    "surface-container-high": "#e7e8e7",
+                    "surface-container": "#edeeed",
+                    "on-primary-fixed-variant": "#00531c",
+                    "on-primary-fixed": "#002107",
+                    "primary-container": "#5ba362",
+                    "on-secondary-container": "#28687d",
+                    "secondary": "#25667b",
+                    "on-tertiary-fixed": "#2a1800"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "64px",
+                    "gutter": "24px",
+                    "margin-mobile": "16px",
+                    "unit": "4px",
+                    "container-max": "1280px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Playfair Display"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Playfair Display"],
+                    "display-lg": ["Playfair Display"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "headline-lg-mobile": ["Playfair Display"],
+                    "label-md": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "headline-md": ["28px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-lg": ["40px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "display-lg": ["56px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #f9f9f8;
+            color: #191c1c;
+            overflow-x: hidden;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(35, 108, 50, 0.1);
+        }
+        .organic-blob {
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        }
+        .hero-gradient {
+            background: radial-gradient(circle at 0% 0%, rgba(168, 245, 171, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 100% 100%, rgba(37, 102, 123, 0.05) 0%, transparent 50%);
+        }
+        .reveal-underline::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #236c32;
+            transition: width 0.4s ease;
+        }
+        .reveal-underline:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md">
+<!-- Top Navigation Bar -->
+<header class="w-full sticky top-0 z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md shadow-sm dark:shadow-none">
+<nav class="flex justify-between items-center px-margin-desktop py-4 max-w-container-max mx-auto">
+<div class="flex items-center gap-4">
+<img alt="Matices Logo" class="h-10 w-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_3s46ArBa9NABD47Hm7kHuyUBpdfvPEuQiKpwwN9uyqhLhUdb_wH9pDTe2ZIIM7OaFlK3-LHlo9PiP908o92eqarplPunbtuHe5P53251RIqJ3MFkudMCvlKgsics-DcFKLG8qThzXbKQV6DwAap4GcKoDFCxVPN1qcIcOQ-FNh9_q1XOsMp978eJgN_aY57SE_oSzsnZamZI1WsHgWCa35paS_0dt4QrwuzWM12ydf2_AZS0ysHLyG9-U3LzuiljkoWTV-gl0csl"/>
+<span class="font-headline-md text-headline-md text-primary dark:text-inverse-primary font-bold tracking-tight">Matices</span>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant dark:text-on-surface hover:text-primary dark:hover:text-inverse-primary transition-colors font-body-md text-body-md" href="#">Nosotros</a>
+<a class="text-primary dark:text-inverse-primary font-semibold border-b-2 border-primary dark:border-inverse-primary pb-1 font-body-md text-body-md" href="#">Talento</a>
+<a class="text-on-surface-variant dark:text-on-surface hover:text-primary dark:hover:text-inverse-primary transition-colors font-body-md text-body-md" href="#">Psicología</a>
+<a class="text-on-surface-variant dark:text-on-surface hover:text-primary dark:hover:text-inverse-primary transition-colors font-body-md text-body-md" href="#">I+D</a>
+<a class="text-on-surface-variant dark:text-on-surface hover:text-primary dark:hover:text-inverse-primary transition-colors font-body-md text-body-md" href="#">Formación</a>
+</div>
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-full font-label-md text-label-md hover:opacity-90 active:scale-95 transition-all shadow-sm">
+                Solicitar Asesoría
+            </button>
+</nav>
+</header>
+<main class="hero-gradient">
+<!-- Hero Section -->
+<section class="relative px-margin-desktop pt-16 pb-24 max-w-container-max mx-auto overflow-hidden">
+<div class="grid lg:grid-cols-12 gap-gutter items-center">
+<div class="lg:col-span-7 z-10">
+<span class="inline-block px-4 py-1.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-md text-label-md mb-6">
+                        Talento &amp; Evolución
+                    </span>
+<h1 class="font-display-lg text-display-lg text-on-surface mb-6">
+                        Reclutamiento y <span class="text-primary">Selección Estratégica</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl mb-10">
+                        Soluciones Integrales para tu Capital Humano. Encontramos el equilibrio perfecto entre la vitalidad del talento humano y la precisión técnica de tu empresa.
+                    </p>
+<div class="flex flex-wrap gap-4">
+<button class="bg-primary text-on-primary px-8 py-4 rounded-xl font-label-md text-label-md hover:bg-primary-container hover:text-on-primary-container transition-all flex items-center gap-2">
+                            Comenzar Proceso
+                            <span class="material-symbols-outlined text-[20px]">trending_up</span>
+</button>
+<button class="border border-outline text-primary px-8 py-4 rounded-xl font-label-md text-label-md hover:bg-primary/5 transition-all flex items-center gap-2">
+                            Conoce Nuestra Metodología
+                        </button>
+</div>
+</div>
+<div class="lg:col-span-5 relative">
+<div class="organic-blob w-full aspect-square bg-primary/10 absolute -top-8 -right-8 animate-pulse duration-7000"></div>
+<div class="relative z-10 w-full aspect-[4/5] rounded-[4rem] overflow-hidden shadow-xl">
+<img class="w-full h-full object-cover" data-alt="A professional professional woman in a bright, modern corporate environment, smiling confidently while looking at her laptop. The lighting is soft and natural, emphasizing a high-end light-mode aesthetic. The color palette includes soft greens and clean whites, reflecting a sense of vitality and growth. The image has a premium, professional editorial feel with a focus on human potential." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAo-8AjVNlg5CBVjyBs7TJUyDGil_ad92Vjfc-6u42ScFkDvYa18QV3bMx9zzUv7RdExyDPGYFhzvSoKv26MW5qKiEdnkCR1tL4rhgX0SDz6J5jHru7rZ4IaZjn_5rHX1KIxrYBMj04JbBc6tdv3onYTZUVDCc8N1s2UWaRdlsNc3QFkAr0EcfVsXjBInXdEmhWTCQHMNGu2CSwXATI4syGoPghp0vRhKB1lpzEZWijFGIhfs6Z4kKgBYiUnNkiQDAE55Sjg1pM6tUk"/>
+</div>
+<!-- Glassmorphism Badge -->
+<div class="absolute -bottom-6 -left-6 glass-card p-6 rounded-2xl shadow-lg z-20 max-w-[200px]">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-container">verified</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface font-bold">98% Match</span>
+</div>
+<p class="text-[12px] text-on-surface-variant leading-tight">Precisión en la selección de perfiles directivos y mandos medios.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Bento Grid Services -->
+<section class="px-margin-desktop py-24 max-w-container-max mx-auto">
+<div class="text-center mb-16">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-4">Metodología de Vitalidad Natural</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Un enfoque holístico que trasciende el currículum tradicional.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+<!-- Large Card -->
+<div class="md:col-span-2 lg:col-span-2 bg-surface-container-low p-8 rounded-[2rem] flex flex-col justify-between hover:shadow-lg transition-shadow border border-outline-variant/30 overflow-hidden relative group">
+<div class="relative z-10">
+<span class="material-symbols-outlined text-primary text-4xl mb-4">psychology</span>
+<h3 class="font-headline-md text-headline-md mb-4">Evaluación de Matices</h3>
+<p class="text-on-surface-variant mb-6">Analizamos los rasgos de personalidad y valores que aseguran una integración orgánica con la cultura de tu organización.</p>
+</div>
+<div class="absolute -bottom-10 -right-10 w-40 h-40 bg-primary/10 rounded-full group-hover:scale-110 transition-transform duration-500"></div>
+</div>
+<!-- Tall Card -->
+<div class="md:col-span-1 lg:col-span-1 lg:row-span-2 bg-secondary-container p-8 rounded-[2rem] flex flex-col items-center text-center justify-center group overflow-hidden border border-outline-variant/30">
+<img class="w-32 h-32 rounded-full object-cover mb-6 border-4 border-surface group-hover:scale-105 transition-transform" data-alt="A group of diverse professionals collaborating around a circular wooden table in a bright, sunlit office space. Large green plants are visible in the background, reinforcing the natural vitality theme. The atmosphere is one of creative synergy and modern elegance, using a palette of soft teal, sage green, and warm wood tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBS3MYPti4GYUMrkOhO1o9ek93aKDvnrZOKqHKPRwc65rMLMK2PfvFloLueeuwXcu4HB90Pbm_iCb7C0hzBGVUf2sqHDN1uh_GndxyO9HZMPLMDxE7nClUdwXmp3woM_eCUpeXQgEjrnCdtZeFbQr7J4aosuPgheimx9ckgBCCULFoiNi2CHmxQv7cW4ElQOinzr7kl6j03dz9d9l4ma2vg7JmM6UMVTw_JFzhk6S65z1e3CxgY0HNjEGl0CbODXN9xjmZxoYM6219J"/>
+<h3 class="font-headline-md text-headline-md text-on-secondary-container mb-4">Cultura de Equipo</h3>
+<p class="text-on-secondary-container/80 text-sm">Fortalecemos el tejido humano para un crecimiento profesional sostenible.</p>
+</div>
+<!-- Square Card -->
+<div class="bg-surface-container p-8 rounded-[2rem] border border-outline-variant/30 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-tertiary text-3xl mb-4">diversity_3</span>
+<h4 class="font-label-md text-label-md text-on-surface font-bold uppercase tracking-widest mb-2">Networking</h4>
+<p class="text-sm text-on-surface-variant">Acceso a una red exclusiva de talento verificado.</p>
+</div>
+<!-- Wide Card -->
+<div class="md:col-span-2 bg-surface-container-highest p-8 rounded-[2rem] flex items-center gap-8 border border-outline-variant/30">
+<div class="hidden sm:block w-24 h-24 flex-shrink-0 bg-white/50 rounded-2xl flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-5xl">rocket_launch</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md mb-2">Escalabilidad</h3>
+<p class="text-on-surface-variant">Soluciones flexibles que crecen al ritmo de tu expansión empresarial.</p>
+</div>
+</div>
+<!-- Last Square Card -->
+<div class="bg-primary p-8 rounded-[2rem] flex flex-col justify-end text-on-primary group cursor-pointer overflow-hidden">
+<div class="flex items-center justify-between">
+<span class="font-headline-md text-headline-md">Saber más</span>
+<span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_forward</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Image & Content Fluid Section -->
+<section class="px-margin-desktop py-24 bg-surface-container-lowest">
+<div class="max-w-container-max mx-auto grid lg:grid-cols-2 gap-16 items-center">
+<div class="order-2 lg:order-1">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-8">Selección con <span class="text-primary italic">Propósito</span></h2>
+<ul class="space-y-6">
+<li class="flex gap-4 group">
+<div class="w-12 h-12 flex-shrink-0 rounded-xl bg-primary-fixed-dim flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-on-primary-fixed-variant">spa</span>
+</div>
+<div>
+<h4 class="font-bold text-on-surface">Bienestar Integral</h4>
+<p class="text-on-surface-variant">Priorizamos la salud mental y el equilibrio vida-trabajo como motores de productividad.</p>
+</div>
+</li>
+<li class="flex gap-4 group">
+<div class="w-12 h-12 flex-shrink-0 rounded-xl bg-secondary-fixed-dim flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-on-secondary-fixed-variant">precision_manufacturing</span>
+</div>
+<div>
+<h4 class="font-bold text-on-surface">Data-Driven Insights</h4>
+<p class="text-on-surface-variant">Utilizamos analítica avanzada para predecir el éxito a largo plazo de cada candidato.</p>
+</div>
+</li>
+<li class="flex gap-4 group">
+<div class="w-12 h-12 flex-shrink-0 rounded-xl bg-tertiary-fixed-dim flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-on-tertiary-fixed-variant">workspace_premium</span>
+</div>
+<div>
+<h4 class="font-bold text-on-surface">Excelencia Ejecutiva</h4>
+<p class="text-on-surface-variant">Curaduría artesanal para posiciones de alta dirección y liderazgo estratégico.</p>
+</div>
+</li>
+</ul>
+</div>
+<div class="order-1 lg:order-2 relative px-8">
+<div class="absolute inset-0 bg-primary/5 organic-blob transform -rotate-12"></div>
+<img class="w-full rounded-[3rem] shadow-2xl relative z-10 border-8 border-white" data-alt="A high-angle shot of a collaborative business workshop. Professional men and women are standing around a large whiteboard filled with colorful sticky notes and diagrams. The office is minimalist with floor-to-ceiling windows showing a hint of greenery outside. The color palette is vibrant and fresh, with primary green accents and a soft, airy light-mode feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAabJrxesv8Pq7rIgdzHeqVyUUVikD_UfIXxSrf837C_AiIo3jIl8to2SvufFu_Mjj7hCFsLw7T21dKdCuELzTneBVe7OhHDlD6DhPJGGiDoiAk8RtHuDwDPdB4X3fK1OtS0gsZdkWtQ739K6aQ0GlThCAoVRQktMAnUdzZkQbtds7ylrWyE92zCw-3BIPcQ8VW330jWP4Y2b8vIYXJ-gk1oZGPnFtI9YelU-aX1p4E4YgN1LO50-m_v8oALr792hR0qz0NQQbTwytM"/>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="px-margin-desktop py-24">
+<div class="max-w-container-max mx-auto bg-inverse-surface rounded-[3rem] p-12 md:p-24 text-center relative overflow-hidden">
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary/10 organic-blob -translate-y-1/2 translate-x-1/2"></div>
+<div class="absolute bottom-0 left-0 w-64 h-64 bg-secondary/10 organic-blob translate-y-1/2 -translate-x-1/2"></div>
+<h2 class="font-display-lg text-headline-lg md:text-display-lg text-inverse-on-surface mb-8 relative z-10">¿Listo para transformar tu <span class="text-primary-fixed-dim">ecosistema</span> laboral?</h2>
+<p class="font-body-lg text-body-lg text-outline-variant max-w-2xl mx-auto mb-12 relative z-10">
+                    Únete a las empresas que ya están experimentando el poder de la Vitalidad Natural en sus equipos.
+                </p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
+<button class="bg-primary-fixed-dim text-on-primary-fixed px-10 py-5 rounded-full font-bold hover:scale-105 transition-transform shadow-lg">
+                        Agendar Consultoría Gratuita
+                    </button>
+<button class="border border-outline-variant text-inverse-on-surface px-10 py-5 rounded-full font-bold hover:bg-white/5 transition-all">
+                        Descargar Dossier 2024
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 bg-surface-container dark:bg-surface-container-highest">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-desktop max-w-container-max mx-auto gap-8">
+<div class="flex flex-col items-center md:items-start gap-4">
+<div class="flex items-center gap-3">
+<img alt="Matices Logo" class="h-8 w-auto grayscale opacity-80" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_3s46ArBa9NABD47Hm7kHuyUBpdfvPEuQiKpwwN9uyqhLhUdb_wH9pDTe2ZIIM7OaFlK3-LHlo9PiP908o92eqarplPunbtuHe5P53251RIqJ3MFkudMCvlKgsics-DcFKLG8qThzXbKQV6DwAap4GcKoDFCxVPN1qcIcOQ-FNh9_q1XOsMp978eJgN_aY57SE_oSzsnZamZI1WsHgWCa35paS_0dt4QrwuzWM12ydf2_AZS0ysHLyG9-U3LzuiljkoWTV-gl0csl"/>
+<span class="font-headline-md text-headline-md text-primary dark:text-on-primary-fixed-variant font-bold">Matices</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xs text-center md:text-left">
+                    © 2024 Matices. Natural Vitality in Professional Growth.
+                </p>
+</div>
+<div class="flex flex-col md:flex-row gap-8 items-center">
+<div class="flex gap-6">
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-outline hover:text-primary dark:hover:text-inverse-primary transition-colors underline" href="#">Privacidad</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-outline hover:text-primary dark:hover:text-inverse-primary transition-colors underline" href="#">Términos</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-outline hover:text-primary dark:hover:text-inverse-primary transition-colors underline" href="#">Contacto</a>
+</div>
+<div class="flex gap-4">
+<a class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center text-on-surface-variant hover:bg-primary hover:text-on-primary transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">public</span>
+</a>
+<a class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center text-on-surface-variant hover:bg-primary hover:text-on-primary transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">mail</span>
+</a>
+</div>
+</div>
+</div>
+</footer>
+<script>
+        // Subtle scroll animation for organic blobs
+        document.addEventListener('scroll', () => {
+            const blobs = document.querySelectorAll('.organic-blob');
+            const scrollPercent = window.scrollY / (document.body.offsetHeight - window.innerHeight);
+            blobs.forEach((blob, index) => {
+                const shift = (index % 2 === 0 ? 1 : -1) * scrollPercent * 40;
+                blob.style.transform = `translate(${shift}px, ${shift / 2}px)`;
+            });
+        });
+
+        // Hover scale interaction for the primary buttons
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach(btn => {
+            btn.addEventListener('mousedown', () => btn.classList.add('scale-95'));
+            btn.addEventListener('mouseup', () => btn.classList.remove('scale-95'));
+            btn.addEventListener('mouseleave', () => btn.classList.remove('scale-95'));
+        });
+    </script>
+</body></html>

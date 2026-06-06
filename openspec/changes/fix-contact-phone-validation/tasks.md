@@ -17,7 +17,7 @@ Este documento contiene la lista secuencial de tareas granulares necesarias para
 ---
 
 ### 🟨 Fase 2: Definición de Clases de Validación Visual (CSS)
-*   [ ] **Tarea 2.1: Agregar clases de error para inputs y textareas**
+*   [x] **Tarea 2.1: Agregar clases de error para inputs y textareas**
     *   **Descripción:** 
         *   Añadir estilos en la sección `<style>` de `src/pages/contacto.astro` para cambiar el borde del input a rojo cuando falle la validación.
         *   Implementar la clase `.border-error` y su variante `:focus`:

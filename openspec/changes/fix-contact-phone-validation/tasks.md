@@ -42,7 +42,7 @@ Este documento contiene la lista secuencial de tareas granulares necesarias para
         *   Agregar eventos `input` para limpiar dinámicamente el estado de error (revaluando `checkValidity()`) una vez que el usuario comience a escribir datos válidos si el campo ya fue tocado (`.touched`).
     *   **Duración estimada:** 1 hora.
 
-*   [ ] **Tarea 3.2: Actualizar la intercepción del submit y activación de modal**
+*   [x] **Tarea 3.2: Actualizar la intercepción del submit y activación de modal**
     *   **Descripción:**
         *   Actualizar el controlador del evento `submit` del formulario.
         *   En el submit, forzar la validación de todos los campos marcándolos como `.touched` y evaluándolos visualmente.

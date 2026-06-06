@@ -772,25 +772,21 @@ import Footer from '../components/global/Footer.astro'
     form.addEventListener('submit', async (e: Event) => {
       e.preventDefault()
 
-      const nombreInput = document.getElementById('nombre') as HTMLInputElement
-      const emailInput = document.getElementById('email') as HTMLInputElement
-      const telInput = document.getElementById('telefono') as HTMLInputElement
-      const msgInput = document.getElementById('mensaje') as HTMLTextAreaElement
+      // Forzar validación visual en todos los campos requeridos al enviar
+      requiredInputs.forEach(input => {
+        input.classList.add('touched')
+        validateField(input)
+      })
 
-      const nombre = nombreInput?.value.trim()
-      const email = emailInput?.value.trim()
-      const telefono = telInput?.value.trim()
-      const mensaje = msgInput?.value.trim()
-
-      // Validación de campos obligatorios
-      if (!nombre || !email || !telefono || !mensaje) {
+      // Evaluar si todo el formulario cumple con las restricciones HTML5
+      if (!form.checkValidity()) {
         openModal('warning')
         return
       }
 
       try {
         const formData = new FormData(form)
-        const endpoint = 'https://formbold.com/s/provisional_matices'
+        const endpoint = form.action || 'https://formbold.com/s/9BL2Q'
         
         const response = await fetch(endpoint, {
           method: 'POST',
@@ -802,6 +798,11 @@ import Footer from '../components/global/Footer.astro'
 
         if (response.ok) {
           form.reset()
+          // Limpiar clases de estado de validación
+          requiredInputs.forEach(input => {
+            input.classList.remove('touched', 'border-error')
+            input.classList.add('border-surface-variant')
+          })
           // Remover clases visuales activas de los radio buttons
           document.querySelectorAll('input[type="radio"]').forEach(r => {
             r.parentElement?.classList.remove('active', 'active-primary')

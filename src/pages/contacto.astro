@@ -35,9 +35,11 @@ import Footer from '../components/global/Footer.astro'
     <section class="w-full max-w-4xl mx-auto px-margin-mobile md:px-0 mb-xl">
       <div class="bg-surface-container-lowest rounded-[3rem] p-8 md:p-12 form-shadow w-full">
         
-        <form action="https://formbold.com/s/9BL2Q" method="POST" class="space-y-12 w-full">
+        <form action="https://api.web3forms.com/submit" method="POST" class="space-y-12 w-full">
+          <input type="hidden" name="access_key" value="62969b86-dbb7-436a-8ad1-98f7e25bd86a" />
+          <input type="hidden" name="subject" value="Nueva solicitud - Contacto Matices" />
           <!-- Honeypot Passive Spam Protection (Mandatory Rule) -->
-          <input type="text" name="_honeypot" class="sr-only" autocomplete="off" tabindex="-1" />
+          <input type="text" name="botcheck" class="sr-only" autocomplete="off" tabindex="-1" />
 
           <!-- Section 1: Información de Identificación -->
           <div class="w-full">
@@ -833,7 +835,7 @@ import Footer from '../components/global/Footer.astro'
 
       try {
         const formData = new FormData(form)
-        const endpoint = form.action || 'https://formbold.com/s/9BL2Q'
+        const endpoint = form.action || 'https://api.web3forms.com/submit'
         
         const response = await fetch(endpoint, {
           method: 'POST',

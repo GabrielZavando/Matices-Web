@@ -740,6 +740,32 @@ import Footer from '../components/global/Footer.astro'
     })
   }
 
+  // Reactively validate required fields (.touched state)
+  const requiredInputs = document.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('#nombre, #email, #telefono, #mensaje')
+
+  requiredInputs.forEach(input => {
+    input.addEventListener('blur', () => {
+      input.classList.add('touched')
+      validateField(input)
+    })
+
+    input.addEventListener('input', () => {
+      if (input.classList.contains('touched')) {
+        validateField(input)
+      }
+    })
+  })
+
+  function validateField(field: HTMLInputElement | HTMLTextAreaElement) {
+    if (!field.checkValidity()) {
+      field.classList.add('border-error')
+      field.classList.remove('border-surface-variant')
+    } else {
+      field.classList.remove('border-error')
+      field.classList.add('border-surface-variant')
+    }
+  }
+
   const form = document.querySelector('form')
 
   if (form) {

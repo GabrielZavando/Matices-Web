@@ -34,7 +34,7 @@ Este documento contiene la lista secuencial de tareas granulares necesarias para
 ---
 
 ### 🟦 Fase 3: Lógica de Validación Reactiva y Envío de Formulario (JavaScript)
-*   [ ] **Tarea 3.1: Implementar control de interacción y validación dinámica (.touched)**
+*   [x] **Tarea 3.1: Implementar control de interacción y validación dinámica (.touched)**
     *   **Descripción:**
         *   Modificar la etiqueta `<script>` en `src/pages/contacto.astro`.
         *   Seleccionar todos los campos obligatorios (`#nombre`, `#email`, `#telefono`, `#mensaje`).

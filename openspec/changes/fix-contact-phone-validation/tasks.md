@@ -54,7 +54,7 @@ Este documento contiene la lista secuencial de tareas granulares necesarias para
 ---
 
 ### 🟪 Fase 4: Verificación y Pruebas
-*   [ ] **Tarea 4.1: Realizar pruebas unitarias e interactivas de flujo de error**
+*   [x] **Tarea 4.1: Realizar pruebas unitarias e interactivas de flujo de error**
     *   **Descripción:**
         *   Probar de forma local la interacción del usuario: dejar un campo obligatorio vacío o escribir un teléfono con formato incorrecto, verificar que se aplique el borde rojo al salir del campo.
         *   Corregir el teléfono o completar el campo vacío y comprobar que el color rojo desaparezca al instante.

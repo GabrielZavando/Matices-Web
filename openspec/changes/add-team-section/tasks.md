@@ -21,7 +21,7 @@ Este plan define las tareas secuenciales y granulares para la implementación de
 * **Estimación**: 30 minutos.
 * **Criterio de aceptación**: Las imágenes y los datos del arreglo se importan correctamente y se resuelven sin errores de compilación de TypeScript/Astro.
 
-### [ ] Tarea 3.2: Implementar la Estructura Semántica de la Sección "Nuestro Equipo"
+### [x] Tarea 3.2: Implementar la Estructura Semántica de la Sección "Nuestro Equipo"
 * **Descripción**: Añadir el marcado de la sección en `src/pages/index.astro`, inmediatamente debajo de la sección "Áreas de Especialización" (línea ~343, antes de `<CompanyLogos />`). Usar estructura semántica de HTML5 (`<section>`, `<article>`).
 * **Estimación**: 1 hora.
 * **Criterio de aceptación**: El título "Nuestro Equipo" se renderiza correctamente con la tipografía *Playfair Display*, y las 4 tarjetas se muestran estructuradas semánticamente en el DOM.

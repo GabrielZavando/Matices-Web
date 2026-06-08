@@ -8,6 +8,46 @@ import EvidenceGallery from '../components/ui/EvidenceGallery.astro';
 
 import heroBusiness from '../assets/hero-business.png';
 import collaborativeDiscussion from '../assets/collaborative-discussion.png';
+
+import member1 from '../assets/directora-matices.jpeg'
+import member2 from '../assets/competencias.jpg'
+import member3 from '../assets/desempeno.jpg'
+import member4 from '../assets/reclutamiento.jpg'
+
+const team = [
+  {
+    name: 'Pamela Zavando',
+    role: 'Directora y Consultora Principal',
+    description: 'Psicóloga organizacional con más de 15 años de ' +
+      'experiencia liderando procesos de reclutamiento, selección y ' +
+      'desarrollo del talento en empresas B2B.',
+    image: member1
+  },
+  {
+    name: 'Mauricio Zavando',
+    role: 'Consultor de Selección Estratégica',
+    description: 'Especialista en evaluación psicolaboral y dinámicas ' +
+      'de grupo, enfocado en alinear los objetivos del negocio con el ' +
+      'talento humano idóneo.',
+    image: member2
+  },
+  {
+    name: 'Carolina Lagos',
+    role: 'Asesora de Salud Laboral',
+    description: 'Experta en el diseño e implementación de programas ' +
+      'de bienestar y prevención de riesgos psicosociales en entornos ' +
+      'corporativos de alta exigencia.',
+    image: member3
+  },
+  {
+    name: 'Felipe Oyarzún',
+    role: 'Facilitador de Capacitación',
+    description: 'Consultor especializado en metodologías de ' +
+      'aprendizaje activo, liderazgo integrativo y desarrollo de ' +
+      'competencias técnicas clave para equipos.',
+    image: member4
+  }
+]
 ---
 
 <Layout title="Reclutamiento y Selección Estratégica">
@@ -26,7 +66,10 @@ import collaborativeDiscussion from '../assets/collaborative-discussion.png';
             Reclutamiento y <span class="text-verde-lima font-normal italic">Selección Estratégica</span>
           </h1>
           <p class="font-sans text-lg text-verde-bosque/80 max-w-xl leading-relaxed">
-            Soluciones integrales para tu capital humano. Encontramos el equilibrio perfecto entre la vitalidad del talento y la precisión técnica de tu empresa, identificando los perfiles clave para liderar el cambio.
+            Soluciones integrales en gestión de personas. Encontramos el equilibrio perfecto entre el talento y la precisión técnica de tu organización, identificando los perfiles clave para liderar el cambio.
+          </p>
+          <p class="font-sans text-lg text-verde-bosque/80 max-w-xl leading-relaxed">
+            Asegura un proceso de contratación más eficiente y justo, con pruebas psicológicas precisas para la evaluación y análisis de candidatos.
           </p>
           <div class="flex flex-col sm:flex-row gap-4 pt-2 font-sans">
             <a 
@@ -39,10 +82,11 @@ import collaborativeDiscussion from '../assets/collaborative-discussion.png';
               </svg>
             </a>
             <a 
-              href="#servicios" 
+              target="_blank"
+              href="https://scouthem.com/es/pagina-de-inicio/" 
               class="border border-verde-bosque/20 text-verde-bosque text-center font-semibold py-4 px-8 rounded-xl hover:bg-verde-bosque/5 transition-all"
             >
-              Conoce Nuestra Metodología
+              Conoce nuestra plataforma SCOUTHEM
             </a>
           </div>
         </div>
@@ -134,7 +178,7 @@ import collaborativeDiscussion from '../assets/collaborative-discussion.png';
                   <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                 </svg>
               </div>
-              <h3 class="font-heading text-2xl font-bold text-verde-bosque">Evaluación Psicológica</h3>
+              <h3 class="font-heading text-2xl font-bold text-verde-bosque">Evaluación Psicolaboral</h3>
               <p class="font-sans text-sm text-verde-bosque/75">
                 Aplicación de psicometría avanzada y entrevistas por competencias para asegurar el encaje de perfil y de cultura corporativa.
               </p>

@@ -26,7 +26,7 @@ Este plan define las tareas secuenciales y granulares para la implementación de
 * **Estimación**: 1 hora.
 * **Criterio de aceptación**: El título "Nuestro Equipo" se renderiza correctamente con la tipografía *Playfair Display*, y las 4 tarjetas se muestran estructuradas semánticamente en el DOM.
 
-### [ ] Tarea 3.3: Aplicar Diseño Responsivo y Optimización de Imágenes con `<Image />`
+### [x] Tarea 3.3: Aplicar Diseño Responsivo y Optimización de Imágenes con `<Image />`
 * **Descripción**: Configurar la grilla de las tarjetas con enfoque Mobile-First (`grid-cols-1 md:grid-cols-2 lg:grid-cols-4`). Implementar el componente `<Image />` de `astro:assets` con la proporción 4:3 (`aspect-[4/3]`) y `object-cover`.
 * **Estimación**: 1 hora.
 * **Criterio de aceptación**: La sección es totalmente responsiva en todas las resoluciones (móvil, tablet, escritorio) y las imágenes se cargan en formatos optimizados (WebP/AVIF) con el atributo `loading="lazy"`.

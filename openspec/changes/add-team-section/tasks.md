@@ -31,7 +31,7 @@ Este plan define las tareas secuenciales y granulares para la implementación de
 * **Estimación**: 1 hora.
 * **Criterio de aceptación**: La sección es totalmente responsiva en todas las resoluciones (móvil, tablet, escritorio) y las imágenes se cargan en formatos optimizados (WebP/AVIF) con el atributo `loading="lazy"`.
 
-### [ ] Tarea 3.4: Añadir Micro-Interacciones y Detalles Estéticos
+### [x] Tarea 3.4: Añadir Micro-Interacciones y Detalles Estéticos
 * **Descripción**: Implementar efectos de transición en las tarjetas (`hover:shadow-lg hover:-translate-y-1 transition-all duration-300`) y efectos de zoom suave en las imágenes al pasar el cursor (`group-hover:scale-105 transition-transform duration-500`).
 * **Estimación**: 30 minutos.
 * **Criterio de aceptación**: Las animaciones se ejecutan de manera fluida y de acuerdo al sistema de diseño "Natural Vitality" de Matices.

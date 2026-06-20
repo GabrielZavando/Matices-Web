@@ -97,15 +97,26 @@ import Footer from '../components/global/Footer.astro'
                 />
               </div>
               <div class="md:col-span-2 space-y-2">
-                <label for="cargo" class="font-label-md text-label-md text-on-surface block">CARGO EN LA ORGANIZACIÓN</label>
-                <input 
-                  id="cargo"
-                  name="cargo"
-                  class="w-full bg-surface-container-low border border-surface-variant rounded-xl p-4 transition-all focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10" 
-                  placeholder="Ej. Gerente de Personas / Jefe de RRHH" 
-                  type="text"
-                />
-              </div>
+  <label for="cargo" class="font-label-md text-label-md text-on-surface block">CARGO EN LA ORGANIZACIÓN</label>
+  <input 
+    id="cargo"
+    name="cargo"
+    class="w-full bg-surface-container-low border border-surface-variant rounded-xl p-4 transition-all focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10" 
+    placeholder="Ej. Gerente de Personas / Jefe de RRHH" 
+    type="text"
+  />
+</div>
+<div class="md:col-span-2 space-y-2 w-full">
+  <label for="mensaje" class="font-label-md text-label-md text-on-surface block">MENSAJE <span class="text-error font-bold">*</span></label>
+  <textarea 
+    id="mensaje"
+    name="mensaje"
+    required
+    class="w-full bg-surface-container-low border border-surface-variant rounded-xl p-4 transition-all focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10" 
+    placeholder="Escribe aquí cualquier detalle adicional..." 
+    rows="4"
+  ></textarea>
+</div>
             </div>
           </div>
 
@@ -114,12 +125,12 @@ import Footer from '../components/global/Footer.astro'
             <div class="flex items-start gap-4 mb-8">
               <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold shrink-0">2</div>
               <div>
-                <h2 class="font-headline-md text-headline-md text-primary">Calificación de Requerimientos</h2>
+                <h2 class="font-headline-md text-headline-md text-primary flex items-center justify-between gap-4"><div class="flex items-center gap-2"><span>Calificación de Requerimientos</span> <span class="text-sm text-on-surface-variant">(Opcional)</span></div> <button id="toggle-requerimientos" type="button" class="transform transition-transform cursor-pointer" aria-expanded="false"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></h2>
                 <p class="font-body-md text-body-md text-outline">Cuéntanos sobre los servicios y problemáticas que buscas resolver.</p>
               </div>
             </div>
             
-            <div class="space-y-8 w-full">
+            <div class="space-y-8 w-full max-h-0 overflow-hidden transition-all duration-300" id="content-requerimientos">
               <!-- Servicios de Interés -->
               <fieldset class="w-full space-y-4">
                 <legend class="font-label-md text-label-md text-on-surface block mb-4 uppercase">SERVICIOS DE INTERÉS (SELECCIONA UNO O MÁS)</legend>
@@ -225,20 +236,20 @@ import Footer from '../components/global/Footer.astro'
 
                 </div>
               </fieldset>
+            
             </div>
           </div>
-
           <!-- Section 3: Tamaño y Preferencia -->
-          <div class="space-y-12 w-full">
-            <div class="flex items-start gap-4">
+          <div class="space-y-8 w-full">
+            <div class="flex items-start gap-4 mb-8">
               <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold shrink-0">3</div>
               <div>
-                <h2 class="font-headline-md text-headline-md text-primary">Detalles de Contacto</h2>
+                <h2 class="font-headline-md text-headline-md text-primary flex items-center justify-between gap-4"><div class="flex items-center gap-2"><span>Detalles de Contacto</span> <span class="text-sm text-on-surface-variant">(Opcional)</span></div> <button id="toggle-detalles" type="button" class="transform transition-transform cursor-pointer" aria-expanded="false"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></h2>
                 <p class="font-body-md text-body-md text-outline">Ayúdanos a personalizar nuestra respuesta.</p>
               </div>
             </div>
             
-            <div class="space-y-8 w-full">
+            <div class="space-y-8 w-full max-h-0 overflow-hidden transition-all duration-300" id="content-detalles">
               <!-- Tamaño de la Organización -->
               <fieldset class="w-full space-y-4">
                 <legend class="font-label-md text-label-md text-on-surface block mb-4 uppercase">TAMAÑO DE LA ORGANIZACIÓN</legend>
@@ -335,18 +346,7 @@ import Footer from '../components/global/Footer.astro'
                 </div>
               </fieldset>
 
-              <!-- Mensaje Opcional -->
-              <div class="space-y-2 w-full">
-                <label for="mensaje" class="font-label-md text-label-md text-on-surface block">MENSAJE <span class="text-error font-bold">*</span></label>
-                <textarea 
-                  id="mensaje"
-                  name="mensaje"
-                  required
-                  class="w-full bg-surface-container-low border-surface-variant rounded-xl p-4 transition-all focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10" 
-                  placeholder="Escribe aquí cualquier detalle adicional..." 
-                  rows="4"
-                ></textarea>
-              </div>
+
             </div>
           </div>
 
@@ -866,4 +866,28 @@ import Footer from '../components/global/Footer.astro'
       }
     })
   }
+
+// Collapsible sections for optional parts
+function setupCollapsible(toggleId: string, contentId: string) {
+  const btn = document.getElementById(toggleId);
+  const content = document.getElementById(contentId);
+  if (!btn || !content) return;
+  const arrow = btn.querySelector('svg');
+  
+  btn.addEventListener('click', () => {
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!expanded));
+    if (expanded) {
+      content.classList.add('max-h-0');
+      content.classList.remove('max-h-[1000px]');
+      if (arrow) arrow.classList.remove('rotate-180');
+    } else {
+      content.classList.remove('max-h-0');
+      content.classList.add('max-h-[1000px]');
+      if (arrow) arrow.classList.add('rotate-180');
+    }
+  });
+}
+setupCollapsible('toggle-requerimientos','content-requerimientos');
+setupCollapsible('toggle-detalles','content-detalles');
 </script>

@@ -5,16 +5,24 @@ import logoBlanco from '../../assets/logo-blanco.webp'
 const currentYear = new Date().getFullYear();
 
 const quickLinks = [
-  { name: "Talento B2B", href: "/talento" },
-  { name: "Evaluación Psicología", href: "/psicologia" },
+  { name: "Talento y selección estratégica", href: "/talento" },
+  { name: "Psicoterapia/Atención Clínica", href: "/psicologia" },
+  { name: "Evaluaciones y diagnóstico", href: "/psicologia" },
+  { name: "Formación de Equipos", href: "/formacion" },
   { name: "I+D e Innovación", href: "/id" },
-  { name: "Formación de Equipos", href: "/formacion" }
 ];
 
 const legalLinks = [
   { name: "Políticas de Privacidad", href: "/privacidad" },
   { name: "Términos y Condiciones", href: "/terminos" }
 ];
+
+const instaTalento =
+  "https://www.instagram.com/maticesconsultora.talento"
+const instaPsico =
+  "https://www.instagram.com/maticesconsultora.psicologia/"
+const linkedinUrl =
+  "https://www.linkedin.com/in/maticesconsultoria-talento-y-psicologia/"
 ---
 
 <footer class="w-full bg-verde-bosque text-crema-calido/90 pt-16 pb-0 border-t border-verde-bosque/20">
@@ -30,7 +38,7 @@ const legalLinks = [
         />
       </a>
       <p class="font-sans text-sm leading-relaxed text-crema-calido/75 max-w-xs">
-        Encontramos el equilibrio perfecto entre la vitalidad del talento humano y la precisión técnica estratégica de tu organización.
+        Encontramos el equilibrio perfecto entre el talento humano y la precisión técnica estratégica de tu organización.
       </p>
     </div>
 
@@ -65,7 +73,85 @@ const legalLinks = [
             <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
             <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
           </svg>
-          <span>Santiago, Región Metropolitana, Chile</span>
+          <span>Reñaca Norte 25 Of 1207 <br>Viña del Mar - Chile</br></span>
+        </li>
+        <li class="flex items-center gap-3">
+          <a
+            href={instaTalento}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-link flex items-center gap-3 hover:text-white transition-colors"
+          >
+            <svg
+              class="social-icon h-5 w-5 text-verde-lima flex-shrink-0"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              viewBox="0 0 24 24"
+            >
+              <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+              <path
+                d="M16 11.37A4 4 0 1 1
+                   12.63 8 4 4 0 0 1 16 11.37z"
+              />
+              <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+            </svg>
+            <span>Matices Talento</span>
+          </a>
+        </li>
+        <li class="flex items-center gap-3">
+          <a
+            href={instaPsico}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-link flex items-center gap-3 hover:text-white transition-colors"
+          >
+            <svg
+              class="social-icon h-5 w-5 text-verde-lima flex-shrink-0"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              viewBox="0 0 24 24"
+            >
+              <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+              <path
+                d="M16 11.37A4 4 0 1 1
+                   12.63 8 4 4 0 0 1 16 11.37z"
+              />
+              <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+            </svg>
+            <span>Matices Psicología</span>
+          </a>
+        </li>
+        <li class="flex items-center gap-3">
+          <a
+            href={linkedinUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-link flex items-center gap-3 hover:text-white transition-colors"
+          >
+            <svg
+              class="social-icon h-5 w-5 text-verde-lima flex-shrink-0"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2
+                   2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+              />
+              <rect width="4" height="12" x="2" y="9" />
+              <circle cx="4" cy="4" r="2" />
+            </svg>
+            <span>Matices Linkedin</span>
+          </a>
         </li>
       </ul>
     </div>
@@ -107,3 +193,13 @@ const legalLinks = [
     </p>
   </div>
 </footer>
+
+<style>
+  .social-link:hover .social-icon {
+    transform: scale3d(1.1, 1.1, 1);
+  }
+  .social-icon {
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+  }
+</style>

@@ -9,43 +9,35 @@ import EvidenceGallery from '../components/ui/EvidenceGallery.astro';
 import heroBusiness from '../assets/hero-business.png';
 import collaborativeDiscussion from '../assets/collaborative-discussion.png';
 
-import member1 from '../assets/directora-matices.jpeg'
-import member2 from '../assets/competencias.jpg'
-import member3 from '../assets/desempeno.jpg'
-import member4 from '../assets/reclutamiento.jpg'
+import mariaJose from '../assets/team/maria-jose.jpg'
+import cata from '../assets/team/cata.jpg'
+import cristian from '../assets/team/cristian.jpg'
+import lorenzo from '../assets/team/lorenzo.traverso.jpg'
 
 const team = [
   {
-    name: 'Pamela Zavando',
+    name: 'María José Jimenez',
     role: 'Directora y Consultora Principal',
-    description: 'Psicóloga organizacional con más de 15 años de ' +
-      'experiencia liderando procesos de reclutamiento, selección y ' +
-      'desarrollo del talento en empresas B2B.',
-    image: member1
+    description: 'Psicóloga y Magister en Neurociencias (c), con más de 20 años de experiencia asesorando organizaciones en materias de gestión del talento, ex gerente general de editora multinacional de test en Chile, directora de la consultora Matices',
+    image: mariaJose
   },
   {
-    name: 'Mauricio Zavando',
-    role: 'Consultor de Selección Estratégica',
-    description: 'Especialista en evaluación psicolaboral y dinámicas ' +
-      'de grupo, enfocado en alinear los objetivos del negocio con el ' +
-      'talento humano idóneo.',
-    image: member2
+    name: 'Catalina Aguilera',
+    role: 'Psicóloga organizacional',
+    description: 'Psicóloga Organizacional y Gestora de Inclusión, con Magíster en Psicología de las Organizaciones. Más de 15 años de experiencia en el área de gestión de personas, Desarrollo Organizacional y Salud Ocupacional.',
+    image: cata
   },
   {
-    name: 'Carolina Lagos',
-    role: 'Asesora de Salud Laboral',
-    description: 'Experta en el diseño e implementación de programas ' +
-      'de bienestar y prevención de riesgos psicosociales en entornos ' +
-      'corporativos de alta exigencia.',
-    image: member3
+    name: 'Cristian Nova',
+    role: 'Psicólogo laboral',
+    description: 'Psicólogo laboral y Magíster en Política Social, Trabajo y Bienestar, con trayectoria en estudios territoriales, ciencia de datos y gestión de proyectos. Ha trabajado en procesos de reclutamiento y selección de personal, y cuenta con experiencia en dirección de eventos académicos.',
+    image: cristian
   },
   {
-    name: 'Felipe Oyarzún',
-    role: 'Facilitador de Capacitación',
-    description: 'Consultor especializado en metodologías de ' +
-      'aprendizaje activo, liderazgo integrativo y desarrollo de ' +
-      'competencias técnicas clave para equipos.',
-    image: member4
+    name: 'Lorenzo Traverso',
+    role: 'Ingeniero Comercial',
+    description: ' Ingeniero Comercial, con Magíster en Innovación y Emprendimiento, con más de 6 años de experiencia en áreas de desarrollo comercial, análisis de mercado, optimización de procesos y gestión de canales digitales.',
+    image: lorenzo
   }
 ]
 ---
@@ -171,22 +163,6 @@ const team = [
           </article>
 
           <!-- Card 3: Evaluación Psicológica -->
-          <article class="bg-crema-calido p-8 rounded-[2rem] flex flex-col justify-between hover:shadow-lg transition-shadow border border-verde-bosque/5 group min-h-[280px]">
-            <div class="space-y-4">
-              <div class="w-12 h-12 rounded-xl bg-verde-lima/10 flex items-center justify-center text-verde-lima group-hover:scale-105 transition-transform duration-300">
-                <svg class="h-6 w-6 text-verde-bosque" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
-              </div>
-              <h3 class="font-heading text-2xl font-bold text-verde-bosque">Evaluación Psicolaboral</h3>
-              <p class="font-sans text-sm text-verde-bosque/75">
-                Aplicación de psicometría avanzada y entrevistas por competencias para asegurar el encaje de perfil y de cultura corporativa.
-              </p>
-            </div>
-            <a href="/psicologia" class="font-sans text-xs font-semibold text-verde-bosque uppercase tracking-wider mt-6 inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-              Ver detalles &rarr;
-            </a>
-          </article>
 
           <!-- Card 4: Capacitación y Formación -->
           <article class="bg-crema-calido p-8 rounded-[2rem] flex flex-col justify-between hover:shadow-lg transition-shadow border border-verde-bosque/5 group min-h-[280px]">

@@ -7,7 +7,7 @@ import CompanyLogos from '../components/global/CompanyLogos.astro'
 import EvidenceGallery from '../components/ui/EvidenceGallery.astro'
 
 // Optimized image import
-import heroBusiness from '../assets/hero-business.png'
+import heroBusiness from '../assets/hero-business.webp'
 ---
 
 <Layout
@@ -64,8 +64,12 @@ import heroBusiness from '../assets/hero-business.png'
             <Image
               src={heroBusiness}
               alt="Profesional analizando reportes psicométricos en oficina"
-              class="w-full h-full object-cover"
+              width={640}
+              height={800}
+              format="avif"
               loading="eager"
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 640px"
+              class="w-full h-full object-cover"
             />
           </div>
           <div

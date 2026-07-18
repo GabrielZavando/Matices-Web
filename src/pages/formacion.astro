@@ -63,8 +63,12 @@ import formacion from '../assets/formacion.jpeg'
             <Image
               src={formacion}
               alt="Colaboradores en una dinámica grupal de capacitación corporativa"
-              class="w-full h-full object-cover"
+              width={640}
+              height={800}
+              format="avif"
               loading="eager"
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 640px"
+              class="w-full h-full object-cover"
             />
           </div>
           <div

@@ -15,4 +15,40 @@
   
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --font-heading: "Playfair Display", ui-serif, Georgia, serif;
+
+  /* Contact page sub-palette (navy/olive) - dedicated tokens for contacto.astro only.
+     Distinct from the canonical `matices` palette (see brand-design-system spec). */
+  --color-contact-background: #f8f9fa;
+  --color-contact-on-background: #191c1d;
+  --color-contact-primary: #003c56;
+  --color-contact-on-primary: #ffffff;
+  --color-contact-secondary: #4e6700;
+  --color-contact-secondary-container: #c6f34c;
+  --color-contact-on-secondary-fixed: #151f00;
+  --color-contact-tertiary: #2e345e;
+  --color-contact-surface-tint: #206488;
+  --color-contact-surface-container-lowest: #ffffff;
+  --color-contact-surface-container-low: #f3f4f5;
+  --color-contact-surface-variant: #e1e3e4;
+  --color-contact-on-surface: #191c1d;
+  --color-contact-on-surface-variant: #40484e;
+  --color-contact-outline: #71787e;
+  --color-contact-primary-container: #005477;
+  --color-contact-on-primary-container: #8bc7ef;
+  --color-contact-error: #ba1a1a;
+  --color-contact-accent-orange: #f4a261;
+
+  /* Contact typography scale (Plus Jakarta Sans via --font-sans) */
+  --text-display-lg: 48px;
+  --text-display-lg--line-height: 56px;
+  --text-headline-md: 24px;
+  --text-headline-md--line-height: 32px;
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 28px;
+  --text-body-md: 16px;
+  --text-body-md--line-height: 24px;
+  --text-label-sm: 12px;
+  --text-label-sm--line-height: 16px;
+  --text-label-md: 14px;
+  --text-label-md--line-height: 20px;
 }

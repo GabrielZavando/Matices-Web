@@ -2,20 +2,14 @@ openapi: 3.0.3
 info:
   title: B2B Lead Capture Serverless Contract - Matices
   version: 1.0.0
-  description: Formal definition of the outgoing payload from the Astro static frontend to the external serverless handlers (Formbold / Formspree).
+  description: Formal definition of the outgoing payload from the Astro static frontend to the external serverless handler (web3forms).
 servers:
-  - url: https://api.formbold.com/s/{form_id}
-    description: Unified serverless data processing endpoint for shared hosting environments.
+  - url: https://api.web3forms.com/submit
+    description: Unified serverless form endpoint (web3forms) used by the static Astro site.
 paths:
   /:
     post:
       summary: Structured Corporate Qualification Form Submission
-      parameters:
-        - name: form_id
-          in: path
-          required: true
-          schema:
-            type: string
       requestBody:
         required: true
         content:
@@ -23,20 +17,24 @@ paths:
             schema:
               $ref: '#/components/schemas/B2BLeadPayload'
       responses:
-        '302':
-          description: Successful HTTP redirection to the native Matices Thank You Page.
-        '400':
-          description: Corrupted payload or passive activation of the Honeypot anti-bot field.
+        '200':
+          description: Successful submission acknowledged by web3forms (JSON success response).
+        '422':
+          description: Validation failure (missing required fields or honeypot triggered).
 components:
   schemas:
     B2BLeadPayload:
       type: object
       required:
+        - access_key
         - name
         - email
         - phone
-        - _honeypot
+        - message
       properties:
+        access_key:
+          type: string
+          description: web3forms access key (secret). Injected as a hidden field; never commit the real value.
         name:
           type: string
         email:
@@ -60,6 +58,9 @@ components:
           type: string
         contact_preference:
           type: string
+        message:
+          type: string
+          description: Free-text message from the lead (required field in the form).
         _honeypot:
           type: string
-          description: Visually hidden technical trap field. Must be processed strictly empty.
+          description: Visually hidden technical trap field. Must be submitted strictly empty.

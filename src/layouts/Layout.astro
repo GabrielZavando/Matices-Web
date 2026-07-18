@@ -24,6 +24,20 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://maticesc
     <!-- Essential Meta Tags -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
+    <!-- Google Tag Manager -->
+    <script>(function (w: Window, d: Document, s: string, l: string, i: string) {
+      const win = w as unknown as Record<string, unknown>;
+      const layer = (win[l] as (unknown[] | undefined)) ?? [];
+      win[l] = layer;
+      layer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+      const f = d.getElementsByTagName(s)[0] as Element;
+      const j = d.createElement(s) as HTMLScriptElement;
+      const dl = l !== 'dataLayer' ? '&l=' + l : '';
+      j.async = true;
+      j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+      (f.parentNode as Node).insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-MVQBHD9P');</script>
+    <!-- End Google Tag Manager -->
     <link rel="icon" type="image/webp" href={favicon.src} />
     <meta name="generator" content={Astro.generator} />
     
@@ -55,6 +69,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://maticesc
     />
   </head>
   <body class="bg-crema-calido text-verde-bosque font-sans antialiased min-h-screen flex flex-col">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MVQBHD9P"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <slot />
     <ScrollToTop />
   </body>

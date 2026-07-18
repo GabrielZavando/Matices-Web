@@ -7,7 +7,7 @@ import CompanyLogos from '../components/global/CompanyLogos.astro'
 
 // Optimized image import
 import directoraMatices from '../assets/directora-matices.jpeg'
-import collaborativeWorkshop from '../assets/collaborative-workshop.png'
+import collaborativeWorkshop from '../assets/collaborative-workshop.webp'
 ---
 
 <Layout
@@ -66,8 +66,12 @@ import collaborativeWorkshop from '../assets/collaborative-workshop.png'
             <Image
               src={directoraMatices}
               alt="Especialista liderando sesión de psicología organizacional y dinámicas de grupo"
-              class="w-full h-full object-cover"
+              width={640}
+              height={800}
+              format="avif"
               loading="eager"
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 640px"
+              class="w-full h-full object-cover"
             />
           </div>
           <div
@@ -324,8 +328,12 @@ import collaborativeWorkshop from '../assets/collaborative-workshop.png'
             <Image 
               src={collaborativeWorkshop} 
               alt="Especialistas de Matices liderando un taller de Clima Organizacional y Salud Laboral con colaboradores" 
-              class="w-full h-full object-cover"
+              width={640}
+              height={800}
+              format="avif"
               loading="lazy"
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              class="w-full h-full object-cover"
             />
           </div>
           <div class="absolute -bottom-6 -right-6 bg-white/70 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-verde-bosque/10 max-w-[200px] hidden sm:block">

@@ -1,11 +1,5 @@
 import { describe, it, expect } from 'vitest';
-
-interface ImageMetadata {
-  src: string;
-  width: number;
-  height: number;
-  format: string;
-}
+import type { ImageMetadata } from 'astro';
 
 describe('EvidenceGallery Component Logic', () => {
   it('debería retornar el listado de imágenes de la galería si existen imágenes disponibles', () => {

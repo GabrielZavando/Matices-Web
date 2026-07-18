@@ -15,20 +15,20 @@ colors:
   inverse-on-surface: '#f0f1f0'
   outline: '#707a6e'
   outline-variant: '#c0c9bc'
-  surface-tint: '#236c32'
-  primary: '#236c32'
+  surface-tint: '#243B55'
+  primary: '#243B55'
   on-primary: '#ffffff'
-  primary-container: '#5ba362'
-  on-primary-container: '#00340f'
-  inverse-primary: '#8dd891'
-  secondary: '#25667b'
+  primary-container: '#5A7FA3'
+  on-primary-container: '#ffffff'
+  inverse-primary: '#9DB8D4'
+  secondary: '#5A7FA3'
   on-secondary: '#ffffff'
   secondary-container: '#aae6fe'
-  on-secondary-container: '#28687d'
-  tertiary: '#835400'
+  on-secondary-container: '#243B55'
+  tertiary: '#98C245'
   on-tertiary: '#ffffff'
-  tertiary-container: '#cb8500'
-  on-tertiary-container: '#412700'
+  tertiary-container: '#F09E46'
+  on-tertiary-container: '#3A2A00'
   error: '#ba1a1a'
   on-error: '#ffffff'
   error-container: '#ffdad6'
@@ -45,7 +45,7 @@ colors:
   tertiary-fixed-dim: '#ffb957'
   on-tertiary-fixed: '#2a1800'
   on-tertiary-fixed-variant: '#643f00'
-  background: '#f9f9f8'
+  background: '#F4F7F9'
   on-background: '#191c1c'
   surface-variant: '#e1e3e2'
 typography:
@@ -109,11 +109,11 @@ The visual style is a hybrid of **Modern Organic** and **Sophisticated Elegance*
 
 ## Colors
 
-The palette is extracted from the organic intersections within the logo. 
-- **Primary (Lively Green):** A spirited, mid-tone green that feels photosynthetically active. It is used for primary actions and growth-related data.
-- **Secondary (Deep Teal):** Derived from the logo's structural linework, providing a grounded, professional foundation for text and navigation.
-- **Tertiary (Golden Harvest & Sunset Orange):** High-energy accents used sparingly for highlights, warnings, or seasonal promotions.
-- **Surface Neutrals:** A range of warm, "stone-washed" greys and off-whites that prevent the interface from feeling clinical or cold.
+The palette is extracted from the corporate identity of Matices Consultoría Integral.
+- **Primary (Corporate Blue):** A deep, confident blue (`#243B55`) used for primary actions, headings, brand text and CTAs. It provides excellent WCAG AA contrast on light backgrounds.
+- **Secondary (Steel Blue):** A calmer mid-blue (`#5A7FA3`) derived from the primary, used for secondary elements, details and icons.
+- **Tertiary (Lime Accent):** A vivid lime green (`#98C245`) and warm orange (`#F09E46`) used sparingly as success/highlight accents.
+- **Surface Neutrals:** A range of warm, "stone-washed" greys and off-whites (`#F4F7F9`) that prevent the interface from feeling clinical or cold.
 
 ## Typography
 
@@ -150,19 +150,19 @@ The shape language is consistently **Rounded**, avoiding sharp corners to mainta
 ## Components
 
 ### Buttons
-- **Primary:** Solid "Lively Green" with white text. High-contrast, bold weight.
-- **Secondary:** Outlined in "Deep Teal" with a subtle 5% teal fill on hover.
+- **Primary:** Solid "Corporate Blue" (`#243B55`) with white text. High-contrast, bold weight.
+- **Secondary:** Outlined in "Steel Blue" (`#5A7FA3`) with a subtle blue fill on hover.
 - **Tertiary:** Text-only with an animated underline that mimics growth (left-to-right expansion).
 
 ### Input Fields
 - Use a soft warm-grey background (`#F0F2F0`) rather than a white box. 
-- On focus, the border transitions to the Primary Green with a soft glow.
+- On focus, the border transitions to the Primary Blue with a soft glow.
 
 ### Cards
-- Cards should not have heavy borders. Use a Level 1 shadow and a 1px soft-teal inner stroke to define the edge against the background.
+- Cards should not have heavy borders. Use a Level 1 shadow and a 1px soft-blue inner stroke to define the edge against the background.
 
 ### Chips & Tags
-- Pill-shaped (rounded-xl). Use low-saturation versions of the logo colors (lavender, soft orange, pale yellow) to categorize content without overwhelming the primary green.
+- Pill-shaped (rounded-xl). Use low-saturation versions of the logo colors (steel blue, soft orange, pale lime) to categorize content without overwhelming the primary blue.
 
 ### Lists
 - Use custom iconography for bullet points based on the logo's central intersection shape (the "leaf" overlap).

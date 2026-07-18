@@ -6,8 +6,8 @@ import { Image } from 'astro:assets';
 import CompanyLogos from '../components/global/CompanyLogos.astro';
 import EvidenceGallery from '../components/ui/EvidenceGallery.astro';
 
-import heroBusiness from '../assets/hero-business.png';
-import collaborativeDiscussion from '../assets/collaborative-discussion.png';
+import heroBusiness from '../assets/hero-business.webp';
+import collaborativeDiscussion from '../assets/collaborative-discussion.webp';
 
 import mariaJose from '../assets/team/maria-jose.jpg'
 import cata from '../assets/team/cata.jpg'
@@ -89,8 +89,12 @@ const team = [
             <Image 
               src={heroBusiness} 
               alt="Líder profesional B2B analizando estrategias corporativas en una oficina iluminada"
-              class="w-full h-full object-cover"
+              width={640}
+              height={800}
+              format="avif"
               loading="eager"
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 640px"
+              class="w-full h-full object-cover"
             />
           </div>
           <!-- Glassmorphism Floating Badge -->
@@ -264,8 +268,12 @@ const team = [
             <Image 
               src={collaborativeDiscussion} 
               alt="Líderes de capital humano participando en taller de consultoría de Matices"
-              class="w-full h-full object-cover"
+              width={640}
+              height={480}
+              format="avif"
               loading="lazy"
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              class="w-full h-full object-cover"
             />
           </div>
         </div>
@@ -376,9 +384,13 @@ const team = [
                   <Image
                     src={member.image}
                     alt={`Retrato profesional de ${member.name}`}
+                    width={400}
+                    height={300}
+                    format="avif"
+                    loading="lazy"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
                     class="w-full h-full object-cover group-hover:scale-105
                       transition-transform duration-500"
-                    loading="lazy"
                   />
                 </div>
                 <h3 class="font-heading text-xl font-bold text-verde-bosque

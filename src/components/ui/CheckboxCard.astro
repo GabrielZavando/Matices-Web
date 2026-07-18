@@ -1,0 +1,22 @@
+---
+interface Props {
+  name: string;
+  value: string;
+  label: string;
+  extraClass?: string;
+}
+
+const { name, value, label, extraClass = '' } = Astro.props;
+
+const labelClass = `flex items-center gap-3 p-4 border border-contact-surface-variant rounded-xl cursor-pointer hover:bg-contact-surface-container-low transition-colors ${extraClass}`;
+---
+
+<label class={labelClass}>
+  <input
+    name={name}
+    value={value}
+    class="rounded border-contact-outline text-contact-primary focus:ring-contact-primary h-5 w-5 shrink-0 cursor-pointer"
+    type="checkbox"
+  />
+  <span class="font-sans text-contact-on-surface">{label}</span>
+</label>

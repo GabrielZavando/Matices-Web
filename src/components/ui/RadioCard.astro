@@ -1,0 +1,21 @@
+---
+interface Props {
+  name: string;
+  value: string;
+  label: string;
+  checked?: boolean;
+  variant?: 'size' | 'preference';
+}
+
+const { name, value, label, checked = false, variant = 'size' } = Astro.props;
+
+const labelClass =
+  variant === 'preference'
+    ? 'flex items-center justify-center gap-2 p-3 border border-contact-surface-variant rounded-lg cursor-pointer hover:bg-contact-surface-container-low has-[:checked]:bg-contact-primary-container has-[:checked]:text-contact-on-primary-container transition-all'
+    : 'flex items-center justify-center gap-2 p-3 border border-contact-surface-variant rounded-lg cursor-pointer hover:bg-contact-surface-container-low has-[:checked]:bg-contact-secondary-container has-[:checked]:border-contact-secondary transition-all';
+---
+
+<label class={labelClass}>
+  <input class="sr-only" name={name} value={value} checked={checked} type="radio" />
+  <span class="font-sans">{label}</span>
+</label>

@@ -28,11 +28,13 @@ const galleryList = Object.values(galleryImages).map((img) => img.default);
             <Image 
               src={image} 
               width={400}
+              height={300}
               format="avif"
               alt={`Registro de actividad y talleres profesionales en Matices - Imagen ${index + 1}`}
               class="w-full h-auto object-cover rounded-2xl"
               loading="lazy"
               decoding="async"
+              sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
             />
           </figure>
         ))}
@@ -76,12 +78,14 @@ const galleryList = Object.values(galleryImages).map((img) => img.default);
               <Image
                 src={image}
                 width={1200}
+                height={900}
                 format="avif"
                 alt={`Registro de actividad y talleres profesionales en Matices - Imagen ${index + 1}`}
                 class="absolute max-w-full max-h-full object-contain rounded-3xl shadow-2xl transition-opacity duration-150 opacity-0 pointer-events-none"
                 data-modal-index={index}
                 loading="lazy"
                 decoding="async"
+                sizes="90vw"
               />
             ))}
           </div>

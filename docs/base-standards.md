@@ -1,21 +1,102 @@
-# Global Base Standards - Matices Consultoría Integral
+---
+description: Reglas globales de desarrollo para agentes IA (OpenCode). Aplica siempre.
+alwaysApply: true
+---
 
-## 1. Repository Language and Nomenclature
-* **Source Code and Infrastructure**: All Astro files, components, variables, Props, TypeScript interfaces, Git commits, and engineering documentation MUST be written strictly in **English**.
-* **Visual Layer and User Content**: All end-user copywriting, UI microcopy, SEO tags, B2B form fields, success/error messages, and business-layer assets MUST be written strictly in **Spanish**.
+# Base Standards — Agencia Zavando
 
-## 2. Semantic Commit Conventions
-* `feat(ui)`: New visual components or page integrations.
-* `fix(form)`: Bug fixes in validation or Honeypot logic.
-* `docs(seo)`: Updates to structured metadata or OpenSpec markdown.
-* `refactor(style)`: Strict utility layout adjustments using Tailwind CSS.
+## 1. Principios core
 
-## 3. Incremental Build Hierarchy (Non-Negotiable)
-1. **Phase 1: Reusable Global UI Components**: Universal Header (Sticky Navbar) and Universal Footer.
-2. **Phase 2: Base Page Structure and Layout**: Static file-based routing configuration in `src/pages/` for the 6 key sections.
-3. **Phase 3: Page-by-Page Construction**: Modular and progressive section-by-section development, starting mandatorily with the Home Landing Page (`index.astro`).
+- **Pasos pequeños, uno a la vez**: Nunca avanzar más de un paso sin confirmar. Baby steps siempre.
+- **TDD (Test-Driven Development)**: Escribir test fallido primero para cualquier funcionalidad nueva.
+- **Tipado completo**: Todo el código debe estar completamente tipado (TypeScript, PHPDoc, etc.).
+- **Nombres descriptivos**: Variables y funciones con nombres claros y específicos al dominio.
+- **Cambios incrementales**: Preferir modificaciones pequeñas y revisables sobre cambios grandes.
+- **Cuestionar supuestos**: Siempre preguntar ante ambigüedades antes de asumir.
+- **Detectar patrones repetidos**: Identificar y señalar código duplicado o patrones que deben abstraerse.
 
-## 4. Type Safety & Prohibitions
-* The use of the `any` type or compiler suppression directives (`@ts-ignore`, `@ts-nocheck`) is strictly prohibited.
-* Inline styles (`style=""`) or global `.css` files are forbidden. All design is resolved with Tailwind CSS utility classes.
-* Heavy SPA frameworks (React, Vue, Svelte) are forbidden to protect the bundle size.
+## 2. Idioma del código
+
+- **Todo en inglés**: Variables, funciones, clases, comentarios, mensajes de error, logs.
+- **Documentación en español**: READMEs para el cliente, comentarios de negocio, tickets pueden ir en español.
+- **Commits en inglés**: Siempre. Conventional commits format.
+- **Nombres de base de datos en inglés**: Tablas, columnas, índices.
+
+## 3. Estándares específicos por área
+
+Para estándares detallados, leer los archivos correspondientes:
+
+- [Backend Standards](docs/backend-standards.md) — API, base de datos, testing, seguridad
+- [Frontend Standards](docs/frontend-standards.md) — Componentes, UI/UX, estado
+- [Documentation Standards](docs/documentation-standards.md) — Estructura docs, OpenAPI, mantenimiento
+
+## 4. Skills del proyecto
+
+- Los skills viven en `ai-specs/skills/`.
+- Cuando una solicitud coincida con la descripción de un skill, cargar y seguir el `SKILL.md` correspondiente automáticamente antes de continuar.
+- Cargar también los archivos referenciados en la carpeta del skill cuando el skill los requiera.
+- La lista de skills disponibles y sus triggers está en `AGENTS.md` (se carga junto con este archivo). Para descripciones extendidas, ver [`ai-specs/README.md`](../ai-specs/README.md).
+
+## 5. Modelo de planning
+
+Los flujos de planning se ejecutan mediante los custom commands definidos en `opencode.json`:
+
+- `/enrich-us` — Enriquecer user story vaga antes de planificar
+- `/plan-change` — Generar OpenSpec specs y tasks a partir de un ticket
+- `/apply` — Implementar tareas desde los artefactos OpenSpec (TDD)
+- `/verify` — Validar implementación contra escenarios OpenSpec
+- `/adversarial-review` — Auditoría sistemática de calidad
+- `/archive` — Archivar artefactos OpenSpec al completar
+- `/commit` — Crear commits convencionales y PR
+
+El modelo para cada agente está definido en `opencode.json`. No hardcodear modelos aquí.
+
+## 6. Orquestación con OpenCode (fuente canónica)
+
+- **OpenCode es la única herramienta objetivo** de este template. No se generan
+  symlinks ni configuraciones para Claude Code (`.claude/`) ni Cursor (`.cursor/`).
+- **Fuente canónica**: Los artefactos reutilizables (agentes y skills) viven en
+  `ai-specs/`. OpenCode los consume directamente mediante referencias
+  `{file:...}` declaradas en `opencode.json`.
+- **Un cambio es incompleto** si deja referencias `{file:...}` rotas o artefactos
+  canónicos duplicados.
+- **Seguridad al renombrar**: Al renombrar o mover un archivo dentro de `ai-specs/`,
+  verificar y actualizar todas las referencias `{file:...}` que lo apuntan (usar
+  `bash check-refs.sh`) antes de cerrar el cambio.
+- **Nuevos artefactos**: Al crear un nuevo skill o agente en `ai-specs/`, añadir su
+  referencia `{file:...}` donde corresponda en `opencode.json` y registrarlo en
+  `ai-specs/README.md`.
+- `specboot.sh` valida la estructura, los placeholders y la integridad referencial
+  (`check-refs.sh`); no crea symlinks porque el template es OpenCode-only.
+
+## 7. Actualización de artefactos OpenSpec ante cambios post-apply
+
+Si aparece un fix o cambio nuevo después de `/apply` y antes de `/archive`:
+
+1. Actualizar primero los artefactos OpenSpec afectados (scenarios, requirements, tasks.md)
+2. Si se necesita regenerar artefactos, ejecutar el paso OpenSpec correspondiente antes de codear
+3. Solo implementar código después de que los artefactos reflejen el nuevo requerimiento
+4. Re-ejecutar verificación contra artefactos actualizados antes de archivar
+
+**No aplicar fixes directos en código sin actualizar OpenSpec primero.**
+
+## 8. Contexto del proyecto — Matices Consultoría Integral
+
+> Esta sección fue personalizada para este proyecto. No dejar placeholders sin reemplazar.
+
+```
+Stack: Astro 6 (Static Site Generation) + TypeScript (astro/tsconfigs/strictest) + Tailwind CSS v4 (plugin @tailwindcss/vite) + Vitest. Sin backend propio: formulario serverless vía web3forms. hosting estático en Hostinger ($0 TCO).
+Arquitectura: SSG por componentes Astro reutilizables (src/components), mobile-first, sin frameworks SPA.
+Dominio: Consultoría B2B (reclutamiento y selección, evaluación psicológica, formación, gestión de talento, I+D, testing psicométrico). Generación de prospectos y venta consultiva.
+Cliente: Matices Consultoría Integral (Viña del Mar, Chile).
+Convenciones de commits: Conventional Commits (feat/ui, fix/form, docs/seo, refactor/style, ...).
+Lenguaje del código: English
+Lenguaje de documentación cliente: Español
+```
+
+### 8.1 Reglas de prohibición (no negociables)
+
+- El tipo `any` o directivas de supresión de compilador (`@ts-ignore`, `@ts-nocheck`) están estrictamente prohibidos.
+- Estilos inline (`style=""`) o archivos `.css` globales están prohibidos. Todo el diseño se resuelve con clases utilitarias de Tailwind CSS.
+- Frameworks SPA pesados (React, Vue, Svelte) están prohibidos para proteger el tamaño del bundle (RNF1).
+- Imágenes: usar siempre el componente `<Image />` de `astro:assets` (WebP/AVIF); el tag `<img />` tradicional está prohibido.

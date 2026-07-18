@@ -1,0 +1,142 @@
+name: Deploy
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - production
+
+env:
+  NODE_VERSION: '22'
+
+jobs:
+  build:
+    name: Build static site
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build
+        run: pnpm build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+          if-no-files-found: error
+          retention-days: 7
+
+  deploy-staging:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    environment: staging
+    needs: build
+    if: (github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch')
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+      - name: Deploy to Hostinger (staging)
+        env:
+          FTP_HOST: ${{ secrets.STAGING_FTP_HOST }}
+          FTP_USER: ${{ secrets.STAGING_FTP_USER }}
+          FTP_PASS: ${{ secrets.STAGING_FTP_PASS }}
+          FTP_PATH: ${{ secrets.STAGING_FTP_PATH }}
+        run: |
+          # Deploy static build to Hostinger via FTP (or adapt to your protocol).
+          # Example using lftp; adjust to your hosting credentials.
+          command -v lftp >/dev/null 2>&1 || (sudo apt-get update && sudo apt-get install -y lftp)
+          lftp -c "open -u $FTP_USER,$FTP_PASS $FTP_HOST; mirror -R dist/ $FTP_PATH"
+
+      - name: Staging smoke test
+        run: |
+          sleep 20
+          curl -f https://${{ vars.STAGING_DOMAIN }}/ || exit 1
+
+      - name: Notify
+        if: always()
+        run: |
+          curl -X POST "${{ secrets.SLACK_WEBHOOK }}" \
+            -H 'Content-Type: application/json' \
+            -d '{"text":"${{ job.status == 'success' && '✅' || '❌' }} Staging deploy: ${{ github.repository }}"}'
+
+  deploy-production:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    environment: production
+    needs: deploy-staging
+    if: startsWith(github.ref, 'refs/tags/v')
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+      - name: Deploy to Hostinger (production)
+        env:
+          FTP_HOST: ${{ secrets.PRODUCTION_FTP_HOST }}
+          FTP_USER: ${{ secrets.PRODUCTION_FTP_USER }}
+          FTP_PASS: ${{ secrets.PRODUCTION_FTP_PASS }}
+          FTP_PATH: ${{ secrets.PRODUCTION_FTP_PATH }}
+        run: |
+          command -v lftp >/dev/null 2>&1 || (sudo apt-get update && sudo apt-get install -y lftp)
+          lftp -c "open -u $FTP_USER,$FTP_PASS $FTP_HOST; mirror -R dist/ $FTP_PATH"
+
+      - name: Production smoke test
+        run: |
+          sleep 20
+          curl -f https://${{ vars.DOMAIN }}/ || exit 1
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: dist/**/*
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Notify
+        if: always()
+        run: |
+          curl -X POST "${{ secrets.SLACK_WEBHOOK }}" \
+            -H 'Content-Type: application/json' \
+            -d '{"text":"${{ job.status == 'success' && '✅' || '❌' }} Production deploy: ${{ github.repository }}"}'
+
+  rollback:
+    name: Rollback Production
+    runs-on: ubuntu-latest
+    environment: production
+    if: failure() && github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    needs: deploy-production
+    steps:
+      - name: Notify rollback needed
+        run: |
+          curl -X POST "${{ secrets.SLACK_WEBHOOK }}" \
+            -H 'Content-Type: application/json' \
+            -d '{"text":"⚠️ Production deploy failed — manual rollback required for ${{ github.repository }}"}'

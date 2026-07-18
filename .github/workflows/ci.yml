@@ -53,6 +53,9 @@ jobs:
       - name: Install dependencies
         run: make install
 
+      - name: Build static site
+        run: make build
+
       - name: Test
         run: make test
 

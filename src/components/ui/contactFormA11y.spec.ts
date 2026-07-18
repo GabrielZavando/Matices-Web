@@ -17,7 +17,7 @@ beforeAll(() => {
     execSync('npx astro build', { stdio: 'inherit' });
   }
   pageHtml = readFileSync(DIST_PATH, 'utf-8');
-});
+}, 120000);
 
 /** Extract every <input ...> tag of a given type from the markup. */
 function inputsOfType(html: string, type: 'radio' | 'checkbox'): string[] {

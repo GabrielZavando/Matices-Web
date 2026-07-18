@@ -4,7 +4,7 @@ paths:
   changes: "openspec/changes"
   archive: "openspec/archive"
   docs: "docs"
-  ai_specs: ".agent"
+  ai_specs: "ai-specs"
 
 validation:
   strict_mode: true
@@ -18,7 +18,7 @@ pipelines:
   pre_apply:
     - cmd: "openspec validate"
   pre_verify:
-    - cmd: "npm run lint:eslint"
+    - cmd: "npm test"
     - cmd: "astro check"
 
 artifacts:

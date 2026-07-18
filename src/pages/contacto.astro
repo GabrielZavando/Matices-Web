@@ -2,6 +2,42 @@
 import Layout from '../layouts/Layout.astro'
 import Header from '../components/global/Header.astro'
 import Footer from '../components/global/Footer.astro'
+import { B2B_LEAD_FIELDS } from '../lib/leadPayload';
+import RadioCard from '../components/ui/RadioCard.astro';
+import CheckboxCard from '../components/ui/CheckboxCard.astro';
+
+const accessKey = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY;
+
+type Option = { value: string; label: string };
+
+const servicesOfInterest: Option[] = [
+  { value: 'Salud Laboral', label: 'Salud Laboral' },
+  { value: 'Seleccion', label: 'Reclutamiento y Selección' },
+  { value: 'Capacitacion', label: 'Capacitación y Formación' },
+  { value: 'Evaluacion', label: 'Evaluación Psicométrica' },
+];
+
+const organizationalChallenges: Array<Option & { extraClass: string }> = [
+  { value: 'Clima Laboral', label: 'Mejorar el clima laboral', extraClass: '' },
+  { value: 'Cubrir Cargos', label: 'Dificultad para cubrir cargos', extraClass: '' },
+  { value: 'Ausentismo', label: 'Reducir ausentismo laboral', extraClass: '' },
+  { value: 'Capacitacion', label: 'Capacitar y alinear equipos', extraClass: '' },
+  { value: 'Cumplimiento', label: 'Diagnóstico de riesgos y cumplimiento (Ley Karin, Istas21, etc.)', extraClass: 'md:col-span-2' },
+];
+
+const organizationSizes: Option[] = [
+  { value: '1-10', label: '1-10' },
+  { value: '11-50', label: '11-50' },
+  { value: '51-200', label: '51-200' },
+  { value: 'Más de 200', label: 'Más de 200' },
+];
+
+const contactPreferences: Option[] = [
+  { value: 'Email', label: 'Email' },
+  { value: 'Telefono', label: 'Teléfono' },
+  { value: 'WhatsApp', label: 'WhatsApp' },
+  { value: 'Reunion', label: 'Reunión' },
+];
 ---
 
 <Layout
@@ -10,109 +46,109 @@ import Footer from '../components/global/Footer.astro'
 >
   <Header activePath="/contacto" />
 
-  <main class="relative overflow-hidden bg-background text-on-background selection:bg-secondary-fixed selection:text-on-secondary-fixed flex flex-col items-center w-full">
+  <main class="relative overflow-hidden bg-contact-background text-contact-on-background selection:bg-contact-secondary-container selection:text-contact-on-secondary-fixed flex flex-col items-center w-full">
     <!-- Background Decorations -->
-    <div class="matiz-blob bg-secondary top-20 -left-20"></div>
-    <div class="matiz-blob bg-surface-tint bottom-40 -right-20"></div>
-    <div class="matiz-blob bg-secondary-fixed top-1/2 left-1/2 transform -translate-x-1/2"></div>
+    <div class="h-[400px] w-[400px] rounded-full blur-[80px] opacity-[0.15] -z-10 pointer-events-none absolute bg-contact-secondary top-20 -left-20"></div>
+    <div class="h-[400px] w-[400px] rounded-full blur-[80px] opacity-[0.15] -z-10 pointer-events-none absolute bg-contact-surface-tint bottom-40 -right-20"></div>
+    <div class="h-[400px] w-[400px] rounded-full blur-[80px] opacity-[0.15] -z-10 pointer-events-none absolute bg-contact-secondary-container top-1/2 left-1/2 transform -translate-x-1/2"></div>
 
     <!-- Hero Intro -->
-    <section class="max-w-4xl mx-auto px-margin-mobile md:px-0 pt-xl pb-lg text-center flex flex-col items-center">
-      <div class="inline-flex items-center gap-2 bg-secondary-container px-4 py-1 rounded-full text-on-secondary-fixed mb-6">
-        <span class="w-2 h-2 rounded-full bg-secondary"></span>
-        <span class="font-label-sm text-label-sm uppercase tracking-wider">Venta Consultiva B2B</span>
+    <section class="max-w-4xl mx-auto px-[16px] md:px-0 pt-[80px] pb-[48px] text-center flex flex-col items-center">
+      <div class="inline-flex items-center gap-2 bg-contact-secondary-container px-4 py-1 rounded-full text-contact-on-secondary-fixed mb-6">
+        <span class="w-2 h-2 rounded-full bg-contact-secondary"></span>
+        <span class="font-sans text-label-sm uppercase tracking-wider">Venta Consultiva B2B</span>
       </div>
-      <h1 class="font-display-lg text-display-lg md:text-[64px] leading-tight mb-6 text-primary">
+      <h1 class="font-sans text-display-lg md:text-[64px] leading-tight mb-6 text-contact-primary">
         Hablemos de tu <br />
-        <span class="italic font-light text-secondary">Organización</span>
+        <span class="italic font-light text-contact-secondary">Organización</span>
       </h1>
-      <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
+      <p class="font-sans text-body-lg text-contact-on-surface-variant max-w-2xl mx-auto">
         Completa nuestro formulario de calificación estratégica. Diseñamos propuestas metodológicas y comerciales adaptadas exactamente a tus desafíos.
       </p>
     </section>
 
     <!-- Form Container -->
-    <section class="w-full max-w-4xl mx-auto px-margin-mobile md:px-0 mb-xl">
-      <div class="bg-surface-container-lowest rounded-[3rem] p-8 md:p-12 form-shadow w-full">
+    <section class="w-full max-w-4xl mx-auto px-[16px] md:px-0 mb-[80px]">
+      <div class="bg-contact-surface-container-lowest rounded-[3rem] py-8 md:py-12 shadow-[0_10px_40px_-10px_rgba(0,60,86,0.15)] w-full">
         
         <form action="https://api.web3forms.com/submit" method="POST" class="space-y-12 w-full">
-          <input type="hidden" name="access_key" value="62969b86-dbb7-436a-8ad1-98f7e25bd86a" />
+          <input type="hidden" name={B2B_LEAD_FIELDS.accessKey} value={accessKey} />
           <input type="hidden" name="subject" value="Nueva solicitud - Contacto Matices" />
           <!-- Honeypot Passive Spam Protection (Mandatory Rule) -->
-          <input type="text" name="botcheck" class="sr-only" autocomplete="off" tabindex="-1" />
+          <input type="text" name={B2B_LEAD_FIELDS.honeypot} class="sr-only" autocomplete="off" tabindex="-1" />
 
           <!-- Section 1: Información de Identificación -->
           <div class="w-full">
             <div class="flex items-start gap-4 mb-8">
-              <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold shrink-0">1</div>
+              <div class="w-10 h-10 rounded-full bg-contact-primary flex items-center justify-center text-contact-on-primary font-bold shrink-0">1</div>
               <div>
-                <h2 class="font-headline-md text-headline-md text-primary">Información de Identificación</h2>
-                <p class="font-body-md text-body-md text-outline">Tus datos corporativos básicos para establecer el contacto directo.</p>
-                <p class="font-body-md text-body-md text-error mt-2 font-medium">Los campos señalados con un asterisco (*) rojo son obligatorios.</p>
+                <h2 class="font-sans text-headline-md text-contact-primary">Información de Identificación</h2>
+                <p class="font-sans text-body-md text-contact-outline">Tus datos corporativos básicos para establecer el contacto directo.</p>
+                <p class="font-sans text-body-md text-contact-error mt-2 font-medium">Los campos señalados con un asterisco (*) rojo son obligatorios.</p>
               </div>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter w-full">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-[24px] w-full">
               <div class="space-y-2">
-                <label for="nombre" class="font-label-md text-label-md text-on-surface block">NOMBRES Y APELLIDOS <span class="text-error font-bold">*</span></label>
+                <label for="nombre" class="font-sans text-label-md text-contact-on-surface block">NOMBRES Y APELLIDOS <span class="text-contact-error font-bold">*</span></label>
                 <input 
                   id="nombre"
-                  name="nombre"
+                  name={B2B_LEAD_FIELDS.name}
                   required
-                  class="w-full bg-surface-container-low border border-surface-variant rounded-xl p-4 transition-all focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10" 
+                  class="w-full bg-contact-surface-container-low border border-contact-surface-variant rounded-xl p-4 transition-all focus:outline-none focus:border-contact-primary focus:ring-4 focus:ring-contact-primary/10" 
                   placeholder="Ej. Juan Pérez" 
                   type="text"
                 />
               </div>
               <div class="space-y-2">
-                <label for="email" class="font-label-md text-label-md text-on-surface block">CORREO ELECTRÓNICO <span class="text-error font-bold">*</span></label>
+                <label for="email" class="font-sans text-label-md text-contact-on-surface block">CORREO ELECTRÓNICO <span class="text-contact-error font-bold">*</span></label>
                 <input 
                   id="email"
                   name="email"
                   required
-                  class="w-full bg-surface-container-low border border-surface-variant rounded-xl p-4 transition-all focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10" 
+                  class="w-full bg-contact-surface-container-low border border-contact-surface-variant rounded-xl p-4 transition-all focus:outline-none focus:border-contact-primary focus:ring-4 focus:ring-contact-primary/10" 
                   placeholder="Ej. j.perez@empresa.cl" 
                   type="email"
                 />
               </div>
               <div class="space-y-2">
-                <label for="telefono" class="font-label-md text-label-md text-on-surface block">TELÉFONO / WHATSAPP <span class="text-error font-bold">*</span></label>
+                <label for="telefono" class="font-sans text-label-md text-contact-on-surface block">TELÉFONO / WHATSAPP <span class="text-contact-error font-bold">*</span></label>
                 <input 
                   id="telefono"
-                  name="telefono"
+                  name={B2B_LEAD_FIELDS.phone}
                   required
-                  class="w-full bg-surface-container-low border border-surface-variant rounded-xl p-4 transition-all focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10" 
+                  class="w-full bg-contact-surface-container-low border border-contact-surface-variant rounded-xl p-4 transition-all focus:outline-none focus:border-contact-primary focus:ring-4 focus:ring-contact-primary/10" 
                   placeholder="Ej. +56 9 1234 5678" 
                   type="tel"
                 />
               </div>
               <div class="space-y-2">
-                <label for="empresa" class="font-label-md text-label-md text-on-surface block">EMPRESA / INSTITUCIÓN</label>
+                <label for="empresa" class="font-sans text-label-md text-contact-on-surface block">EMPRESA / INSTITUCIÓN</label>
                 <input 
                   id="empresa"
-                  name="empresa"
-                  class="w-full bg-surface-container-low border border-surface-variant rounded-xl p-4 transition-all focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10" 
+                  name={B2B_LEAD_FIELDS.company}
+                  class="w-full bg-contact-surface-container-low border border-contact-surface-variant rounded-xl p-4 transition-all focus:outline-none focus:border-contact-primary focus:ring-4 focus:ring-contact-primary/10" 
                   placeholder="Ej. Empresa Ltda." 
                   type="text"
                 />
               </div>
               <div class="md:col-span-2 space-y-2">
-  <label for="cargo" class="font-label-md text-label-md text-on-surface block">CARGO EN LA ORGANIZACIÓN</label>
+  <label for="cargo" class="font-sans text-label-md text-contact-on-surface block">CARGO EN LA ORGANIZACIÓN</label>
   <input 
     id="cargo"
-    name="cargo"
-    class="w-full bg-surface-container-low border border-surface-variant rounded-xl p-4 transition-all focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10" 
+    name={B2B_LEAD_FIELDS.role}
+    class="w-full bg-contact-surface-container-low border border-contact-surface-variant rounded-xl p-4 transition-all focus:outline-none focus:border-contact-primary focus:ring-4 focus:ring-contact-primary/10" 
     placeholder="Ej. Gerente de Personas / Jefe de RRHH" 
     type="text"
   />
 </div>
 <div class="md:col-span-2 space-y-2 w-full">
-  <label for="mensaje" class="font-label-md text-label-md text-on-surface block">MENSAJE <span class="text-error font-bold">*</span></label>
+  <label for="mensaje" class="font-sans text-label-md text-contact-on-surface block">MENSAJE <span class="text-contact-error font-bold">*</span></label>
   <textarea 
     id="mensaje"
-    name="mensaje"
+    name={B2B_LEAD_FIELDS.message}
     required
-    class="w-full bg-surface-container-low border border-surface-variant rounded-xl p-4 transition-all focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10" 
+    class="w-full bg-contact-surface-container-low border border-contact-surface-variant rounded-xl p-4 transition-all focus:outline-none focus:border-contact-primary focus:ring-4 focus:ring-contact-primary/10" 
     placeholder="Escribe aquí cualquier detalle adicional..." 
     rows="4"
   ></textarea>
@@ -123,242 +159,91 @@ import Footer from '../components/global/Footer.astro'
           <!-- Section 2: Calificación de Requerimientos -->
           <div class="w-full">
             <div class="flex items-start gap-4 mb-8">
-              <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold shrink-0">2</div>
-              <div>
-                <h2 class="font-headline-md text-headline-md text-primary flex items-center justify-between gap-4"><div class="flex items-center gap-2"><span>Calificación de Requerimientos</span> <span class="text-sm text-on-surface-variant">(Opcional)</span></div> <button id="toggle-requerimientos" type="button" class="transform transition-transform cursor-pointer" aria-expanded="false"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></h2>
-                <p class="font-body-md text-body-md text-outline">Cuéntanos sobre los servicios y problemáticas que buscas resolver.</p>
+              <div class="w-10 h-10 rounded-full bg-contact-primary flex items-center justify-center text-contact-on-primary font-bold shrink-0">2</div>
+              <div class="min-w-0 flex-1">
+                <h2 class="font-sans text-headline-md text-contact-primary flex flex-wrap items-center justify-between gap-4"><div class="flex flex-wrap items-center gap-2 min-w-0"><span>Calificación de Requerimientos</span> <span class="text-sm text-contact-on-surface-variant">(Opcional)</span></div> <button id="toggle-requerimientos" type="button" class="transform transition-transform cursor-pointer shrink-0" aria-expanded="false"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-contact-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></h2>
+                <p class="font-sans text-body-md text-contact-outline">Cuéntanos sobre los servicios y problemáticas que buscas resolver.</p>
               </div>
             </div>
             
-            <div class="space-y-8 w-full max-h-0 overflow-hidden transition-all duration-300" id="content-requerimientos">
+            <div id="content-requerimientos" class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300">
+              <div class="overflow-hidden min-h-0 space-y-8 w-full">
               <!-- Servicios de Interés -->
               <fieldset class="w-full space-y-4">
-                <legend class="font-label-md text-label-md text-on-surface block mb-4 uppercase">SERVICIOS DE INTERÉS (SELECCIONA UNO O MÁS)</legend>
+                <legend class="font-sans text-label-md text-contact-on-surface block mb-4 uppercase">SERVICIOS DE INTERÉS (SELECCIONA UNO O MÁS)</legend>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
                   
-                  <label class="flex items-center gap-3 p-4 border border-surface-variant rounded-xl cursor-pointer hover:bg-surface-container-low transition-colors">
-                    <input 
-                      name="servicios[]"
-                      value="Salud Laboral"
-                      class="rounded border-outline text-primary focus:ring-primary h-5 w-5 cursor-pointer" 
-                      type="checkbox"
-                    />
-                    <span class="font-body-md text-on-surface">Salud Laboral</span>
-                  </label>
-
-                  <label class="flex items-center gap-3 p-4 border border-surface-variant rounded-xl cursor-pointer hover:bg-surface-container-low transition-colors">
-                    <input 
-                      name="servicios[]"
-                      value="Seleccion"
-                      class="rounded border-outline text-primary focus:ring-primary h-5 w-5 cursor-pointer" 
-                      type="checkbox"
-                    />
-                    <span class="font-body-md text-on-surface">Reclutamiento y Selección</span>
-                  </label>
-
-                  <label class="flex items-center gap-3 p-4 border border-surface-variant rounded-xl cursor-pointer hover:bg-surface-container-low transition-colors">
-                    <input 
-                      name="servicios[]"
-                      value="Capacitacion"
-                      class="rounded border-outline text-primary focus:ring-primary h-5 w-5 cursor-pointer" 
-                      type="checkbox"
-                    />
-                    <span class="font-body-md text-on-surface">Capacitación y Formación</span>
-                  </label>
-
-                  <label class="flex items-center gap-3 p-4 border border-surface-variant rounded-xl cursor-pointer hover:bg-surface-container-low transition-colors">
-                    <input 
-                      name="servicios[]"
-                      value="Evaluacion"
-                      class="rounded border-outline text-primary focus:ring-primary h-5 w-5 cursor-pointer" 
-                      type="checkbox"
-                    />
-                    <span class="font-body-md text-on-surface">Evaluación Psicométrica</span>
-                  </label>
+                  {servicesOfInterest.map((option) => (
+                    <CheckboxCard name={B2B_LEAD_FIELDS.servicesOfInterest} value={option.value} label={option.label} />
+                  ))}
 
                 </div>
               </fieldset>
 
               <!-- Desafíos Organizacionales -->
               <fieldset class="w-full space-y-4">
-                <legend class="font-label-md text-label-md text-on-surface block mb-4 uppercase">DESAFÍOS ORGANIZACIONALES (SELECCIONA TUS PRINCIPALES FOCOS)</legend>
+                <legend class="font-sans text-label-md text-contact-on-surface block mb-4 uppercase">DESAFÍOS ORGANIZACIONALES (SELECCIONA TUS PRINCIPALES FOCOS)</legend>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
                   
-                  <label class="flex items-center gap-3 p-4 border border-surface-variant rounded-xl cursor-pointer hover:bg-surface-container-low transition-colors">
-                    <input 
-                      name="desafios[]"
-                      value="Clima Laboral"
-                      class="rounded border-outline text-primary focus:ring-primary h-5 w-5 cursor-pointer" 
-                      type="checkbox"
-                    />
-                    <span class="font-body-md text-on-surface">Mejorar el clima laboral</span>
-                  </label>
-
-                  <label class="flex items-center gap-3 p-4 border border-surface-variant rounded-xl cursor-pointer hover:bg-surface-container-low transition-colors">
-                    <input 
-                      name="desafios[]"
-                      value="Cubrir Cargos"
-                      class="rounded border-outline text-primary focus:ring-primary h-5 w-5 cursor-pointer" 
-                      type="checkbox"
-                    />
-                    <span class="font-body-md text-on-surface">Dificultad para cubrir cargos</span>
-                  </label>
-
-                  <label class="flex items-center gap-3 p-4 border border-surface-variant rounded-xl cursor-pointer hover:bg-surface-container-low transition-colors">
-                    <input 
-                      name="desafios[]"
-                      value="Ausentismo"
-                      class="rounded border-outline text-primary focus:ring-primary h-5 w-5 cursor-pointer" 
-                      type="checkbox"
-                    />
-                    <span class="font-body-md text-on-surface">Reducir ausentismo laboral</span>
-                  </label>
-
-                  <label class="flex items-center gap-3 p-4 border border-surface-variant rounded-xl cursor-pointer hover:bg-surface-container-low transition-colors">
-                    <input 
-                      name="desafios[]"
-                      value="Capacitacion"
-                      class="rounded border-outline text-primary focus:ring-primary h-5 w-5 cursor-pointer" 
-                      type="checkbox"
-                    />
-                    <span class="font-body-md text-on-surface">Capacitar y alinear equipos</span>
-                  </label>
-
-                  <label class="md:col-span-2 flex items-center gap-3 p-4 border border-surface-variant rounded-xl cursor-pointer hover:bg-surface-container-low transition-colors">
-                    <input 
-                      name="desafios[]"
-                      value="Cumplimiento"
-                      class="rounded border-outline text-primary focus:ring-primary h-5 w-5 cursor-pointer" 
-                      type="checkbox"
-                    />
-                    <span class="font-body-md text-on-surface">Diagnóstico de riesgos y cumplimiento (Ley Karin, Istas21, etc.)</span>
-                  </label>
+                  {organizationalChallenges.map((option) => (
+                    <CheckboxCard name={B2B_LEAD_FIELDS.organizationalChallenges} value={option.value} label={option.label} extraClass={option.extraClass} />
+                  ))}
 
                 </div>
               </fieldset>
-            
+              </div>
             </div>
           </div>
           <!-- Section 3: Tamaño y Preferencia -->
           <div class="space-y-8 w-full">
             <div class="flex items-start gap-4 mb-8">
-              <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold shrink-0">3</div>
-              <div>
-                <h2 class="font-headline-md text-headline-md text-primary flex items-center justify-between gap-4"><div class="flex items-center gap-2"><span>Detalles de Contacto</span> <span class="text-sm text-on-surface-variant">(Opcional)</span></div> <button id="toggle-detalles" type="button" class="transform transition-transform cursor-pointer" aria-expanded="false"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></h2>
-                <p class="font-body-md text-body-md text-outline">Ayúdanos a personalizar nuestra respuesta.</p>
+              <div class="w-10 h-10 rounded-full bg-contact-primary flex items-center justify-center text-contact-on-primary font-bold shrink-0">3</div>
+              <div class="min-w-0 flex-1">
+                <h2 class="font-sans text-headline-md text-contact-primary flex flex-wrap items-center justify-between gap-4"><div class="flex flex-wrap items-center gap-2 min-w-0"><span>Detalles de Contacto</span> <span class="text-sm text-contact-on-surface-variant">(Opcional)</span></div> <button id="toggle-detalles" type="button" class="transform transition-transform cursor-pointer shrink-0" aria-expanded="false"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-contact-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></h2>
+                <p class="font-sans text-body-md text-contact-outline">Ayúdanos a personalizar nuestra respuesta.</p>
               </div>
             </div>
             
-            <div class="space-y-8 w-full max-h-0 overflow-hidden transition-all duration-300" id="content-detalles">
+            <div id="content-detalles" class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300">
+              <div class="overflow-hidden min-h-0 space-y-8 w-full">
               <!-- Tamaño de la Organización -->
               <fieldset class="w-full space-y-4">
-                <legend class="font-label-md text-label-md text-on-surface block mb-4 uppercase">TAMAÑO DE LA ORGANIZACIÓN</legend>
+                <legend class="font-sans text-label-md text-contact-on-surface block mb-4 uppercase">TAMAÑO DE LA ORGANIZACIÓN</legend>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-3 w-full">
                   
-                  <label class="flex items-center justify-center gap-2 p-3 border border-surface-variant rounded-lg cursor-pointer hover:bg-surface-container-low has-[:checked]:bg-secondary-container has-[:checked]:border-secondary transition-all">
-                    <input 
-                      class="hidden" 
-                      name="tamano_organizacion" 
-                      value="1-10"
-                      type="radio"
-                    />
-                    <span class="font-label-md">1-10</span>
-                  </label>
-
-                  <label class="flex items-center justify-center gap-2 p-3 border border-surface-variant rounded-lg cursor-pointer hover:bg-surface-container-low has-[:checked]:bg-secondary-container has-[:checked]:border-secondary transition-all">
-                    <input 
-                      class="hidden" 
-                      name="tamano_organizacion" 
-                      value="11-50"
-                      type="radio"
-                    />
-                    <span class="font-label-md">11-50</span>
-                  </label>
-
-                  <label class="flex items-center justify-center gap-2 p-3 border border-surface-variant rounded-lg cursor-pointer hover:bg-surface-container-low has-[:checked]:bg-secondary-container has-[:checked]:border-secondary transition-all">
-                    <input 
-                      class="hidden" 
-                      name="tamano_organizacion" 
-                      value="51-200"
-                      type="radio"
-                    />
-                    <span class="font-label-md">51-200</span>
-                  </label>
-
-                  <label class="flex items-center justify-center gap-2 p-3 border border-surface-variant rounded-lg cursor-pointer hover:bg-surface-container-low has-[:checked]:bg-secondary-container has-[:checked]:border-secondary transition-all">
-                    <input 
-                      class="hidden" 
-                      name="tamano_organizacion" 
-                      value="Más de 200"
-                      type="radio"
-                    />
-                    <span class="font-label-md">Más de 200</span>
-                  </label>
+                  {organizationSizes.map((option) => (
+                    <RadioCard name={B2B_LEAD_FIELDS.organizationSize} value={option.value} label={option.label} variant="size" />
+                  ))}
 
                 </div>
               </fieldset>
 
               <!-- Preferencia de Contacto -->
               <fieldset class="w-full space-y-4">
-                <legend class="font-label-md text-label-md text-on-surface block mb-4 uppercase">PREFERENCIA DE CONTACTO</legend>
+                <legend class="font-sans text-label-md text-contact-on-surface block mb-4 uppercase">PREFERENCIA DE CONTACTO</legend>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-3 w-full">
                   
-                  <label class="flex items-center justify-center gap-2 p-3 border border-surface-variant rounded-lg cursor-pointer hover:bg-surface-container-low has-[:checked]:bg-primary-container has-[:checked]:text-on-primary-container transition-all">
-                    <input 
-                      class="hidden" 
-                      name="preferencia_contacto" 
-                      value="Email"
-                      type="radio"
-                    />
-                    <span class="font-label-md">Email</span>
-                  </label>
-
-                  <label class="flex items-center justify-center gap-2 p-3 border border-surface-variant rounded-lg cursor-pointer hover:bg-surface-container-low has-[:checked]:bg-primary-container has-[:checked]:text-on-primary-container transition-all">
-                    <input 
-                      class="hidden" 
-                      name="preferencia_contacto" 
-                      value="Telefono"
-                      type="radio"
-                    />
-                    <span class="font-label-md">Teléfono</span>
-                  </label>
-
-                  <label class="flex items-center justify-center gap-2 p-3 border border-surface-variant rounded-lg cursor-pointer hover:bg-surface-container-low has-[:checked]:bg-primary-container has-[:checked]:text-on-primary-container transition-all">
-                    <input 
-                      class="hidden" 
-                      name="preferencia_contacto" 
-                      value="WhatsApp"
-                      type="radio"
-                    />
-                    <span class="font-label-md">WhatsApp</span>
-                  </label>
-
-                  <label class="flex items-center justify-center gap-2 p-3 border border-surface-variant rounded-lg cursor-pointer hover:bg-surface-container-low has-[:checked]:bg-primary-container has-[:checked]:text-on-primary-container transition-all">
-                    <input 
-                      class="hidden" 
-                      name="preferencia_contacto" 
-                      value="Reunion"
-                      type="radio"
-                    />
-                    <span class="font-label-md">Reunión</span>
-                  </label>
+                  {contactPreferences.map((option) => (
+                    <RadioCard name={B2B_LEAD_FIELDS.contactPreference} value={option.value} label={option.label} variant="preference" />
+                  ))}
 
                 </div>
               </fieldset>
+              </div>
 
 
             </div>
           </div>
 
           <!-- Bottom Actions with Overlapping Circle Design -->
-          <div class="pt-8 border-t border-surface-variant flex flex-col items-center gap-6 relative w-full overflow-hidden">
-            <p class="text-center font-body-md text-body-md text-outline max-w-lg relative z-10 leading-relaxed">
+          <div class="pt-8 border-t border-contact-surface-variant flex flex-col items-center gap-6 relative w-full overflow-hidden">
+            <p class="text-center font-sans text-body-md text-contact-outline max-w-lg relative z-10 leading-relaxed">
               Tus datos comerciales serán procesados con absoluta confidencialidad por el equipo corporativo de Matices Consultoría.
             </p>
             
             <div class="w-full flex justify-center relative z-10">
               <button 
-                class="bg-primary text-on-primary px-12 py-4 rounded-full font-label-md text-label-md font-bold uppercase tracking-widest hover:shadow-lg hover:shadow-primary/20 active:scale-95 transition-all w-full md:w-auto cursor-pointer" 
+                class="bg-contact-primary text-contact-on-primary px-12 py-4 rounded-full font-sans text-label-md font-bold uppercase tracking-widest hover:shadow-lg hover:shadow-primary/20 active:scale-95 transition-all w-full md:w-auto cursor-pointer" 
                 type="submit"
               >
                 Enviar Solicitud
@@ -366,7 +251,7 @@ import Footer from '../components/global/Footer.astro'
             </div>
             
             <a 
-              class="text-primary font-label-md text-label-md border-b border-primary hover:border-transparent transition-all relative z-10" 
+              class="text-contact-primary font-sans text-label-md border-b border-primary hover:border-transparent transition-all relative z-10" 
               href="mailto:contacto@maticesconsultora.cl"
             >
               contacto@maticesconsultora.cl
@@ -378,11 +263,11 @@ import Footer from '../components/global/Footer.astro'
     </section>
 
     <!-- Additional Ambient Decor -->
-    <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 opacity-20 pointer-events-none mb-xl">
+    <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 opacity-20 pointer-events-none mb-[80px]">
       <div class="flex -space-x-20">
-        <div class="w-64 h-64 rounded-full bg-secondary"></div>
-        <div class="w-64 h-64 rounded-full bg-[#f4a261]"></div>
-        <div class="w-64 h-64 rounded-full bg-tertiary"></div>
+        <div class="w-64 h-64 rounded-full bg-contact-secondary"></div>
+        <div class="w-64 h-64 rounded-full bg-contact-accent-orange"></div>
+        <div class="w-64 h-64 rounded-full bg-contact-tertiary"></div>
       </div>
     </div>
 
@@ -394,7 +279,7 @@ import Footer from '../components/global/Footer.astro'
       aria-modal="true" 
       aria-hidden="true"
     >
-      <div class="bg-surface-container-lowest rounded-[2rem] p-8 max-w-md w-full border border-surface-variant shadow-2xl transform scale-95 transition-all duration-300 flex flex-col items-center text-center relative overflow-hidden">
+      <div class="bg-contact-surface-container-lowest rounded-[2rem] p-8 max-w-md w-full border border-contact-surface-variant shadow-2xl transform scale-95 transition-all duration-300 flex flex-col items-center text-center relative overflow-hidden">
         
         <!-- 1. Estado de Advertencia (Campos Incompletos) -->
         <div id="modal-warning" class="hidden flex flex-col items-center w-full">
@@ -403,8 +288,8 @@ import Footer from '../components/global/Footer.astro'
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
             </svg>
           </div>
-          <h3 class="font-headline-md text-headline-md text-primary mb-3">Campos Incompletos</h3>
-          <p class="font-body-md text-body-md text-outline mb-6 leading-relaxed">
+          <h3 class="font-sans text-headline-md text-contact-primary mb-3">Campos Incompletos</h3>
+          <p class="font-sans text-body-md text-contact-outline mb-6 leading-relaxed">
             No podemos procesar tu solicitud porque faltan rellenar algunos campos obligatorios marcados con asterisco rojo.
           </p>
         </div>
@@ -416,8 +301,8 @@ import Footer from '../components/global/Footer.astro'
               <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
             </svg>
           </div>
-          <h3 class="font-headline-md text-headline-md text-primary mb-3">¡Envío Exitoso!</h3>
-          <p class="font-body-md text-body-md text-outline mb-6 leading-relaxed">
+          <h3 class="font-sans text-headline-md text-contact-primary mb-3">¡Envío Exitoso!</h3>
+          <p class="font-sans text-body-md text-contact-outline mb-6 leading-relaxed">
             Tu mensaje ha sido enviado correctamente. Nos pondremos en contacto contigo a la brevedad para abordar los desafíos de tu organización.
           </p>
         </div>
@@ -429,8 +314,8 @@ import Footer from '../components/global/Footer.astro'
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
           </div>
-          <h3 class="font-headline-md text-headline-md text-primary mb-3">Error de Conexión</h3>
-          <p class="font-body-md text-body-md text-outline mb-6 leading-relaxed">
+          <h3 class="font-sans text-headline-md text-contact-primary mb-3">Error de Conexión</h3>
+          <p class="font-sans text-body-md text-contact-outline mb-6 leading-relaxed">
             Hubo un problema de comunicación al transmitir tu solicitud. Por favor, comprueba tu conexión a internet o inténtalo más tarde.
           </p>
         </div>
@@ -438,7 +323,7 @@ import Footer from '../components/global/Footer.astro'
         <!-- Botón de Cierre Común -->
         <button 
           id="modal-close-btn" 
-          class="bg-primary text-on-primary px-8 py-3 rounded-full font-label-md text-label-md font-bold uppercase tracking-wider hover:shadow-lg hover:shadow-primary/20 active:scale-95 transition-all w-full cursor-pointer focus:outline-none focus:ring-4 focus:ring-primary/20"
+          class="bg-contact-primary text-contact-on-primary px-8 py-3 rounded-full font-sans text-label-md font-bold uppercase tracking-wider hover:shadow-lg hover:shadow-primary/20 active:scale-95 transition-all w-full cursor-pointer focus:outline-none focus:ring-4 focus:ring-contact-primary/20"
         >
           Entendido
         </button>
@@ -449,239 +334,12 @@ import Footer from '../components/global/Footer.astro'
   <Footer />
 </Layout>
 
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
-
-  /* Brand Typography mapped to Plus Jakarta Sans and Manrope */
-  .font-display-lg {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-weight: 700;
-  }
-  .text-display-lg {
-    font-size: 48px;
-    line-height: 56px;
-    letter-spacing: -0.02em;
-  }
-  @media (min-width: 768px) {
-    .text-display-lg {
-      font-size: 64px;
-      line-height: 72px;
-    }
-  }
-
-  .font-body-lg {
-    font-family: 'Manrope', sans-serif;
-    font-weight: 400;
-  }
-  .text-body-lg {
-    font-size: 18px;
-    line-height: 28px;
-  }
-
-  .font-label-sm {
-    font-family: 'Manrope', sans-serif;
-    font-weight: 700;
-  }
-  .text-label-sm {
-    font-size: 12px;
-    line-height: 16px;
-  }
-
-  .font-headline-md {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-weight: 600;
-  }
-  .text-headline-md {
-    font-size: 24px;
-    line-height: 32px;
-  }
-
-  .font-body-md {
-    font-family: 'Manrope', sans-serif;
-    font-weight: 400;
-  }
-  .text-body-md {
-    font-size: 16px;
-    line-height: 24px;
-  }
-
-  .font-label-md {
-    font-family: 'Manrope', sans-serif;
-    font-weight: 600;
-  }
-  .text-label-md {
-    font-size: 14px;
-    line-height: 20px;
-    letter-spacing: 0.01em;
-  }
-
-  /* Colors from code.html */
-  .bg-background {
-    background-color: #f8f9fa;
-  }
-  .text-on-background {
-    color: #191c1d;
-  }
-  .text-primary {
-    color: #003c56;
-  }
-  .text-error {
-    color: #ba1a1a;
-  }
-  .bg-primary {
-    background-color: #003c56;
-  }
-  .text-on-primary {
-    color: #ffffff;
-  }
-  .text-secondary {
-    color: #4e6700;
-  }
-  .bg-secondary-container {
-    background-color: #c6f34c;
-  }
-  .text-on-secondary-fixed {
-    color: #151f00;
-  }
-  .text-on-surface-variant {
-    color: #40484e;
-  }
-  .bg-surface-container-lowest {
-    background-color: #ffffff;
-  }
-  .border-surface-variant {
-    border-color: #e1e3e4;
-  }
-  .bg-surface-container-low {
-    background-color: #f3f4f5;
-  }
-  .text-outline {
-    color: #71787e;
-  }
-  .text-on-surface {
-    color: #191c1d;
-  }
-  .border-outline {
-    border-color: #71787e;
-  }
-  .bg-secondary {
-    background-color: #4e6700;
-  }
-  .bg-tertiary {
-    background-color: #2e345e;
-  }
-  .bg-surface-tint {
-    background-color: #206488;
-  }
-  .bg-secondary-fixed {
-    background-color: #c6f34c;
-  }
-  .bg-primary-container {
-    background-color: #005477;
-  }
-  .text-on-primary-container {
-    color: #8bc7ef;
-  }
-  .border-secondary {
-    border-color: #4e6700;
-  }
-
-  /* Spacing from code.html */
-  .pt-xl {
-    padding-top: 80px;
-  }
-  .pb-lg {
-    padding-bottom: 48px;
-  }
-  .mb-xl {
-    margin-bottom: 80px;
-  }
-  .px-margin-mobile {
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-  .gap-gutter {
-    gap: 24px;
-  }
-
-  /* Background ambient blobs */
-  .matiz-blob {
-    position: absolute;
-    width: 400px;
-    height: 400px;
-    filter: blur(80px);
-    opacity: 0.15;
-    z-index: -1;
-    border-radius: 9999px;
-    pointer-events: none;
-  }
-  .form-shadow {
-    box-shadow: 0 10px 40px -10px rgba(0, 60, 86, 0.15);
-  }
-
-  /* Custom Checkbox styles styling from Tailwind / code.html */
-  input[type="checkbox"] {
-    border-color: #71787e;
-    color: #003c56;
-  }
-  input[type="checkbox"]:focus {
-    --tw-ring-color: #003c56;
-  }
-
-  /* Custom Input and Textarea focus styles from code.html */
-  input:focus, textarea:focus {
-    outline: none !important;
-    border-color: #003c56 !important;
-    box-shadow: 0 0 0 4px rgba(0, 60, 86, 0.1) !important;
-  }
-
-  /* Reactive validation error borders */
-  .border-error {
-    border-color: #ba1a1a !important;
-  }
-  .border-error:focus {
-    box-shadow: 0 0 0 4px rgba(186, 26, 26, 0.1) !important;
-  }
-
-  /* Fallback for radio buttons active state */
-  .active {
-    background-color: #c6f34c !important;
-    border-color: #4e6700 !important;
-  }
-  .active-primary {
-    background-color: #005477 !important;
-    color: #ffffff !important;
-    border-color: #005477 !important;
-  }
-</style>
 
 <script>
-  // Simple micro-interaction for radio buttons to highlight parent container in older browsers
-  document.querySelectorAll('input[type="radio"]').forEach(radio => {
-    // Initial check
-    if ((radio as HTMLInputElement).checked) {
-      updateRadioState(radio as HTMLInputElement)
-    }
-    
-    radio.addEventListener('change', (e) => {
-      updateRadioState(e.target as HTMLInputElement)
-    })
-  })
+  import { isHoneypotClean, getMissingRequired } from '../lib/leadPayload';
+  import { formatPhoneNumber, isPhoneNumberFormatValid } from '../lib/formValidation';
 
-  function updateRadioState(activeRadio: HTMLInputElement) {
-    const group = activeRadio.name
-    document.querySelectorAll(`input[name="${group}"]`).forEach(r => {
-      r.parentElement?.classList.remove('active', 'active-primary')
-    })
-    
-    if (activeRadio.checked) {
-      if (group === 'preferencia_contacto') {
-        activeRadio.parentElement?.classList.add('active-primary')
-      } else {
-        activeRadio.parentElement?.classList.add('active')
-      }
-    }
-  }
+  // Radio selection styling is handled via CSS :has(); no JS required.
 
   // Modal DOM Elements and Controls
   const modal = document.getElementById('feedback-modal')
@@ -690,8 +348,29 @@ import Footer from '../components/global/Footer.astro'
   const error = document.getElementById('modal-error')
   const closeBtn = document.getElementById('modal-close-btn')
 
+  let lastFocused: Element | null = null;
+
+  function trapFocus(e: KeyboardEvent) {
+    if (e.key !== 'Tab' || !modal) return;
+    const focusable = modal.querySelectorAll<HTMLElement>(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    if (focusable.length === 0) return;
+    const first = focusable[0]!;
+    const last = focusable[focusable.length - 1]!;
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  }
+
   function openModal(state: 'warning' | 'success' | 'error') {
     if (!modal || !warning || !success || !error) return
+
+    lastFocused = document.activeElement;
 
     warning.classList.add('hidden')
     success.classList.add('hidden')
@@ -714,6 +393,8 @@ import Footer from '../components/global/Footer.astro'
       card.classList.remove('scale-95')
       card.classList.add('scale-100')
     }
+
+    if (closeBtn) closeBtn.focus()
   }
 
   function closeModal() {
@@ -727,6 +408,10 @@ import Footer from '../components/global/Footer.astro'
       card.classList.remove('scale-100')
       card.classList.add('scale-95')
     }
+
+    if (lastFocused && 'focus' in lastFocused) {
+      (lastFocused as HTMLElement).focus()
+    }
   }
 
   if (closeBtn) {
@@ -739,43 +424,21 @@ import Footer from '../components/global/Footer.astro'
         closeModal()
       }
     })
+
+    modal.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        closeModal()
+        return
+      }
+      trapFocus(e)
+    })
   }
 
   // Teléfono Auto-Formatter
   const telInputHandler = document.getElementById('telefono') as HTMLInputElement;
   if (telInputHandler) {
     telInputHandler.addEventListener('input', (e) => {
-      let val = (e.target as HTMLInputElement).value;
-      let digits = val.replace(/\D/g, '');
-      const hasPlus = val.trim().startsWith('+');
-      
-      let formatted = '';
-      if (digits.length > 0) {
-        if (hasPlus) formatted += '+';
-        
-        if (hasPlus && digits.startsWith('56')) {
-           const code = digits.substring(0, 2);
-           const type = digits.substring(2, 3);
-           const part1 = digits.substring(3, 7);
-           const part2 = digits.substring(7, 11);
-           
-           formatted += code;
-           if (type) formatted += ' ' + type;
-           if (part1) formatted += ' ' + part1;
-           if (part2) formatted += ' ' + part2;
-        } else {
-           const part1 = digits.substring(0, 3);
-           const part2 = digits.substring(3, 7);
-           const part3 = digits.substring(7, 11);
-           const part4 = digits.substring(11, 15);
-           
-           formatted += part1;
-           if (part2) formatted += ' ' + part2;
-           if (part3) formatted += ' ' + part3;
-           if (part4) formatted += ' ' + part4;
-        }
-      }
-      (e.target as HTMLInputElement).value = formatted;
+      (e.target as HTMLInputElement).value = formatPhoneNumber((e.target as HTMLInputElement).value);
     });
   }
 
@@ -797,9 +460,7 @@ import Footer from '../components/global/Footer.astro'
 
   function validateField(field: HTMLInputElement | HTMLTextAreaElement) {
     if (field.id === 'telefono') {
-      const val = field.value.replace(/\s+/g, '');
-      const phoneRegex = /^\+?\d{8,15}$/;
-      if (!phoneRegex.test(val) && field.value !== '') {
+      if (!isPhoneNumberFormatValid(field.value) && field.value !== '') {
         field.setCustomValidity('Número de teléfono inválido.');
       } else {
         field.setCustomValidity('');
@@ -807,11 +468,11 @@ import Footer from '../components/global/Footer.astro'
     }
 
     if (!field.checkValidity()) {
-      field.classList.add('border-error')
-      field.classList.remove('border-surface-variant')
+      field.classList.add('border-contact-error')
+      field.classList.remove('border-contact-surface-variant')
     } else {
-      field.classList.remove('border-error')
-      field.classList.add('border-surface-variant')
+      field.classList.remove('border-contact-error')
+      field.classList.add('border-contact-surface-variant')
     }
   }
 
@@ -833,8 +494,14 @@ import Footer from '../components/global/Footer.astro'
         return
       }
 
+      // Validación de contrato: honeypot limpio y campos requeridos presentes
+      const formData = new FormData(form)
+      if (!isHoneypotClean(formData) || getMissingRequired(formData).length > 0) {
+        openModal('warning')
+        return
+      }
+
       try {
-        const formData = new FormData(form)
         const endpoint = form.action || 'https://api.web3forms.com/submit'
         
         const response = await fetch(endpoint, {
@@ -849,12 +516,8 @@ import Footer from '../components/global/Footer.astro'
           form.reset()
           // Limpiar clases de estado de validación
           requiredInputs.forEach(input => {
-            input.classList.remove('touched', 'border-error')
-            input.classList.add('border-surface-variant')
-          })
-          // Remover clases visuales activas de los radio buttons
-          document.querySelectorAll('input[type="radio"]').forEach(r => {
-            r.parentElement?.classList.remove('active', 'active-primary')
+            input.classList.remove('touched', 'border-contact-error')
+            input.classList.add('border-contact-surface-variant')
           })
           openModal('success')
         } else {
@@ -878,12 +541,12 @@ function setupCollapsible(toggleId: string, contentId: string) {
     const expanded = btn.getAttribute('aria-expanded') === 'true';
     btn.setAttribute('aria-expanded', String(!expanded));
     if (expanded) {
-      content.classList.add('max-h-0');
-      content.classList.remove('max-h-[1000px]');
+      content.classList.add('grid-rows-[0fr]');
+      content.classList.remove('grid-rows-[1fr]');
       if (arrow) arrow.classList.remove('rotate-180');
     } else {
-      content.classList.remove('max-h-0');
-      content.classList.add('max-h-[1000px]');
+      content.classList.remove('grid-rows-[0fr]');
+      content.classList.add('grid-rows-[1fr]');
       if (arrow) arrow.classList.add('rotate-180');
     }
   });

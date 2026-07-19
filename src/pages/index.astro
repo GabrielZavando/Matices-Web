@@ -5,6 +5,7 @@ import Footer from '../components/global/Footer.astro';
 import { Image } from 'astro:assets';
 import CompanyLogos from '../components/global/CompanyLogos.astro';
 import EvidenceGallery from '../components/ui/EvidenceGallery.astro';
+import Reveal from '../components/ui/Reveal.astro';
 
 import heroBusiness from '../assets/hero-business.webp';
 import collaborativeDiscussion from '../assets/collaborative-discussion.webp';
@@ -40,30 +41,76 @@ const team = [
     image: lorenzo
   }
 ]
+
+const services = [
+  {
+    iconPath: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z',
+    title: 'Salud Laboral',
+    description: 'Implementación de programas integrales para el bienestar psicofísico y prevención de riesgos psicosociales en tu organización.',
+    href: '/psicologia',
+  },
+  {
+    iconPath: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z',
+    title: 'Reclutamiento y Selección',
+    description: 'Búsqueda estratégica y filtrado riguroso de perfiles idóneos para mandos medios y ejecutivos de alto rendimiento.',
+    href: '/talento',
+  },
+  {
+    iconPath: 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253',
+    title: 'Capacitación y Formación',
+    description: 'Talleres dinámicos y programas adaptados para potenciar habilidades blandas, liderazgo integrativo y competencias técnicas.',
+    href: '/formacion',
+  },
+  {
+    iconPath: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6',
+    title: 'Gestión del Talento',
+    description: 'Evaluaciones de desempeño y desarrollo de planes de carrera enfocados en fidelizar el talento interno y mejorar la productividad.',
+    href: '/talento',
+  },
+  {
+    iconPath: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z',
+    title: 'Clima Organizacional',
+    description: 'Diagnósticos profundos del ambiente laboral y diseño de intervenciones a la medida para elevar la sinergia colectiva.',
+    href: '/talento',
+  },
+];
+
+const areas = [
+  'Reclutamiento y Selección',
+  'Evaluación Psicológica',
+  'Capacitación y Formación',
+  'Gestión del Talento',
+  'Clima Organizacional',
+  'Salud Laboral',
+  'Gestión del Cambio Organizacional',
+];
+
 ---
+
 
 <Layout title="Reclutamiento y Selección Estratégica">
   <Header activePath="/" />
    <main class="w-full">
     <!-- Hero Section: Mobile-First, Asymmetrical Curves & Overlapping Elements -->
     <section class="relative w-full overflow-hidden pt-12 pb-24 md:pt-20 md:pb-32 bg-radial from-verde-lima/5 to-transparent">
+      <div class="absolute -top-10 -right-10 h-48 w-48 rounded-full bg-verde-lima/10 blur-3xl -z-10 pointer-events-none animate-float"></div>
       <div class="max-w-[1280px] mx-auto px-4 md:px-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         
         <!-- Hero Text content: Primary on Mobile, pushes graphics bottom -->
         <div class="lg:col-span-7 space-y-6 md:space-y-8 z-10 text-left">
-          <span class="inline-block px-4 py-1.5 rounded-full bg-verde-lima/10 text-verde-bosque font-sans text-xs font-semibold tracking-wider uppercase">
+          <Reveal as="span" variant="fade-up" delay={0} class="inline-block px-4 py-1.5 rounded-full bg-verde-lima/10 text-verde-bosque font-sans text-xs font-semibold tracking-wider uppercase">
             Talento &amp; Evolución B2B
-          </span>
-          <h1 class="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-verde-bosque leading-tight">
+          </Reveal>
+          <Reveal as="h1" variant="fade-up" delay={80} class="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-verde-bosque leading-tight">
             Reclutamiento y <span class="text-verde-lima font-normal italic">Selección Estratégica</span>
-          </h1>
-          <p class="font-sans text-lg text-verde-bosque/80 max-w-xl leading-relaxed">
+          </Reveal>
+          <Reveal as="p" variant="fade-up" delay={160} class="font-sans text-lg text-verde-bosque/80 max-w-xl leading-relaxed">
             Soluciones integrales en gestión de personas. Encontramos el equilibrio perfecto entre el talento y la precisión técnica de tu organización, identificando los perfiles clave para liderar el cambio.
-          </p>
-          <p class="font-sans text-lg text-verde-bosque/80 max-w-xl leading-relaxed">
+          </Reveal>
+          <Reveal as="p" variant="fade-up" delay={220} class="font-sans text-lg text-verde-bosque/80 max-w-xl leading-relaxed">
             Asegura un proceso de contratación más eficiente y justo, con pruebas psicológicas precisas para la evaluación y análisis de candidatos.
-          </p>
-          <div class="flex flex-col sm:flex-row gap-4 pt-2 font-sans">
+          </Reveal>
+          <Reveal as="div" variant="fade-up" delay={240} class="flex flex-col sm:flex-row gap-4 pt-2 font-sans">
             <a 
               href="/contacto" 
               class="bg-verde-bosque text-white font-semibold py-4 px-8 rounded-xl hover:opacity-90 active:scale-95 transition-all flex items-center justify-center gap-2 shadow-sm"
@@ -76,15 +123,15 @@ const team = [
             <a 
               target="_blank"
               href="https://scouthem.com/es/pagina-de-inicio/" 
-              class="border border-verde-bosque/20 text-verde-bosque text-center font-semibold py-4 px-8 rounded-xl hover:bg-verde-bosque/5 transition-all"
+              class="link-underline border border-verde-bosque/20 text-verde-bosque text-center font-semibold py-4 px-8 rounded-xl hover:bg-verde-bosque/5 transition-all"
             >
               Conoce nuestra plataforma SCOUTHEM
             </a>
-          </div>
+          </Reveal>
         </div>
 
         <!-- Hero Graphic Content: Collapses gracefully to bottom on Mobile -->
-        <div class="lg:col-span-5 relative w-full flex justify-center">
+        <Reveal as="div" variant="scale-in" delay={120} class="lg:col-span-5 relative w-full flex justify-center">
           <div class="w-full max-w-md aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl relative border-4 border-white/40">
             <Image 
               src={heroBusiness} 
@@ -98,7 +145,7 @@ const team = [
             />
           </div>
           <!-- Glassmorphism Floating Badge -->
-          <div class="absolute -bottom-6 -left-6 bg-white/70 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-verde-bosque/10 max-w-[200px] hidden sm:block">
+          <Reveal as="div" variant="fade-up" delay={320} class="absolute -bottom-6 -left-6 bg-white/70 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-verde-bosque/10 max-w-[200px] hidden sm:block animate-float">
             <div class="flex items-center gap-3 mb-2">
               <div class="w-10 h-10 rounded-full bg-azul-celeste/10 flex items-center justify-center text-azul-celeste">
                 <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -110,8 +157,8 @@ const team = [
             <p class="text-xs text-verde-bosque/70 leading-tight">
               Precisión en selección de mandos medios y cargos directivos.
             </p>
-          </div>
-        </div>
+          </Reveal>
+        </Reveal>
 
       </div>
     </section>
@@ -119,109 +166,34 @@ const team = [
     <!-- Section: Nuestros Servicios Bento Grid -->
     <section id="servicios" class="w-full py-20 bg-white/40 border-y border-verde-bosque/5">
       <div class="max-w-[1280px] mx-auto px-4 md:px-16 space-y-16">
-        <div class="text-center space-y-4 max-w-2xl mx-auto">
+        <Reveal as="div" variant="fade-up" class="text-center space-y-4 max-w-2xl mx-auto">
           <h2 class="font-heading text-3xl md:text-4xl font-bold text-verde-bosque">
             Nuestros Servicios
           </h2>
           <p class="font-sans text-verde-bosque/75 text-base md:text-lg">
             Soluciones estratégicas para el desarrollo organizacional
           </p>
-        </div>
+        </Reveal>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          
-          <!-- Card 1: Salud Laboral -->
-          <article class="bg-crema-calido p-8 rounded-[2rem] flex flex-col justify-between hover:shadow-lg transition-shadow border border-verde-bosque/5 group min-h-[280px]">
-            <div class="space-y-4">
-              <div class="w-12 h-12 rounded-xl bg-verde-lima/10 flex items-center justify-center text-verde-lima group-hover:scale-105 transition-transform duration-300">
-                <svg class="h-6 w-6 text-verde-bosque" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                </svg>
+          {services.map((service, i) => (
+            <Reveal as="article" variant="fade-up" delay={i * 80} class="bg-crema-calido p-8 rounded-[2rem] flex flex-col justify-between card-lift border border-verde-bosque/5 group min-h-[280px]">
+              <div class="space-y-4">
+                <div class="w-12 h-12 rounded-xl bg-verde-lima/10 flex items-center justify-center text-verde-lima group-hover:scale-105 transition-transform duration-300">
+                  <svg class="h-6 w-6 text-verde-bosque" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d={service.iconPath} />
+                  </svg>
+                </div>
+                <h3 class="font-heading text-2xl font-bold text-verde-bosque">{service.title}</h3>
+                <p class="font-sans text-sm text-verde-bosque/75">
+                  {service.description}
+                </p>
               </div>
-              <h3 class="font-heading text-2xl font-bold text-verde-bosque">Salud Laboral</h3>
-              <p class="font-sans text-sm text-verde-bosque/75">
-                Implementación de programas integrales para el bienestar psicofísico y prevención de riesgos psicosociales en tu organización.
-              </p>
-            </div>
-            <a href="/psicologia" class="font-sans text-xs font-semibold text-verde-bosque uppercase tracking-wider mt-6 inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-              Ver detalles &rarr;
-            </a>
-          </article>
-
-          <!-- Card 2: Reclutamiento y Selección -->
-          <article class="bg-crema-calido p-8 rounded-[2rem] flex flex-col justify-between hover:shadow-lg transition-shadow border border-verde-bosque/5 group min-h-[280px]">
-            <div class="space-y-4">
-              <div class="w-12 h-12 rounded-xl bg-verde-lima/10 flex items-center justify-center text-verde-lima group-hover:scale-105 transition-transform duration-300">
-                <svg class="h-6 w-6 text-verde-bosque" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-              </div>
-              <h3 class="font-heading text-2xl font-bold text-verde-bosque">Reclutamiento y Selección</h3>
-              <p class="font-sans text-sm text-verde-bosque/75">
-                Búsqueda estratégica y filtrado riguroso de perfiles idóneos para mandos medios y ejecutivos de alto rendimiento.
-              </p>
-            </div>
-            <a href="/talento" class="font-sans text-xs font-semibold text-verde-bosque uppercase tracking-wider mt-6 inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-              Ver detalles &rarr;
-            </a>
-          </article>
-
-          <!-- Card 3: Evaluación Psicológica -->
-
-          <!-- Card 4: Capacitación y Formación -->
-          <article class="bg-crema-calido p-8 rounded-[2rem] flex flex-col justify-between hover:shadow-lg transition-shadow border border-verde-bosque/5 group min-h-[280px]">
-            <div class="space-y-4">
-              <div class="w-12 h-12 rounded-xl bg-verde-lima/10 flex items-center justify-center text-verde-lima group-hover:scale-105 transition-transform duration-300">
-                <svg class="h-6 w-6 text-verde-bosque" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                </svg>
-              </div>
-              <h3 class="font-heading text-2xl font-bold text-verde-bosque">Capacitación y Formación</h3>
-              <p class="font-sans text-sm text-verde-bosque/75">
-                Talleres dinámicos y programas adaptados para potenciar habilidades blandas, liderazgo integrativo y competencias técnicas.
-              </p>
-            </div>
-            <a href="/formacion" class="font-sans text-xs font-semibold text-verde-bosque uppercase tracking-wider mt-6 inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-              Ver detalles &rarr;
-            </a>
-          </article>
-
-          <!-- Card 5: Gestión del Talento -->
-          <article class="bg-crema-calido p-8 rounded-[2rem] flex flex-col justify-between hover:shadow-lg transition-shadow border border-verde-bosque/5 group min-h-[280px]">
-            <div class="space-y-4">
-              <div class="w-12 h-12 rounded-xl bg-verde-lima/10 flex items-center justify-center text-verde-lima group-hover:scale-105 transition-transform duration-300">
-                <svg class="h-6 w-6 text-verde-bosque" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                </svg>
-              </div>
-              <h3 class="font-heading text-2xl font-bold text-verde-bosque">Gestión del Talento</h3>
-              <p class="font-sans text-sm text-verde-bosque/75">
-                Evaluaciones de desempeño y desarrollo de planes de carrera enfocados en fidelizar el talento interno y mejorar la productividad.
-              </p>
-            </div>
-            <a href="/talento" class="font-sans text-xs font-semibold text-verde-bosque uppercase tracking-wider mt-6 inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-              Ver detalles &rarr;
-            </a>
-          </article>
-
-          <!-- Card 6: Clima Organizacional -->
-          <article class="bg-crema-calido p-8 rounded-[2rem] flex flex-col justify-between hover:shadow-lg transition-shadow border border-verde-bosque/5 group min-h-[280px]">
-            <div class="space-y-4">
-              <div class="w-12 h-12 rounded-xl bg-verde-lima/10 flex items-center justify-center text-verde-lima group-hover:scale-105 transition-transform duration-300">
-                <svg class="h-6 w-6 text-verde-bosque" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-              </div>
-              <h3 class="font-heading text-2xl font-bold text-verde-bosque">Clima Organizacional</h3>
-              <p class="font-sans text-sm text-verde-bosque/75">
-                Diagnósticos profundos del ambiente laboral y diseño de intervenciones a la medida para elevar la sinergia colectiva.
-              </p>
-            </div>
-            <a href="/talento" class="font-sans text-xs font-semibold text-verde-bosque uppercase tracking-wider mt-6 inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-              Ver detalles &rarr;
-            </a>
-          </article>
-
+              <a href={service.href} class="font-sans text-xs font-semibold text-verde-bosque uppercase tracking-wider mt-6 inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                Ver detalles &rarr;
+              </a>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>
@@ -257,12 +229,14 @@ const team = [
         
         <!-- Col 1: Texto Informativo (Top on mobile) -->
         <div class="space-y-6 order-2 lg:order-1 text-left">
-          <h2 class="font-heading text-3xl md:text-4xl font-bold text-verde-bosque">
-            Especialistas en Potenciar Equipos
-          </h2>
-          <p class="font-sans text-base md:text-lg text-verde-bosque/80 leading-relaxed">
-            Nuestro equipo de consultores multidisciplinarios integra técnicas de vanguardia en psicología, salud laboral y administración para estructurar equipos sólidos y resilientes. Nos enfocamos en impulsar el crecimiento tanto individual como organizacional bajo una perspectiva moderna y de bienestar.
-          </p>
+          <Reveal as="div" variant="fade-up" class="space-y-6">
+            <h2 class="font-heading text-3xl md:text-4xl font-bold text-verde-bosque">
+              Especialistas en Potenciar Equipos
+            </h2>
+            <p class="font-sans text-base md:text-lg text-verde-bosque/80 leading-relaxed">
+              Nuestro equipo de consultores multidisciplinarios integra técnicas de vanguardia en psicología, salud laboral y administración para estructurar equipos sólidos y resilientes. Nos enfocamos en impulsar el crecimiento tanto individual como organizacional bajo una perspectiva moderna y bienestar.
+            </p>
+          </Reveal>
           
           <div class="relative w-full max-w-md aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl border-4 border-white/60 hidden lg:block mt-8">
             <Image 
@@ -280,86 +254,22 @@ const team = [
 
         <!-- Col 2: Listado de Especialidades (Collapses under on mobile) -->
         <div class="order-1 lg:order-2 space-y-8 bg-white p-8 md:p-12 rounded-[2.5rem] shadow-xl border border-verde-bosque/5">
-          <h3 class="font-heading text-2xl font-bold text-verde-bosque">Áreas de Especialización</h3>
+          <Reveal as="div" variant="fade-up">
+            <h3 class="font-heading text-2xl font-bold text-verde-bosque">Áreas de Especialización</h3>
+          </Reveal>
           <ul class="space-y-4">
-            
-            <li class="flex items-start gap-4">
-              <span class="w-6 h-6 rounded-full bg-verde-lima/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                <svg class="h-4 w-4 text-verde-bosque" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                </svg>
-              </span>
-              <div>
-                <h4 class="font-sans font-bold text-verde-bosque text-base">Reclutamiento y Selección</h4>
-              </div>
-            </li>
-
-            <li class="flex items-start gap-4">
-              <span class="w-6 h-6 rounded-full bg-verde-lima/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                <svg class="h-4 w-4 text-verde-bosque" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                </svg>
-              </span>
-              <div>
-                <h4 class="font-sans font-bold text-verde-bosque text-base">Evaluación Psicológica</h4>
-              </div>
-            </li>
-
-            <li class="flex items-start gap-4">
-              <span class="w-6 h-6 rounded-full bg-verde-lima/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                <svg class="h-4 w-4 text-verde-bosque" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                </svg>
-              </span>
-              <div>
-                <h4 class="font-sans font-bold text-verde-bosque text-base">Capacitación y Formación</h4>
-              </div>
-            </li>
-
-            <li class="flex items-start gap-4">
-              <span class="w-6 h-6 rounded-full bg-verde-lima/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                <svg class="h-4 w-4 text-verde-bosque" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                </svg>
-              </span>
-              <div>
-                <h4 class="font-sans font-bold text-verde-bosque text-base">Gestión del Talento</h4>
-              </div>
-            </li>
-
-            <li class="flex items-start gap-4">
-              <span class="w-6 h-6 rounded-full bg-verde-lima/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                <svg class="h-4 w-4 text-verde-bosque" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                </svg>
-              </span>
-              <div>
-                <h4 class="font-sans font-bold text-verde-bosque text-base">Clima Organizacional</h4>
-              </div>
-            </li>
-
-            <li class="flex items-start gap-4">
-              <span class="w-6 h-6 rounded-full bg-verde-lima/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                <svg class="h-4 w-4 text-verde-bosque" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                </svg>
-              </span>
-              <div>
-                <h4 class="font-sans font-bold text-verde-bosque text-base">Salud Laboral</h4>
-              </div>
-            </li>
-
-            <li class="flex items-start gap-4">
-              <span class="w-6 h-6 rounded-full bg-verde-lima/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                <svg class="h-4 w-4 text-verde-bosque" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                </svg>
-              </span>
-              <div>
-                <h4 class="font-sans font-bold text-verde-bosque text-base">Gestión del Cambio</h4>
-              </div>
-            </li>
-
+            {areas.map((area, i) => (
+              <Reveal as="li" variant="fade-up" delay={i * 80} class="flex items-start gap-4">
+                <span class="w-6 h-6 rounded-full bg-verde-lima/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg class="h-4 w-4 text-verde-bosque" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                </span>
+                <div>
+                  <h4 class="font-sans font-bold text-verde-bosque text-base">{area}</h4>
+                </div>
+              </Reveal>
+            ))}
           </ul>
         </div>
 
@@ -369,14 +279,16 @@ const team = [
     <!-- Section: Nuestro Equipo -->
     <section id="equipo" class="w-full py-20 bg-white">
       <div class="max-w-[1280px] mx-auto px-4 md:px-16">
-        <h2 class="font-heading text-3xl md:text-4xl font-bold
-          text-verde-bosque text-center mb-16">
-          Nuestro Equipo
-        </h2>
+        <Reveal as="div" variant="fade-up" class="text-center">
+          <h2 class="font-heading text-3xl md:text-4xl font-bold
+            text-verde-bosque text-center mb-16">
+            Nuestro Equipo
+          </h2>
+        </Reveal>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {
-            team.map((member) => (
-              <article class="bg-crema-calido p-5 rounded-[2rem] flex
+            team.map((member, i) => (
+              <Reveal as="article" variant="fade-up" delay={i * 80} class="bg-crema-calido p-5 rounded-[2rem] flex
                 flex-col border border-verde-bosque/5 hover:shadow-lg
                 hover:-translate-y-1 transition-all duration-300 group">
                 <div class="w-full aspect-[4/3] rounded-2xl overflow-hidden
@@ -405,7 +317,7 @@ const team = [
                   leading-relaxed">
                   {member.description}
                 </p>
-              </article>
+              </Reveal>
             ))
           }
         </div>

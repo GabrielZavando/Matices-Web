@@ -48,7 +48,7 @@ const linkedinUrl =
       <ul class="flex flex-col gap-2.5">
         {quickLinks.map(link => (
           <li>
-            <a href={link.href} class="font-sans text-sm hover:text-white transition-colors text-crema-calido/80">
+            <a href={link.href} class="link-underline font-sans text-sm hover:text-white transition-colors text-crema-calido/80">
               {link.name}
             </a>
           </li>
@@ -164,7 +164,7 @@ const linkedinUrl =
       </p>
       <a 
         href="/contacto" 
-        class="bg-verde-lima text-white font-sans text-center font-semibold py-2.5 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm block"
+        class="link-underline w-full bg-verde-lima text-white font-sans text-center font-semibold py-2.5 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm"
       >
         Iniciar Diagnóstico
       </a>
@@ -179,7 +179,7 @@ const linkedinUrl =
     </p>
     <div class="flex flex-wrap justify-center gap-6">
       {legalLinks.map(link => (
-        <a href={link.href} class="font-sans text-xs hover:text-white transition-colors text-crema-calido/60">
+        <a href={link.href} class="link-underline font-sans text-xs hover:text-white transition-colors text-crema-calido/60">
           {link.name}
         </a>
       ))}
@@ -189,7 +189,7 @@ const linkedinUrl =
   <!-- Bottom Thin Credit Bar -->
   <div class="w-full bg-[#5A7FA3] py-2 text-center text-xs text-crema-calido font-sans border-t border-[#5A7FA3]/10">
     <p class="opacity-95 tracking-wide">
-      Sitio diseñado y desarrollado por: <a href="https://gabrielzavando.cl/" target="_blank" rel="noopener noreferrer" class="font-semibold hover:text-white transition-colors duration-200">Gabriel Zavando</a>
+      Sitio diseñado y desarrollado por: <a href="https://gabrielzavando.cl/" target="_blank" rel="noopener noreferrer" class="link-underline font-semibold hover:text-white transition-colors duration-200">Gabriel Zavando</a>
     </p>
   </div>
 </footer>

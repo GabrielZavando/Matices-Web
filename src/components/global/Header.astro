@@ -48,9 +48,10 @@ const navItems = [
         return (
           <a
             href={item.href}
-            class={`font-sans text-base transition-colors relative py-1 hover:text-verde-bosque ${
+            aria-current={isActive ? "page" : undefined}
+            class={`font-sans text-base transition-colors relative py-1 nav-link hover:text-verde-bosque ${
               isActive 
-                ? "text-verde-bosque font-semibold border-b-2 border-verde-bosque" 
+                ? "text-verde-bosque font-semibold" 
                 : "text-verde-bosque/80 hover:text-verde-bosque"
             }`}
           >
@@ -104,9 +105,10 @@ const navItems = [
           return (
             <a
               href={item.href}
-              class={`font-sans text-lg transition-colors relative py-3 hover:text-verde-bosque w-full text-left border-b border-verde-bosque/5 block ${
+              aria-current={isActive ? "page" : undefined}
+              class={`font-sans text-lg transition-colors relative py-3 hover:text-verde-bosque w-full text-left border-b border-verde-bosque/5 block nav-link ${
                 isActive 
-                  ? "text-verde-bosque font-semibold border-b-2 border-verde-bosque/20" 
+                  ? "text-verde-bosque font-semibold" 
                   : "text-verde-bosque/80 hover:text-verde-bosque"
               }`}
             >

@@ -4,10 +4,61 @@ import Header from '../components/global/Header.astro'
 import Footer from '../components/global/Footer.astro'
 import { Image } from 'astro:assets'
 import CompanyLogos from '../components/global/CompanyLogos.astro'
+import Reveal from '../components/ui/Reveal.astro'
 
 // Optimized image import
 import directoraMatices from '../assets/directora-matices.jpeg'
 import collaborativeWorkshop from '../assets/collaborative-workshop.webp'
+
+interface ClinicalService {
+  title: string
+  icon: string
+  iconBg: string
+  bullets: string[]
+}
+
+const clinicalServices: ClinicalService[] = [
+  {
+    title: 'Psicoterapia y Atención Clínica',
+    icon: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z',
+    iconBg: 'bg-verde-lima/10 group-hover:bg-verde-lima/20',
+    bullets: [
+      'Atención individual para jóvenes y adultos.',
+      'Terapia de pareja y orientación familiar integral.',
+      'Tratamiento de ansiedad, estrés y burnout laboral.',
+    ],
+  },
+  {
+    title: 'Evaluaciones y Diagnóstico',
+    icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z',
+    iconBg: 'bg-azul-celeste/10 group-hover:bg-azul-celeste/20',
+    bullets: [
+      'Evaluaciones neuropsicológicas cognitivas.',
+      'Aplicación de test proyectivos y psicométricos.',
+      'Informes psicológicos para fines laborales y clínicos.',
+    ],
+  },
+  {
+    title: 'Formación y Desarrollo',
+    icon: 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253',
+    iconBg: 'bg-verde-lima/10 group-hover:bg-verde-lima/20',
+    bullets: [
+      'Supervisión clínica para profesionales y egresados.',
+      'Coaching ontológico y ejecutivo para liderazgo.',
+      'Talleres de autocuidado y manejo emocional práctico.',
+    ],
+  },
+]
+
+const psychAreas: string[] = [
+  'Reclutamiento y Selección',
+  'Evaluación Psicológica',
+  'Capacitación y Formación',
+  'Gestión del Talento',
+  'Clima Organizacional',
+  'Salud Laboral',
+  'Gestión del Cambio Organizacional',
+]
 ---
 
 <Layout
@@ -21,32 +72,27 @@ import collaborativeWorkshop from '../assets/collaborative-workshop.webp'
     <section
       class="relative w-full overflow-hidden pt-12 pb-24 md:pt-20 md:pb-32 bg-radial from-verde-lima/5 to-transparent"
     >
+      <div class="absolute -top-10 -right-10 h-48 w-48 rounded-full bg-verde-lima/10 blur-3xl -z-10 pointer-events-none animate-float"></div>
       <div
         class="max-w-[1280px] mx-auto px-4 md:px-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
       >
         <!-- Hero Copy -->
         <div class="lg:col-span-7 space-y-6 z-10 text-left">
-          <span
-            class="inline-block px-4 py-1.5 rounded-full bg-verde-lima/10 text-verde-bosque font-sans text-xs font-semibold tracking-wider uppercase"
-          >
+          <Reveal as="span" variant="fade-up" delay={0} class="inline-block px-4 py-1.5 rounded-full bg-verde-lima/10 text-verde-bosque font-sans text-xs font-semibold tracking-wider uppercase">
             Bienestar &amp; Salud Mental
-          </span>
-          <h1
-            class="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-verde-bosque leading-tight"
-          >
+          </Reveal>
+          <Reveal as="h1" variant="fade-up" delay={80} class="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-verde-bosque leading-tight">
             Psicología Laboral <span class="text-verde-lima font-normal italic"
               >Aplicada</span
             >
-          </h1>
-          <p
-            class="font-sans text-lg text-verde-bosque/80 max-w-xl leading-relaxed"
-          >
+          </Reveal>
+          <Reveal as="p" variant="fade-up" delay={160} class="font-sans text-lg text-verde-bosque/80 max-w-xl leading-relaxed">
             Fomentamos entornos de trabajo saludables y productivos. Diseñamos
             programas de intervención, apoyo psicológico y diagnóstico de clima
             con base clínico-científica para promover el bienestar de tus
             colaboradores(as).
-          </p>
-          <div class="flex flex-col sm:flex-row gap-4 pt-2">
+          </Reveal>
+          <Reveal as="div" variant="fade-up" delay={240} class="flex flex-col sm:flex-row gap-4 pt-2">
             <a
               href="https://encuadrado.com/p/psicologa-maria-jose-jimenez"
               target="_blank"
@@ -55,11 +101,11 @@ import collaborativeWorkshop from '../assets/collaborative-workshop.webp'
             >
               Agendar hora online
             </a>
-          </div>
+          </Reveal>
         </div>
 
         <!-- Graphic Content -->
-        <div class="lg:col-span-5 relative w-full flex justify-center">
+        <Reveal as="div" variant="scale-in" delay={120} class="lg:col-span-5 relative w-full flex justify-center">
           <div
             class="w-full max-w-md aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl relative border-4 border-white/40"
           >
@@ -74,17 +120,15 @@ import collaborativeWorkshop from '../assets/collaborative-workshop.webp'
               class="w-full h-full object-cover"
             />
           </div>
-          <div
-            class="absolute -bottom-6 -right-6 bg-white/70 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-verde-bosque/10 max-w-[200px] hidden sm:block"
-          >
+          <Reveal as="div" variant="fade-up" delay={320} class="absolute -bottom-6 -right-6 bg-white/70 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-verde-bosque/10 max-w-[200px] hidden sm:block animate-float">
             <p class="font-heading text-xl font-bold text-verde-bosque mb-1">
               +15 Años
             </p>
             <p class="text-xs text-verde-bosque/70 leading-tight">
               De experiencia en psicología clínica y organizacional aplicada.
             </p>
-          </div>
-        </div>
+          </Reveal>
+        </Reveal>
       </div>
     </section>
 
@@ -93,7 +137,7 @@ import collaborativeWorkshop from '../assets/collaborative-workshop.webp'
       <div class="max-w-[1280px] mx-auto px-4 md:px-16 space-y-16">
         
         <!-- Cabecera Informativa -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <Reveal as="div" variant="fade-up" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           <div class="lg:col-span-5 space-y-4">
             <span class="inline-block px-4 py-1.5 rounded-full bg-verde-lima/10 text-verde-bosque font-sans text-xs font-semibold tracking-wider uppercase">
               Salud Mental y Ocupacional
@@ -107,105 +151,38 @@ import collaborativeWorkshop from '../assets/collaborative-workshop.webp'
               Ofrecemos un espacio de acompañamiento profesional y diagnóstico clínico-organizacional con un enfoque ético, científico y personalizado. Nos especializamos en la atención de personas, parejas, familias y profesionales, así como en el diseño de programas preventivos que promueven entornos laborales más saludables, equilibrados y productivos.
             </p>
           </div>
-        </div>
+        </Reveal>
 
         <!-- Catálogo de Servicios Clínicos (3 Columnas) -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          
-          <!-- Columna 1: Psicoterapia y Atención Clínica -->
-          <article class="bg-white p-8 rounded-[2.5rem] border border-verde-bosque/5 shadow-md flex flex-col justify-between hover:shadow-xl hover:-translate-y-1 transition-all duration-300 min-h-[320px] group">
-            <div class="space-y-6">
-              <div class="w-12 h-12 rounded-2xl bg-verde-lima/10 flex items-center justify-center text-verde-bosque group-hover:bg-verde-lima/20 transition-all">
-                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                </svg>
+          {clinicalServices.map((service, i) => (
+            <Reveal as="article" variant="fade-up" delay={i * 80} class="bg-white p-8 rounded-[2.5rem] border border-verde-bosque/5 shadow-md flex flex-col justify-between hover:shadow-xl hover:-translate-y-1 transition-all duration-300 min-h-[320px] group">
+              <div class="space-y-6">
+                <div class={`w-12 h-12 rounded-2xl ${service.iconBg} flex items-center justify-center text-verde-bosque transition-all`}>
+                  <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d={service.icon} />
+                  </svg>
+                </div>
+                <div class="space-y-3">
+                  <h3 class="font-heading text-xl md:text-2xl font-bold text-verde-bosque group-hover:text-verde-lima transition-colors duration-300">
+                    {service.title}
+                  </h3>
+                  <ul class="space-y-2 font-sans text-sm text-verde-bosque/75 leading-relaxed">
+                    {service.bullets.map((bullet) => (
+                      <li class="flex items-start gap-2">
+                        <span class="text-verde-lima mt-1">✓</span>
+                        <span>{bullet}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-              <div class="space-y-3">
-                <h3 class="font-heading text-xl md:text-2xl font-bold text-verde-bosque group-hover:text-verde-lima transition-colors duration-300">
-                  Psicoterapia y Atención Clínica
-                </h3>
-                <ul class="space-y-2 font-sans text-sm text-verde-bosque/75 leading-relaxed">
-                  <li class="flex items-start gap-2">
-                    <span class="text-verde-lima mt-1">✓</span>
-                    <span>Atención individual para jóvenes y adultos.</span>
-                  </li>
-                  <li class="flex items-start gap-2">
-                    <span class="text-verde-lima mt-1">✓</span>
-                    <span>Terapia de pareja y orientación familiar integral.</span>
-                  </li>
-                  <li class="flex items-start gap-2">
-                    <span class="text-verde-lima mt-1">✓</span>
-                    <span>Tratamiento de ansiedad, estrés y burnout laboral.</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </article>
-
-          <!-- Columna 2: Evaluaciones y Diagnóstico -->
-          <article class="bg-white p-8 rounded-[2.5rem] border border-verde-bosque/5 shadow-md flex flex-col justify-between hover:shadow-xl hover:-translate-y-1 transition-all duration-300 min-h-[320px] group">
-            <div class="space-y-6">
-              <div class="w-12 h-12 rounded-2xl bg-azul-celeste/10 flex items-center justify-center text-verde-bosque group-hover:bg-azul-celeste/20 transition-all">
-                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-              </div>
-              <div class="space-y-3">
-                <h3 class="font-heading text-xl md:text-2xl font-bold text-verde-bosque group-hover:text-verde-lima transition-colors duration-300">
-                  Evaluaciones y Diagnóstico
-                </h3>
-                <ul class="space-y-2 font-sans text-sm text-verde-bosque/75 leading-relaxed">
-                  <li class="flex items-start gap-2">
-                    <span class="text-verde-lima mt-1">✓</span>
-                    <span>Evaluaciones neuropsicológicas cognitivas.</span>
-                  </li>
-                  <li class="flex items-start gap-2">
-                    <span class="text-verde-lima mt-1">✓</span>
-                    <span>Aplicación de test proyectivos y psicométricos.</span>
-                  </li>
-                  <li class="flex items-start gap-2">
-                    <span class="text-verde-lima mt-1">✓</span>
-                    <span>Informes psicológicos para fines laborales y clínicos.</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </article>
-
-          <!-- Columna 3: Formación y Desarrollo Profesional -->
-          <article class="bg-white p-8 rounded-[2.5rem] border border-verde-bosque/5 shadow-md flex flex-col justify-between hover:shadow-xl hover:-translate-y-1 transition-all duration-300 min-h-[320px] group">
-            <div class="space-y-6">
-              <div class="w-12 h-12 rounded-2xl bg-verde-lima/10 flex items-center justify-center text-verde-bosque group-hover:bg-verde-lima/20 transition-all">
-                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                </svg>
-              </div>
-              <div class="space-y-3">
-                <h3 class="font-heading text-xl md:text-2xl font-bold text-verde-bosque group-hover:text-verde-lima transition-colors duration-300">
-                  Formación y Desarrollo
-                </h3>
-                <ul class="space-y-2 font-sans text-sm text-verde-bosque/75 leading-relaxed">
-                  <li class="flex items-start gap-2">
-                    <span class="text-verde-lima mt-1">✓</span>
-                    <span>Supervisión clínica para profesionales y egresados.</span>
-                  </li>
-                  <li class="flex items-start gap-2">
-                    <span class="text-verde-lima mt-1">✓</span>
-                    <span>Coaching ontológico y ejecutivo para liderazgo.</span>
-                  </li>
-                  <li class="flex items-start gap-2">
-                    <span class="text-verde-lima mt-1">✓</span>
-                    <span>Talleres de autocuidado y manejo emocional práctico.</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </article>
-
+            </Reveal>
+          ))}
         </div>
 
         <!-- Bloque Destacado: Atención Médica y Telemedicina -->
-        <div class="mt-16 bg-crema-calido/50 p-8 md:p-12 rounded-[2.5rem] border border-verde-bosque/5 hover:border-verde-bosque/10 transition-all duration-300">
+        <Reveal as="div" variant="fade-up" class="mt-16 bg-crema-calido/50 p-8 md:p-12 rounded-[2.5rem] border border-verde-bosque/5 hover:border-verde-bosque/10 transition-all duration-300">
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             
             <div class="lg:col-span-8 space-y-4">
@@ -232,7 +209,7 @@ import collaborativeWorkshop from '../assets/collaborative-workshop.webp'
             </div>
 
           </div>
-        </div>
+        </Reveal>
 
     </section>
 
@@ -241,7 +218,7 @@ import collaborativeWorkshop from '../assets/collaborative-workshop.webp'
       <div class="absolute top-0 right-0 w-96 h-96 bg-verde-lima/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
       <div class="absolute bottom-0 left-0 w-96 h-96 bg-azul-celeste/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
       
-      <div class="max-w-[1280px] mx-auto px-4 md:px-16 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      <Reveal as="div" variant="fade-up" class="max-w-[1280px] mx-auto px-4 md:px-16 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         <div class="lg:col-span-8 space-y-6">
           <span class="inline-block px-4 py-1 rounded-full bg-white/10 text-crema-calido font-sans text-xs font-semibold uppercase tracking-widest">
             Bienestar Organizacional B2B
@@ -261,7 +238,7 @@ import collaborativeWorkshop from '../assets/collaborative-workshop.webp'
             HABLEMOS AHORA
           </a>
         </div>
-      </div>
+      </Reveal>
     </section>
 
     <!-- Sección de Áreas de Especialización B2B -->
@@ -269,7 +246,7 @@ import collaborativeWorkshop from '../assets/collaborative-workshop.webp'
       <div class="max-w-[1280px] mx-auto px-4 md:px-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         
         <!-- Columna Informativa -->
-        <div class="lg:col-span-7 space-y-6 text-left">
+        <Reveal as="div" variant="fade-up" class="lg:col-span-7 space-y-6 text-left">
           <span class="inline-block px-4 py-1.5 rounded-full bg-verde-lima/10 text-verde-bosque font-sans text-xs font-semibold tracking-wider uppercase">
             Especialización Organizacional
           </span>
@@ -282,34 +259,20 @@ import collaborativeWorkshop from '../assets/collaborative-workshop.webp'
           
           <!-- Grid de Especialidades -->
           <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-            <li class="flex items-center gap-3 bg-white p-3 rounded-xl border border-verde-bosque/5 shadow-sm">
-              <span class="w-2 h-2 rounded-full bg-verde-lima shrink-0"></span>
-              <span class="font-sans text-sm font-semibold text-verde-bosque">Reclutamiento y Selección</span>
-            </li>
-            <li class="flex items-center gap-3 bg-white p-3 rounded-xl border border-verde-bosque/5 shadow-sm">
-              <span class="w-2 h-2 rounded-full bg-verde-lima shrink-0"></span>
-              <span class="font-sans text-sm font-semibold text-verde-bosque">Evaluación Psicológica</span>
-            </li>
-            <li class="flex items-center gap-3 bg-white p-3 rounded-xl border border-verde-bosque/5 shadow-sm">
-              <span class="w-2 h-2 rounded-full bg-verde-lima shrink-0"></span>
-              <span class="font-sans text-sm font-semibold text-verde-bosque">Capacitación y Formación</span>
-            </li>
-            <li class="flex items-center gap-3 bg-white p-3 rounded-xl border border-verde-bosque/5 shadow-sm">
-              <span class="w-2 h-2 rounded-full bg-verde-lima shrink-0"></span>
-              <span class="font-sans text-sm font-semibold text-verde-bosque">Gestión del Talento</span>
-            </li>
-            <li class="flex items-center gap-3 bg-white p-3 rounded-xl border border-verde-bosque/5 shadow-sm">
-              <span class="w-2 h-2 rounded-full bg-verde-lima shrink-0"></span>
-              <span class="font-sans text-sm font-semibold text-verde-bosque">Clima Organizacional</span>
-            </li>
-            <li class="flex items-center gap-3 bg-white p-3 rounded-xl border border-verde-bosque/5 shadow-sm">
-              <span class="w-2 h-2 rounded-full bg-verde-lima shrink-0"></span>
-              <span class="font-sans text-sm font-semibold text-verde-bosque">Salud Laboral</span>
-            </li>
-            <li class="flex items-center gap-3 bg-white p-3 rounded-xl border border-verde-bosque/5 shadow-sm sm:col-span-2">
-              <span class="w-2 h-2 rounded-full bg-verde-lima shrink-0"></span>
-              <span class="font-sans text-sm font-semibold text-verde-bosque">Gestión del Cambio Organizacional</span>
-            </li>
+            {psychAreas.map((area, i) => (
+              <Reveal
+                as="li"
+                variant="fade-up"
+                delay={i * 80}
+                class:list={[
+                  'flex items-center gap-3 bg-white p-3 rounded-xl border border-verde-bosque/5 shadow-sm',
+                  i === psychAreas.length - 1 ? 'sm:col-span-2' : '',
+                ]}
+              >
+                <span class="w-2 h-2 rounded-full bg-verde-lima shrink-0"></span>
+                <span class="font-sans text-sm font-semibold text-verde-bosque">{area}</span>
+              </Reveal>
+            ))}
           </ul>
 
           <div class="pt-4">
@@ -320,10 +283,10 @@ import collaborativeWorkshop from '../assets/collaborative-workshop.webp'
               HABLEMOS AHORA
             </a>
           </div>
-        </div>
+        </Reveal>
 
         <!-- Columna de Imagen -->
-        <div class="lg:col-span-5 relative w-full flex justify-center">
+        <Reveal as="div" variant="scale-in" delay={120} class="lg:col-span-5 relative w-full flex justify-center">
           <div class="w-full max-w-md aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl relative border-4 border-white/40">
             <Image 
               src={collaborativeWorkshop} 
@@ -344,7 +307,7 @@ import collaborativeWorkshop from '../assets/collaborative-workshop.webp'
               De intervención estratégica para el desarrollo corporativo.
             </p>
           </div>
-        </div>
+        </Reveal>
 
     </section>
 

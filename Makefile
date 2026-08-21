@@ -6,8 +6,12 @@
 #
 # To customize for your stack, adjust the commands inside each target or add a
 # new branch to the STACK detection below.
+#
+# Local adaptations (intentional drift from upstream Specboot template):
+#   - node targets use pnpm (project lockfile is pnpm-lock.yaml)
+#   - solid-lint runs only the Astro ESLint config (no NestJS/Angular/dependency-cruiser)
 
-.PHONY: help install lint test build audit commitlint refs
+.PHONY: help install lint test build audit commitlint refs solid-lint
 
 # Detect the active stack from its manifest file.
 STACK := $(shell \
@@ -78,3 +82,15 @@ commitlint: ## Lint commit messages (stack-independent)
 
 refs: ## Check referential integrity of {file:...} references
 	bash check-refs.sh
+
+solid-lint: ## Run SOLID/POO static analysis for Astro (Ticket 4). Skips silently if no package.json.
+	@if [ -f package.json ]; then \
+	  echo "→ SOLID/POO static analysis (ESLint — Astro)"; \
+	  if [ -f templates/ci/eslintrc.astro.js ] && [ -d src ]; then \
+	    echo "  → Astro ESLint"; \
+	    npx eslint -c templates/ci/eslintrc.astro.js 'src/**/*.{ts,astro}' || exit 1; \
+	  fi; \
+	  echo "→ SOLID/POO static analysis: PASS"; \
+	else \
+	  echo "→ solid-lint: no package.json found — skipping"; \
+	fi

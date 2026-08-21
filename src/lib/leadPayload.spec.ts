@@ -5,7 +5,6 @@ const REQUIRED = [
   B2B_LEAD_FIELDS.name,
   B2B_LEAD_FIELDS.email,
   B2B_LEAD_FIELDS.phone,
-  B2B_LEAD_FIELDS.message,
 ] as const;
 
 describe('B2B_LEAD_FIELDS contract', () => {
@@ -64,5 +63,22 @@ describe('getMissingRequired', () => {
     const fd = new FormData();
     fd.set(B2B_LEAD_FIELDS.email, '   ');
     expect(getMissingRequired(fd)).toContain(B2B_LEAD_FIELDS.email);
+  });
+
+  it('no lista el mensaje cuando está ausente', () => {
+    const fd = new FormData();
+    fd.set(B2B_LEAD_FIELDS.name, 'Juan Pérez');
+    fd.set(B2B_LEAD_FIELDS.email, 'j@empresa.cl');
+    fd.set(B2B_LEAD_FIELDS.phone, '+56 9 1234 5678');
+    expect(getMissingRequired(fd)).toEqual([]);
+  });
+
+  it('no lista el mensaje cuando solo contiene espacios en blanco', () => {
+    const fd = new FormData();
+    fd.set(B2B_LEAD_FIELDS.name, 'Juan Pérez');
+    fd.set(B2B_LEAD_FIELDS.email, 'j@empresa.cl');
+    fd.set(B2B_LEAD_FIELDS.phone, '+56 9 1234 5678');
+    fd.set(B2B_LEAD_FIELDS.message, '   ');
+    expect(getMissingRequired(fd)).toEqual([]);
   });
 });

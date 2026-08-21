@@ -30,7 +30,6 @@ components:
         - name
         - email
         - phone
-        - message
       properties:
         access_key:
           type: string
@@ -60,7 +59,7 @@ components:
           type: string
         message:
           type: string
-          description: Free-text message from the lead (required field in the form).
+          description: Free-text message from the lead (optional field in the form).
         _honeypot:
           type: string
           description: Visually hidden technical trap field. Must be submitted strictly empty.

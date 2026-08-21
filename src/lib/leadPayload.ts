@@ -17,7 +17,6 @@ const REQUIRED_FIELDS: readonly string[] = [
   B2B_LEAD_FIELDS.name,
   B2B_LEAD_FIELDS.email,
   B2B_LEAD_FIELDS.phone,
-  B2B_LEAD_FIELDS.message,
 ];
 
 export function isHoneypotClean(formData: FormData): boolean {

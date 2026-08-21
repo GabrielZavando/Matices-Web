@@ -143,11 +143,10 @@ const contactPreferences: Option[] = [
   />
 </div>
 <div class="md:col-span-2 space-y-2 w-full">
-  <label for="mensaje" class="font-sans text-label-md text-contact-on-surface block">MENSAJE <span class="text-contact-error font-bold">*</span></label>
+  <label for="mensaje" class="font-sans text-label-md text-contact-on-surface block">MENSAJE</label>
   <textarea 
     id="mensaje"
     name={B2B_LEAD_FIELDS.message}
-    required
     class="w-full bg-contact-surface-container-low border border-contact-surface-variant rounded-xl p-4 transition-all focus:outline-none focus:border-contact-primary focus:ring-4 focus:ring-contact-primary/10" 
     placeholder="Escribe aquí cualquier detalle adicional..." 
     rows="4"
@@ -450,7 +449,7 @@ const contactPreferences: Option[] = [
   }
 
   // Reactively validate required fields (.touched state)
-  const requiredInputs = document.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('#nombre, #email, #telefono, #mensaje')
+  const requiredInputs = document.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('#nombre, #email, #telefono')
 
   requiredInputs.forEach(input => {
     input.addEventListener('blur', () => {

@@ -30,6 +30,12 @@ Cumple SDD: specs antes de código, TDD (test fallido primero), sin `any`.
   - Párrafo descriptivo de cada badge: `text-xs` → `text-sm font-semibold`
     (conservar color y leading) en `index.astro`, `formacion.astro`,
     `psicologia.astro` (×2), `testing.astro`, `talento.astro`, `id.astro`.
+- [x] **Micro-animación `animate-float` en TODOS los badges** (estimado: 10 min)
+  - Test fallido primero en `ambientAnimations.spec.ts`: todo contenedor de
+    badge (`max-w-[200px]`) debe incluir `animate-float`.
+  - Añadir la clase donde falta: `formacion.astro`, `psicologia.astro`
+    (badge "7 Áreas"), `testing.astro`, `id.astro`. Ya la tienen index,
+    psicologia ("+15 Años") y talento.
 - [x] **Botón SCOUTHEM sin subrayado en `src/pages/index.astro`** (estimado: 5 min)
   - Quitar clase `link-underline`; conservar hover bg/transition.
 - [x] **CTA del footer en `src/components/global/Footer.astro`** (estimado: 10 min)

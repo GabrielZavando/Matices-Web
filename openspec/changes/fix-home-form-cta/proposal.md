@@ -24,8 +24,9 @@ Feedback del cliente (Matices) tras revisar el sitio publicado:
 ## What Changes
 
 - `index.astro` + páginas de servicios: los párrafos descriptivos de TODOS los
-  badges flotantes pasan a `text-sm font-semibold`; el botón SCOUTHEM pierde
-  la clase `link-underline`.
+  badges flotantes pasan a `text-sm font-semibold`; TODOS los badges llevan la
+  micro-animación `animate-float` (flotación vertical suave); el botón SCOUTHEM
+  pierde la clase `link-underline`.
 - `contacto.astro` + `leadPayload.ts`: `message` deja de ser obligatorio
   (label sin asterisco, sin atributo `required`, fuera del validador reactivo y
   de `REQUIRED_FIELDS`). TDD: tests primero.

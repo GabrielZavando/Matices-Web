@@ -26,8 +26,10 @@ Cumple SDD: specs antes de código, TDD (test fallido primero), sin `any`.
 
 ## Fase 3: Home y Footer (UI)
 
-- [x] **Badge hero legible en `src/pages/index.astro`** (estimado: 5 min)
-  - `text-xs` → `text-sm font-semibold` (conservar color y leading).
+- [x] **Badges flotantes legibles en todo el sitio** (estimado: 15 min)
+  - Párrafo descriptivo de cada badge: `text-xs` → `text-sm font-semibold`
+    (conservar color y leading) en `index.astro`, `formacion.astro`,
+    `psicologia.astro` (×2), `testing.astro`, `talento.astro`, `id.astro`.
 - [x] **Botón SCOUTHEM sin subrayado en `src/pages/index.astro`** (estimado: 5 min)
   - Quitar clase `link-underline`; conservar hover bg/transition.
 - [x] **CTA del footer en `src/components/global/Footer.astro`** (estimado: 10 min)

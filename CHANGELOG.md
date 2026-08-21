@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `docs/documentation-standards.md`: commit-format details now point to `ai-specs/reference/commits.md`.
 
 ### Fixed
+- CI `make commitlint` red on the tooling branch: the hand-written merge commit used a lowercase `merge:` prefix, which is not a Conventional Commit type. Consolidated `.commitlintrc.json` into a single `commitlint.config.js` (JSON cannot express function-based `ignores`, and cosmiconfig gave the JSON precedence, silently disabling any JS config) with an ignore for manual merge messages — mirroring commitlint's default exemption of GitHub-generated merge commits. Updated `specboot.sh` check and `ai-specs/reference/commits.md` accordingly.
 - Balanced unclosed `<div>` tags in `talento.astro`, `psicologia.astro` and `testing.astro` surfaced by the new Astro ESLint parsing (behavior-preserving: Astro auto-closed them at build time). Re-applied on top of `main`'s scroll-animation refactor (`<Reveal>` wrappers) during the merge.
 - Fixed unbalanced `<Reveal>`/`</div>` pair in `id.astro` inherited from `main`'s animation feature merge: a video-column `<Reveal>` was closed with `</div>`, leaving ESLint parsing broken upstream.
 - Normalized `.openspec/` path references to `openspec/` across synced `ai-specs/` artifacts to match this repository's OpenSpec directory.

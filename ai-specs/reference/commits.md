@@ -51,7 +51,7 @@ chore(deps): upgrade bcrypt from 5.0.1 to 5.1.0
 
 ## Commitlint y Husky
 
-Configuración en `.commitlintrc.json` y `.husky/` para enforcing de conventional commits en pre-commit hooks.
+Configuración en `commitlint.config.js` y `.husky/` para enforcing de conventional commits en pre-commit hooks. Los merge commits manuales escritos como `merge: <subject>` están exentos de `type-enum` (mismo criterio que los auto-merges de GitHub, ya exentos por defecto).
 
 Ver documentación oficial:
 - Conventional Commits: https://www.conventionalcommits.org/

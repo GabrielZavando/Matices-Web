@@ -194,10 +194,10 @@ check_ci_cd() {
   else
     warn ".github/workflows/ci.yml no encontrado"
   fi
-  if [ -f ".commitlintrc.json" ]; then
+  if [ -f "commitlint.config.js" ]; then
     pass "commitlint configurado"
   else
-    info ".commitlintrc.json no encontrado (opcional)"
+    info "commitlint.config.js no encontrado (opcional)"
   fi
 }
 

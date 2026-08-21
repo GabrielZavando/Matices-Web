@@ -16,5 +16,5 @@ By operating Astro under a purely Static Site Generation (SSG) model hosted on H
 | `organizational_challenges`| Array[String] | Optional | Pre-consultative diagnosis |
 | `organization_size` | String | Optional | Size qualification |
 | `contact_preference` | String | Optional | Presales alignment |
-| `message` | String | Required | Free-text message from the lead |
+| `message` | String | Optional | Free-text message from the lead |
 | `_honeypot` | String | Required (Empty) | Passive anti-spam trap |

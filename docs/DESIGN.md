@@ -166,3 +166,28 @@ The shape language is consistently **Rounded**, avoiding sharp corners to mainta
 
 ### Lists
 - Use custom iconography for bullet points based on the logo's central intersection shape (the "leaf" overlap).
+
+## Motion
+
+Motion reinforces the "Natural Vitality" identity: **subtle, breathable, sophisticated**. Animations are CSS-only (Tailwind v4 `@theme` tokens) plus a minimal native `IntersectionObserver` helper (`src/lib/animations.ts`). No animation libraries are used (RNF1).
+
+### Principles
+- **Compositor-only properties**: animate exclusively `opacity` and `transform` to avoid layout/paint cost and protect LCP/CLS.
+- **Subtle & breathable**: entrances use `translateY` ≤ 24px, durations ≤ 600ms, easing `cubic-bezier(0.16, 1, 0.3, 1)`.
+- **Accessible by default**: every animation is wrapped in `@media (prefers-reduced-motion: no-preference)`. Under `prefers-reduced-motion: reduce` all content is shown statically (never hidden).
+- **Progressive enhancement**: the hidden initial state is applied only when `html.js` is present (set by `Layout.astro`). If JS fails or `IntersectionObserver` is unavailable, content is revealed immediately — it is never left invisible.
+
+### Tokens (`src/styles/global.css` `@theme`)
+| Token | Keyframes | Use |
+| :--- | :--- | :--- |
+| `--animate-fade-up` | `fade-up` | Elements rise + fade in (default reveal) |
+| `--animate-fade-in` | `fade-in` | Pure opacity fade |
+| `--animate-scale-in` | `scale-in` | Subtle scale from 0.96 + fade |
+| `--animate-slide-l` | `slide-l` | Enter from left |
+| `--animate-slide-r` | `slide-r` | Enter from right |
+| `--animate-float` | `float` | Ambient vertical float (6s loop) |
+
+### Usage
+- Wrap any block with the `<Reveal>` component (`src/components/ui/Reveal.astro`). Props: `as` (tag), `variant` (`fade-up|fade-in|scale-in|slide-l|slide-r`), `delay` (ms → applied as `[--reveal-delay:Nms]`, no inline `style`), plus `class` and arbitrary attributes.
+- `initReveal()` is invoked once from `Layout.astro` and adds `is-visible` to `.reveal` elements as they enter the viewport.
+- Stagger sequences by passing incremental `delay` values (e.g. `0`, `80`, `160` ms).

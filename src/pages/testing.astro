@@ -4,10 +4,78 @@ import Header from '../components/global/Header.astro'
 import Footer from '../components/global/Footer.astro'
 import { Image } from 'astro:assets'
 import CompanyLogos from '../components/global/CompanyLogos.astro'
+import Reveal from '../components/ui/Reveal.astro'
 import EvidenceGallery from '../components/ui/EvidenceGallery.astro'
 
 // Optimized image import
 import heroBusiness from '../assets/hero-business.webp'
+
+interface TestType {
+  title: string
+  icon: string
+  description: string
+}
+
+const testTypes: TestType[] = [
+  {
+    title: 'Habilidades Cognitivas',
+    icon: 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z',
+    description:
+      'Evaluaciones enfocadas en medir las aptitudes cognitivas, razonamiento lógico, agilidad numérica y habilidades verbales de postulantes, asegurando el nivel de resolución requerido para cada puesto.',
+  },
+  {
+    title: 'Personalidad',
+    icon: 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z',
+    description:
+      'Análisis de perfiles conductuales, estilos de comunicación, manejo de la frustración e inteligencia emocional, garantizando un encaje óptimo con la cultura organizacional y el liderazgo corporativo.',
+  },
+  {
+    title: 'Neuropsicológicos',
+    icon: 'M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z',
+    description:
+      'Pruebas clínicas y laborales orientadas a evaluar funciones ejecutivas avanzadas, velocidad de procesamiento, concentración sostenida y toma de decisiones complejas bajo escenarios de alta presión corporativa.',
+  },
+  {
+    title: 'Evaluación científica con soporte de IA',
+    icon: 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
+    description:
+      'Evaluaciones online, analizadas e interpretadas con soporte algorítmico avanzado, normas nacionales e internacionales, que aportan confiabilidad y rigor científico a la hora de descubrir patrones profundos y proporcionar un reporte holístico automatizado.',
+  },
+  {
+    title: 'Encuestas a tu medida',
+    icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01',
+    description:
+      'Diseñamos encuestas personalizadas para procesos de evaluación de desempeño, clima organizacional, salud ocupacional y otros diagnósticos estratégicos. A través de nuestra plataforma Scouthem, garantizamos la aplicación de encuestas con altos estándares de confidencialidad y anonimato, facilitando la obtención de información confiable para la toma de decisiones. Nuestros informes instantáneos incorporan inteligencia artificial para identificar tendencias, generar análisis de valor y fortalecer decisiones basadas en evidencia.',
+  },
+]
+
+interface TestApplication {
+  title: string
+  description: string
+}
+
+const testApplications: TestApplication[] = [
+  {
+    title: 'Procesos de Reclutamiento y Selección',
+    description:
+      'Filtros iniciales y avanzados para predecir con alta certeza el desempeño de candidatos(as) y su adaptación al puesto.',
+  },
+  {
+    title: 'Planes de Sucesión y Promoción Interna',
+    description:
+      'Identificación objetiva del potencial de liderazgo dentro de tu organización para ascensos internos seguros.',
+  },
+  {
+    title: 'Desarrollo de Equipos de Alto Rendimiento',
+    description:
+      'Diagnósticos grupales para entender la sinergia, complementariedad de roles y brechas conductuales en el equipo.',
+  },
+  {
+    title: 'Detección de Necesidades de Capacitación (DNC)',
+    description:
+      'Mapeo de habilidades técnicas y blandas para el diseño de planes de formación y desarrollo a la medida.',
+  },
+]
 ---
 
 <Layout
@@ -21,31 +89,26 @@ import heroBusiness from '../assets/hero-business.webp'
     <section
       class="relative w-full overflow-hidden pt-12 pb-24 md:pt-20 md:pb-32 bg-radial from-verde-lima/5 to-transparent"
     >
+      <div class="absolute -top-10 -left-10 h-48 w-48 rounded-full bg-verde-lima/10 blur-3xl -z-10 pointer-events-none animate-float"></div>
       <div
         class="max-w-[1280px] mx-auto px-4 md:px-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
       >
         <!-- Hero Copy -->
         <div class="lg:col-span-7 space-y-6 z-10 text-left">
-          <span
-            class="inline-block px-4 py-1.5 rounded-full bg-verde-lima/10 text-verde-bosque font-sans text-xs font-semibold tracking-wider uppercase"
-          >
+          <Reveal as="span" variant="fade-up" delay={0} class="inline-block px-4 py-1.5 rounded-full bg-verde-lima/10 text-verde-bosque font-sans text-xs font-semibold tracking-wider uppercase">
             Rigor Técnico &amp; Diagnóstico
-          </span>
-          <h1
-            class="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-verde-bosque leading-tight"
-          >
+          </Reveal>
+          <Reveal as="h1" variant="fade-up" delay={80} class="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-verde-bosque leading-tight">
             Pruebas y <span class="text-verde-lima font-normal italic"
               >Testing Organizacional</span
             >
-          </h1>
-          <p
-            class="font-sans text-lg text-verde-bosque/80 max-w-xl leading-relaxed"
-          >
+          </Reveal>
+          <Reveal as="p" variant="fade-up" delay={160} class="font-sans text-lg text-verde-bosque/80 max-w-xl leading-relaxed">
             Garantizamos la precisión y el encaje en la selección mediante
             evaluaciones y pruebas psicométricas avanzadas, diseñadas con el
             más alto rigor científico en psicología laboral.
-          </p>
-          <div class="flex flex-col sm:flex-row gap-4 pt-2">
+          </Reveal>
+          <Reveal as="div" variant="fade-up" delay={240} class="flex flex-col sm:flex-row gap-4 pt-2">
             <a
               href="https://docs.google.com/forms/d/e/1FAIpQLScIS32V6Eg03xK6Ad9Ww_YZ0B0niyUTksvn2QknjvL0BOG5-g/viewform"
               target="_blank"
@@ -53,11 +116,11 @@ import heroBusiness from '../assets/hero-business.webp'
             >
               Solicita tu Demo
             </a>
-          </div>
+          </Reveal>
         </div>
 
         <!-- Graphic Content -->
-        <div class="lg:col-span-5 relative w-full flex justify-center">
+        <Reveal as="div" variant="scale-in" delay={120} class="lg:col-span-5 relative w-full flex justify-center">
           <div
             class="w-full max-w-md aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl relative border-4 border-white/40"
           >
@@ -72,17 +135,15 @@ import heroBusiness from '../assets/hero-business.webp'
               class="w-full h-full object-cover"
             />
           </div>
-          <div
-            class="absolute -bottom-6 -right-6 bg-white/70 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-verde-bosque/10 max-w-[200px] hidden sm:block"
-          >
+          <Reveal as="div" variant="fade-up" delay={320} class="absolute -bottom-6 -right-6 bg-white/70 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-verde-bosque/10 max-w-[200px] hidden sm:block">
             <p class="font-heading text-xl font-bold text-verde-bosque mb-1">
               100%
             </p>
             <p class="text-xs text-verde-bosque/70 leading-tight">
               Rigor científico en cada perfilamiento.
             </p>
-          </div>
-        </div>
+          </Reveal>
+        </Reveal>
       </div>
     </section>
 
@@ -91,7 +152,7 @@ import heroBusiness from '../assets/hero-business.webp'
       <div class="max-w-[1280px] mx-auto px-4 md:px-16 space-y-16">
         
         <!-- Cabecera Informativa -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <Reveal as="div" variant="fade-up" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           <div class="lg:col-span-5 space-y-4">
             <span class="inline-block px-4 py-1.5 rounded-full bg-azul-celeste/10 text-verde-bosque font-sans text-xs font-semibold tracking-wider uppercase">
               Evaluación Psicométrica Profesional
@@ -118,86 +179,25 @@ import heroBusiness from '../assets/hero-business.webp'
               </a>
             </div>
           </div>
-        </div>
+        </Reveal>
 
-        <!-- Grid de los 4 Tipos de Test -->
+        <!-- Grid de los Tipos de Test -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          
-          <!-- Test 1: Psicométricos -->
-          <article class="bg-crema-calido p-8 rounded-[2rem] flex flex-col justify-between hover:shadow-lg transition-shadow border border-verde-bosque/5 group min-h-[260px]">
-            <div class="space-y-4">
-              <div class="w-12 h-12 rounded-xl bg-verde-bosque/5 flex items-center justify-center text-verde-bosque group-hover:scale-105 transition-transform duration-300">
-                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                </svg>
+          {testTypes.map((test, i) => (
+            <Reveal as="article" variant="fade-up" delay={i * 80} class="bg-crema-calido p-8 rounded-[2rem] flex flex-col justify-between hover:shadow-lg transition-shadow border border-verde-bosque/5 group min-h-[260px]">
+              <div class="space-y-4">
+                <div class="w-12 h-12 rounded-xl bg-verde-bosque/5 flex items-center justify-center text-verde-bosque group-hover:scale-105 transition-transform duration-300">
+                  <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d={test.icon} />
+                  </svg>
+                </div>
+                <h3 class="font-heading text-2xl font-bold text-verde-bosque">{test.title}</h3>
+                <p class="font-sans text-sm text-verde-bosque/75">
+                  {test.description}
+                </p>
               </div>
-              <h3 class="font-heading text-2xl font-bold text-verde-bosque">Habilidades Cognitivas</h3>
-              <p class="font-sans text-sm text-verde-bosque/75">
-                Evaluaciones enfocadas en medir las aptitudes cognitivas, razonamiento lógico, agilidad numérica y habilidades verbales de postulantes, asegurando el nivel de resolución requerido para cada puesto.
-              </p>
-            </div>
-          </article>
-
-          <!-- Test 2: Personalidad -->
-          <article class="bg-crema-calido p-8 rounded-[2rem] flex flex-col justify-between hover:shadow-lg transition-shadow border border-verde-bosque/5 group min-h-[260px]">
-            <div class="space-y-4">
-              <div class="w-12 h-12 rounded-xl bg-verde-bosque/5 flex items-center justify-center text-verde-bosque group-hover:scale-105 transition-transform duration-300">
-                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
-              </div>
-              <h3 class="font-heading text-2xl font-bold text-verde-bosque">Personalidad</h3>
-              <p class="font-sans text-sm text-verde-bosque/75">
-                Análisis de perfiles conductuales, estilos de comunicación, manejo de la frustración e inteligencia emocional, garantizando un encaje óptimo con la cultura organizacional y el liderazgo corporativo.
-              </p>
-            </div>
-          </article>
-
-          <!-- Test 3: Neuropsicológicos -->
-          <article class="bg-crema-calido p-8 rounded-[2rem] flex flex-col justify-between hover:shadow-lg transition-shadow border border-verde-bosque/5 group min-h-[260px]">
-            <div class="space-y-4">
-              <div class="w-12 h-12 rounded-xl bg-verde-bosque/5 flex items-center justify-center text-verde-bosque group-hover:scale-105 transition-transform duration-300">
-                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-                </svg>
-              </div>
-              <h3 class="font-heading text-2xl font-bold text-verde-bosque">Neuropsicológicos</h3>
-              <p class="font-sans text-sm text-verde-bosque/75">
-                Pruebas clínicas y laborales orientadas a evaluar funciones ejecutivas avanzadas, velocidad de procesamiento, concentración sostenida y toma de decisiones complejas bajo escenarios de alta presión corporativa.
-              </p>
-            </div>
-          </article>
-
-          <!-- Test 4: Gráficos e Interpretación con IA -->
-          <article class="bg-crema-calido p-8 rounded-[2rem] flex flex-col justify-between hover:shadow-lg transition-shadow border border-verde-bosque/5 group min-h-[260px]">
-            <div class="space-y-4">
-              <div class="w-12 h-12 rounded-xl bg-verde-bosque/5 flex items-center justify-center text-verde-bosque group-hover:scale-105 transition-transform duration-300">
-                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-              </div>
-              <h3 class="font-heading text-2xl font-bold text-verde-bosque">Evaluación científica con soporte de IA</h3>
-              <p class="font-sans text-sm text-verde-bosque/75">
-                Evaluaciones online, analizadas e interpretadas con soporte algorítmico avanzado, normas nacionales e internacionales, que aportan confiabilidad y rigor científico a la hora de descubrir patrones profundos y proporcionar un reporte holístico automatizado.
-              </p>
-            </div>
-          </article>
-
-          <!-- Test 5: Encuestas a tu medida -->
-          <article class="bg-crema-calido p-8 rounded-[2rem] flex flex-col justify-between hover:shadow-lg transition-shadow border border-verde-bosque/5 group min-h-[260px]">
-            <div class="space-y-4">
-              <div class="w-12 h-12 rounded-xl bg-verde-bosque/5 flex items-center justify-center text-verde-bosque group-hover:scale-105 transition-transform duration-300">
-                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
-                </svg>
-              </div>
-              <h3 class="font-heading text-2xl font-bold text-verde-bosque">Encuestas a tu medida</h3>
-              <p class="font-sans text-sm text-verde-bosque/75">
-                Diseñamos encuestas personalizadas para procesos de evaluación de desempeño, clima organizacional, salud ocupacional y otros diagnósticos estratégicos. A través de nuestra plataforma Scouthem, garantizamos la aplicación de encuestas con altos estándares de confidencialidad y anonimato, facilitando la obtención de información confiable para la toma de decisiones. Nuestros informes instantáneos incorporan inteligencia artificial para identificar tendencias, generar análisis de valor y fortalecer decisiones basadas en evidencia.
-              </p>
-            </div>
-          </article>
-
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>
@@ -207,7 +207,7 @@ import heroBusiness from '../assets/hero-business.webp'
       <div class="max-w-[1280px] mx-auto px-4 md:px-16 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         
         <!-- Columna Izquierda: Rigor Científico -->
-        <div class="space-y-6 text-left">
+        <Reveal as="div" variant="fade-up" class="space-y-6 text-left">
           <span class="inline-block px-4 py-1.5 rounded-full bg-verde-lima/10 text-verde-bosque font-sans text-xs font-semibold tracking-wider uppercase">
             Metodología e Innovación
           </span>
@@ -217,81 +217,33 @@ import heroBusiness from '../assets/hero-business.webp'
           <p class="font-sans text-base md:text-lg text-verde-bosque/80 leading-relaxed">
             Cada test seleccionado responde a estrictos estándares de validez y confiabilidad estadística. Estudiamos las bases conductuales de la psicología organizacional moderna y las potenciamos con algoritmos avanzados para mitigar sesgos cognitivos en los procesos de selección e identificación del potencial humano.
           </p>
-        </div>
+        </Reveal>
 
         <!-- Columna Derecha: Aplicaciones del Testing (Viñetas de verificación) -->
-        <div class="bg-white p-8 md:p-12 rounded-[2.5rem] shadow-xl border border-verde-bosque/5 space-y-8">
+        <Reveal as="div" variant="fade-up" delay={160} class="bg-white p-8 md:p-12 rounded-[2.5rem] shadow-xl border border-verde-bosque/5 space-y-8">
           <h3 class="font-heading text-2xl font-bold text-verde-bosque">
             Aplicaciones del Testing Organizacional
           </h3>
           <ul class="space-y-6">
-            
-            <li class="flex items-start gap-4 group">
-              <span class="w-8 h-8 rounded-full bg-verde-lima/10 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform duration-300">
-                <svg class="h-5 w-5 text-verde-lima" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                </svg>
-              </span>
-              <div>
-                <h4 class="font-sans font-bold text-verde-bosque text-base mb-1">
-                  Procesos de Reclutamiento y Selección
-                </h4>
-                <p class="font-sans text-sm text-verde-bosque/70 leading-relaxed">
-                  Filtros iniciales y avanzados para predecir con alta certeza el desempeño de candidatos(as) y su adaptación al puesto.
-                </p>
-              </div>
-            </li>
-
-            <li class="flex items-start gap-4 group">
-              <span class="w-8 h-8 rounded-full bg-verde-lima/10 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform duration-300">
-                <svg class="h-5 w-5 text-verde-lima" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                </svg>
-              </span>
-              <div>
-                <h4 class="font-sans font-bold text-verde-bosque text-base mb-1">
-                  Planes de Sucesión y Promoción Interna
-                </h4>
-                <p class="font-sans text-sm text-verde-bosque/70 leading-relaxed">
-                  Identificación objetiva del potencial de liderazgo dentro de tu organización para ascensos internos seguros.
-                </p>
-              </div>
-            </li>
-
-            <li class="flex items-start gap-4 group">
-              <span class="w-8 h-8 rounded-full bg-verde-lima/10 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform duration-300">
-                <svg class="h-5 w-5 text-verde-lima" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                </svg>
-              </span>
-              <div>
-                <h4 class="font-sans font-bold text-verde-bosque text-base mb-1">
-                  Desarrollo de Equipos de Alto Rendimiento
-                </h4>
-                <p class="font-sans text-sm text-verde-bosque/70 leading-relaxed">
-                  Diagnósticos grupales para entender la sinergia, complementariedad de roles y brechas conductuales en el equipo.
-                </p>
-              </div>
-            </li>
-
-            <li class="flex items-start gap-4 group">
-              <span class="w-8 h-8 rounded-full bg-verde-lima/10 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform duration-300">
-                <svg class="h-5 w-5 text-verde-lima" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                </svg>
-              </span>
-              <div>
-                <h4 class="font-sans font-bold text-verde-bosque text-base mb-1">
-                  Detección de Necesidades de Capacitación (DNC)
-                </h4>
-                <p class="font-sans text-sm text-verde-bosque/70 leading-relaxed">
-                  Mapeo de habilidades técnicas y blandas para el diseño de planes de formación y desarrollo a la medida.
-                </p>
-              </div>
-            </li>
-
+            {testApplications.map((app) => (
+              <li class="flex items-start gap-4 group">
+                <span class="w-8 h-8 rounded-full bg-verde-lima/10 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform duration-300">
+                  <svg class="h-5 w-5 text-verde-lima" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                </span>
+                <div>
+                  <h4 class="font-sans font-bold text-verde-bosque text-base mb-1">
+                    {app.title}
+                  </h4>
+                  <p class="font-sans text-sm text-verde-bosque/70 leading-relaxed">
+                    {app.description}
+                  </p>
+                </div>
+              </li>
+            ))}
           </ul>
-        </div>
+        </Reveal>
 
       </div>
     </section>
@@ -302,7 +254,7 @@ import heroBusiness from '../assets/hero-business.webp'
     <!-- Section: Galería de Evidencia -->
     <section class="w-full py-20 bg-crema-calido/20">
       <div class="max-w-[1280px] mx-auto px-4 md:px-16 space-y-12">
-        <div class="text-center space-y-3">
+        <Reveal as="div" variant="fade-up" class="text-center space-y-3">
           <span class="inline-block px-4 py-1.5 rounded-full bg-verde-lima/10 text-verde-bosque font-sans text-xs font-semibold tracking-wider uppercase">
             Actividad &amp; Ejecución Práctica
           </span>
@@ -312,7 +264,7 @@ import heroBusiness from '../assets/hero-business.webp'
           <p class="font-sans text-base text-verde-bosque/75">
             Registros reales de la ejecución práctica de nuestras evaluaciones, herramientas tecnológicas y talleres integrativos.
           </p>
-        </div>
+        </Reveal>
 
         <EvidenceGallery />
       </div>
@@ -323,7 +275,7 @@ import heroBusiness from '../assets/hero-business.webp'
       <div class="absolute top-0 right-0 w-64 h-64 bg-verde-lima/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
       <div class="absolute bottom-0 left-0 w-64 h-64 bg-azul-celeste/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
       
-      <div class="max-w-[1280px] mx-auto px-4 md:px-16 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      <Reveal as="div" variant="fade-up" class="max-w-[1280px] mx-auto px-4 md:px-16 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         <div class="lg:col-span-8 space-y-6">
           <span class="inline-block px-4 py-1 rounded-full bg-white/10 text-crema-calido font-sans text-xs font-semibold uppercase tracking-widest">
             Alianza Estratégica B2B
@@ -343,7 +295,7 @@ import heroBusiness from '../assets/hero-business.webp'
             AGENDAR CONSULTORÍA
           </a>
         </div>
-      </div>
+      </Reveal>
     </section>
   </main>
 

@@ -8,7 +8,7 @@ interface Props {
 
 const { name, value, label, extraClass = '' } = Astro.props;
 
-const labelClass = `flex items-center gap-3 p-4 border border-contact-surface-variant rounded-xl cursor-pointer hover:bg-contact-surface-container-low transition-colors ${extraClass}`;
+const labelClass = `flex items-center gap-3 p-4 border border-contact-surface-variant rounded-xl cursor-pointer hover:bg-contact-surface-container-low transition-colors has-[:checked]:animate-[pulse-select_0.3s_ease] ${extraClass}`;
 ---
 
 <label class={labelClass}>

@@ -24,6 +24,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://maticesc
     <!-- Essential Meta Tags -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
+
+    <!-- Progressive enhancement flag: enables CSS-only reveal animations only when JS is active -->
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
     <!-- Google Tag Manager -->
     <script>(function (w: Window, d: Document, s: string, l: string, i: string) {
       const win = w as unknown as Record<string, unknown>;
@@ -75,5 +80,17 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://maticesc
     <!-- End Google Tag Manager (noscript) -->
     <slot />
     <ScrollToTop />
+
+    <!-- Reveal-on-scroll animation system (IntersectionObserver, progressive-enhancement safe) -->
+    <script>
+      import { initReveal } from '../lib/animations';
+      try {
+        initReveal();
+      } catch {
+        document
+          .querySelectorAll('.reveal')
+          .forEach((element) => element.classList.add('is-visible'));
+      }
+    </script>
   </body>
 </html>

@@ -5,6 +5,7 @@ import Footer from '../components/global/Footer.astro'
 import { B2B_LEAD_FIELDS } from '../lib/leadPayload';
 import RadioCard from '../components/ui/RadioCard.astro';
 import CheckboxCard from '../components/ui/CheckboxCard.astro';
+import Reveal from '../components/ui/Reveal.astro';
 
 const accessKey = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY;
 
@@ -48,9 +49,9 @@ const contactPreferences: Option[] = [
 
   <main class="relative overflow-hidden bg-contact-background text-contact-on-background selection:bg-contact-secondary-container selection:text-contact-on-secondary-fixed flex flex-col items-center w-full">
     <!-- Background Decorations -->
-    <div class="h-[400px] w-[400px] rounded-full blur-[80px] opacity-[0.15] -z-10 pointer-events-none absolute bg-contact-secondary top-20 -left-20"></div>
-    <div class="h-[400px] w-[400px] rounded-full blur-[80px] opacity-[0.15] -z-10 pointer-events-none absolute bg-contact-surface-tint bottom-40 -right-20"></div>
-    <div class="h-[400px] w-[400px] rounded-full blur-[80px] opacity-[0.15] -z-10 pointer-events-none absolute bg-contact-secondary-container top-1/2 left-1/2 transform -translate-x-1/2"></div>
+    <div class="h-[400px] w-[400px] rounded-full blur-[80px] opacity-[0.15] -z-10 pointer-events-none absolute bg-contact-secondary top-20 -left-20 animate-float [animation-delay:0ms]"></div>
+    <div class="h-[400px] w-[400px] rounded-full blur-[80px] opacity-[0.15] -z-10 pointer-events-none absolute bg-contact-surface-tint bottom-40 -right-20 animate-float [animation-delay:2s]"></div>
+    <div class="h-[400px] w-[400px] rounded-full blur-[80px] opacity-[0.15] -z-10 pointer-events-none absolute bg-contact-secondary-container top-1/2 left-1/2 transform -translate-x-1/2 animate-float [animation-delay:4s]"></div>
 
     <!-- Hero Intro -->
     <section class="max-w-4xl mx-auto px-[16px] md:px-0 pt-[80px] pb-[48px] text-center flex flex-col items-center">
@@ -58,9 +59,8 @@ const contactPreferences: Option[] = [
         <span class="w-2 h-2 rounded-full bg-contact-secondary"></span>
         <span class="font-sans text-label-sm uppercase tracking-wider">Venta Consultiva B2B</span>
       </div>
-      <h1 class="font-sans text-display-lg md:text-[64px] leading-tight mb-6 text-contact-primary">
-        Hablemos de tu <br />
-        <span class="italic font-light text-contact-secondary">Organización</span>
+      <h1 class="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-verde-bosque leading-tight mb-6">
+        Hablemos de tu <span class="text-verde-lima font-normal italic">Organización</span>
       </h1>
       <p class="font-sans text-body-lg text-contact-on-surface-variant max-w-2xl mx-auto">
         Completa nuestro formulario de calificación estratégica. Diseñamos propuestas metodológicas y comerciales adaptadas exactamente a tus desafíos.
@@ -78,7 +78,7 @@ const contactPreferences: Option[] = [
           <input type="text" name={B2B_LEAD_FIELDS.honeypot} class="sr-only" autocomplete="off" tabindex="-1" />
 
           <!-- Section 1: Información de Identificación -->
-          <div class="w-full">
+          <Reveal as="div" variant="fade-up" delay={0} class="w-full">
             <div class="flex items-start gap-4 mb-8">
               <div class="w-10 h-10 rounded-full bg-contact-primary flex items-center justify-center text-contact-on-primary font-bold shrink-0">1</div>
               <div>
@@ -154,10 +154,10 @@ const contactPreferences: Option[] = [
   ></textarea>
 </div>
             </div>
-          </div>
+          </Reveal>
 
           <!-- Section 2: Calificación de Requerimientos -->
-          <div class="w-full">
+          <Reveal as="div" variant="fade-up" delay={120} class="w-full">
             <div class="flex items-start gap-4 mb-8">
               <div class="w-10 h-10 rounded-full bg-contact-primary flex items-center justify-center text-contact-on-primary font-bold shrink-0">2</div>
               <div class="min-w-0 flex-1">
@@ -193,9 +193,9 @@ const contactPreferences: Option[] = [
               </fieldset>
               </div>
             </div>
-          </div>
+          </Reveal>
           <!-- Section 3: Tamaño y Preferencia -->
-          <div class="space-y-8 w-full">
+          <Reveal as="div" variant="fade-up" delay={240} class="space-y-8 w-full">
             <div class="flex items-start gap-4 mb-8">
               <div class="w-10 h-10 rounded-full bg-contact-primary flex items-center justify-center text-contact-on-primary font-bold shrink-0">3</div>
               <div class="min-w-0 flex-1">
@@ -233,10 +233,10 @@ const contactPreferences: Option[] = [
 
 
             </div>
-          </div>
+          </Reveal>
 
           <!-- Bottom Actions with Overlapping Circle Design -->
-          <div class="pt-8 border-t border-contact-surface-variant flex flex-col items-center gap-6 relative w-full overflow-hidden">
+          <Reveal as="div" variant="fade-up" delay={360} class="pt-8 border-t border-contact-surface-variant flex flex-col items-center gap-6 relative w-full overflow-hidden">
             <p class="text-center font-sans text-body-md text-contact-outline max-w-lg relative z-10 leading-relaxed">
               Tus datos comerciales serán procesados con absoluta confidencialidad por el equipo corporativo de Matices Consultoría.
             </p>
@@ -257,7 +257,7 @@ const contactPreferences: Option[] = [
               contacto@maticesconsultora.cl
             </a>
 
-          </div>
+          </Reveal>
         </form>
       </div>
     </section>
@@ -265,9 +265,9 @@ const contactPreferences: Option[] = [
     <!-- Additional Ambient Decor -->
     <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 opacity-20 pointer-events-none mb-[80px]">
       <div class="flex -space-x-20">
-        <div class="w-64 h-64 rounded-full bg-contact-secondary"></div>
-        <div class="w-64 h-64 rounded-full bg-contact-accent-orange"></div>
-        <div class="w-64 h-64 rounded-full bg-contact-tertiary"></div>
+        <div class="w-64 h-64 rounded-full bg-contact-secondary animate-float [animation-delay:1s]"></div>
+        <div class="w-64 h-64 rounded-full bg-contact-accent-orange animate-float [animation-delay:3s]"></div>
+        <div class="w-64 h-64 rounded-full bg-contact-tertiary animate-float [animation-delay:5s]"></div>
       </div>
     </div>
 
@@ -380,6 +380,13 @@ const contactPreferences: Option[] = [
       warning.classList.remove('hidden')
     } else if (state === 'success') {
       success.classList.remove('hidden')
+      // Retrigger the icon "pop" animation on every open
+      const icon = success.querySelector('div')
+      if (icon) {
+        icon.classList.remove('animate-scale-in')
+        void icon.offsetWidth
+        icon.classList.add('animate-scale-in')
+      }
     } else if (state === 'error') {
       error.classList.remove('hidden')
     }

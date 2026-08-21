@@ -11,8 +11,8 @@ const { name, value, label, checked = false, variant = 'size' } = Astro.props;
 
 const labelClass =
   variant === 'preference'
-    ? 'flex items-center justify-center gap-2 p-3 border border-contact-surface-variant rounded-lg cursor-pointer hover:bg-contact-surface-container-low has-[:checked]:bg-contact-primary-container has-[:checked]:text-contact-on-primary-container transition-all'
-    : 'flex items-center justify-center gap-2 p-3 border border-contact-surface-variant rounded-lg cursor-pointer hover:bg-contact-surface-container-low has-[:checked]:bg-contact-secondary-container has-[:checked]:border-contact-secondary transition-all';
+    ? 'flex items-center justify-center gap-2 p-3 border border-contact-surface-variant rounded-lg cursor-pointer hover:bg-contact-surface-container-low has-[:checked]:bg-contact-primary-container has-[:checked]:text-contact-on-primary-container transition-all has-[:checked]:animate-[pulse-select_0.3s_ease]'
+    : 'flex items-center justify-center gap-2 p-3 border border-contact-surface-variant rounded-lg cursor-pointer hover:bg-contact-surface-container-low has-[:checked]:bg-contact-secondary-container has-[:checked]:border-contact-secondary transition-all has-[:checked]:animate-[pulse-select_0.3s_ease]';
 ---
 
 <label class={labelClass}>

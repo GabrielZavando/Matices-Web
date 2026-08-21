@@ -1,0 +1,31 @@
+---
+interface Props {
+  as?: 'div' | 'section' | 'article' | 'li' | 'ul' | 'header' | 'span' | 'figure';
+  variant?: 'fade-up' | 'fade-in' | 'scale-in' | 'slide-l' | 'slide-r';
+  delay?: number;
+  class?: string;
+  [key: string]: unknown;
+}
+
+const {
+  as = 'div',
+  variant = 'fade-up',
+  delay = 0,
+  class: className = '',
+  ...rest
+}: Props = Astro.props;
+
+const revealClass = [
+  'reveal',
+  `reveal--${variant}`,
+  delay > 0 ? `[--reveal-delay:${delay}ms]` : '',
+  className,
+]
+  .filter(Boolean)
+  .join(' ');
+
+const Tag = as;
+---
+<Tag class={revealClass} {...rest}>
+  <slot />
+</Tag>

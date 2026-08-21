@@ -1,0 +1,77 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Reveal from '../components/ui/Reveal.astro';
+---
+
+<Layout 
+  title="Página No Encontrada" 
+  description="La página que buscas no está disponible o ha sido movida. Pero no te preocupes, estamos aquí para guiarte de vuelta hacia el crecimiento y el bienestar organizacional."
+>
+  <main class="flex-1 flex flex-col items-center justify-center py-20 px-4 md:px-16 relative overflow-hidden">
+    
+    <!-- Decorative Background Elements -->
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none opacity-40">
+      <div class="absolute top-[-10%] right-[-5%] w-96 h-96 bg-verde-bosque/10 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
+      <div class="absolute bottom-[-10%] left-[-10%] w-72 h-72 bg-azul-celeste/10 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
+    </div>
+    
+    <!-- 404 Hero Section -->
+    <Reveal variant="fade-up">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <h1 class="font-heading text-8xl md:text-9xl font-extrabold text-verde-lima mb-2 leading-none tracking-tight">404</h1>
+        <h2 class="font-heading text-3xl md:text-5xl font-semibold text-on-surface mb-6 leading-tight">
+          Parece que te has desviado del camino.
+        </h2>
+        <p class="font-sans text-lg text-on-surface-variant mb-8 leading-relaxed">
+          La página que buscas no está disponible o ha sido movida. Pero no te preocupes, estamos aquí para guiarte de vuelta hacia el crecimiento y el bienestar organizacional.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <a class="bg-verde-bosque text-white px-8 py-3 rounded-full font-sans font-semibold text-base hover:opacity-90 active:scale-95 transition-all shadow-md hover:shadow-lg flex items-center gap-2" href="/">
+            <span class="material-symbols-outlined text-[20px]">home</span>
+            <span>Volver al Inicio</span>
+          </a>
+        </div>
+      </div>
+    </Reveal>
+    
+    <!-- Quick Links Section -->
+    <Reveal variant="fade-up" delay={100}>
+      <div class="w-full max-w-6xl mx-auto">
+        <div class="text-center mb-10">
+          <h3 class="font-heading text-2xl md:text-3xl font-semibold text-on-surface mb-2">Enlaces Rápidos</h3>
+          <p class="font-sans text-base text-on-surface-variant">Encuentra los servicios principales de Matices</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Card 1: Salud Laboral -->
+          <a class="group glass-panel rounded-2xl p-8 hover:glow-shadow transition-all duration-300 hover:-translate-y-1 relative overflow-hidden" href="/psicologia">
+            <div class="absolute top-0 right-0 w-24 h-24 bg-verde-bosque/5 rounded-bl-full -z-10 transition-transform group-hover:scale-110"></div>
+            <div class="w-14 h-14 bg-verde-bosque/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-verde-bosque/20 transition-colors">
+              <span class="material-symbols-outlined text-verde-bosque text-3xl">health_and_safety</span>
+            </div>
+            <h4 class="font-heading text-xl font-semibold text-on-surface mb-3">Salud Laboral</h4>
+            <p class="font-sans text-sm text-on-surface-variant leading-relaxed">Programas integrales para el bienestar psicofísico y prevención de riesgos.</p>
+          </a>
+          <!-- Card 2: Reclutamiento y Selección -->
+          <a class="group glass-panel rounded-2xl p-8 hover:glow-shadow transition-all duration-300 hover:-translate-y-1 relative overflow-hidden" href="/talento">
+            <div class="absolute top-0 right-0 w-24 h-24 bg-azul-celeste/5 rounded-bl-full -z-10 transition-transform group-hover:scale-110"></div>
+            <div class="w-14 h-14 bg-azul-celeste/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-azul-celeste/20 transition-colors">
+              <span class="material-symbols-outlined text-azul-celeste text-3xl">group_add</span>
+            </div>
+            <h4 class="font-heading text-xl font-semibold text-on-surface mb-3">Reclutamiento y Selección</h4>
+            <p class="font-sans text-sm text-on-surface-variant leading-relaxed">Búsqueda estratégica y filtrado riguroso de perfiles idóneos.</p>
+          </a>
+          <!-- Card 3: Gestión del Talento -->
+          <a class="group glass-panel rounded-2xl p-8 hover:glow-shadow transition-all duration-300 hover:-translate-y-1 relative overflow-hidden" href="/formacion">
+            <div class="absolute top-0 right-0 w-24 h-24 bg-verde-lima/5 rounded-bl-full -z-10 transition-transform group-hover:scale-110"></div>
+            <div class="w-14 h-14 bg-verde-lima/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-verde-lima/20 transition-colors">
+              <span class="material-symbols-outlined text-verde-lima text-3xl">psychology</span>
+            </div>
+            <h4 class="font-heading text-xl font-semibold text-on-surface mb-3">Gestión del Talento</h4>
+            <p class="font-sans text-sm text-on-surface-variant leading-relaxed">Evaluaciones de desempeño y desarrollo de planes de carrera.</p>
+          </a>
+        </div>
+      </div>
+    </Reveal>
+    
+  </main>
+</Layout>

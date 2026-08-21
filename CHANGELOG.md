@@ -7,15 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- SOLID/POO mechanical checks (Specboot Ticket 4): synced `templates/ci/`; rewrote `templates/ci/eslintrc.astro.js` as an ESLint flat config (upstream ships legacy eslintrc format for ESLint 8); added devDependencies `eslint`, `@eslint/js`, `typescript-eslint`, `eslint-plugin-astro`; wired `make solid-lint` into the CI lint job.
+- On-demand context artifacts from upstream: `ai-specs/reference/commits.md`, `ai-specs/examples/enrich-us-auth-reset.md`, skill `plan-change` and agent `plan-agent`.
+
 ### Changed
-- **Template is OpenCode-only**: removed `.claude/` and `.cursor/` symlinks; no Claude Code or Cursor configuration is generated. Agent/skill artifacts live in `ai-specs/` and are consumed by OpenCode via `{file:...}` references in `opencode.json` (base-standards.md §6, README FAQ).
-- `specboot.sh`: dropped symlink creation and the Windows copy fallback; `--init`/`--ci` now only validate structure, placeholders, JSON and referential integrity.
-- Removed `tests/specboot-symlink-test.sh` (tested the removed symlink behavior).
-- README: corrected clone URL, OpenSpec badge (`new change`), clarified `model` is optional, and replaced the Cursor/Claude FAQ with an OpenCode-only note.
-- CI: `build` job upload tolerates a missing `dist/` (`if-no-files-found: warn`) so the template repo passes CI without a build artifact.
-- `deploy.yml`: jobs are guarded by `hashFiles('Dockerfile') != ''` so tag pushes on the template (no Dockerfile) do not attempt a Node/Docker deploy.
-- `AGENTS.md`: restored the skill trigger table (name + trigger) that was replaced by a pointer to `ai-specs/README.md`. Since `AGENTS.md` is the file auto-loaded via `instructions[]` and `ai-specs/README.md` is not, the pointer left the auto-load matching mechanism with nothing to match against.
-- `check-refs.sh`: added a guard that fails if any `ai-specs/skills/*/` folder is not mentioned in `AGENTS.md`, to catch this class of drift automatically.
+- **Template is OpenCode-only** (inherited with the project scaffold): no Claude Code or Cursor configuration is generated. Agent/skill artifacts live in `ai-specs/` and are consumed by OpenCode via `{file:...}` references in `opencode.json`.
+- Synced Specboot tooling to upstream `main` (context-optimization batch): `AGENTS.md` now loads context conditionally instead of "always read"; skills/commands tables split into standard cycle vs optional tools; `enrich-us` documented as optional (poorly formed tickets only) and `/adversarial-review` as a rescue tool.
+- Agents slimmed by upstream: full TDD cycle consolidated in `build-agent.md`; `backend-developer.md`/`frontend-developer.md` keep only their stack-specific design-declaration step.
+- `opencode.json`: `instructions[]` reduced to `docs/base-standards.md` + `AGENTS.md` (area standards load conditionally per task); plan agent prompt moved to `{file:ai-specs/agents/plan-agent.md}`; `/plan-change` delegates to its skill; `/apply` detects the domain (backend/frontend/full-stack) dynamically; `/adversarial-review` no longer hardcodes "7-phase".
+- `docs/base-standards.md`: removed §4–§6 (governance now lives in `AGENTS.md`); added §9 SOLID non-negotiables adapted to Astro/TypeScript without upstream's NestJS/Angular references.
+- `Makefile`: node targets keep **pnpm** (intentional drift from upstream's npm switch; lockfile is `pnpm-lock.yaml`); `solid-lint` runs only the Astro ESLint config (no NestJS/Angular/dependency-cruiser).
+- `docs/documentation-standards.md`: commit-format details now point to `ai-specs/reference/commits.md`.
+
+### Fixed
+- Balanced unclosed `<div>` tags in `talento.astro`, `psicologia.astro` and `testing.astro` surfaced by the new Astro ESLint parsing (behavior-preserving: Astro auto-closed them at build time).
+- Normalized `.openspec/` path references to `openspec/` across synced `ai-specs/` artifacts to match this repository's OpenSpec directory.
 
 ## [0.1.0] - 2026-07-16
 

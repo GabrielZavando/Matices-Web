@@ -22,17 +22,22 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.8.1",
+    "eslint-plugin-astro": "^3.1.0",
     "happy-dom": "^20.11.0",
     "typescript": "^6.0.3",
+    "typescript-eslint": "^8.67.0",
     "vitest": "^4.1.7"
   },
   "pnpm": {
     "overrides": {
       "vite": "^7.3.5",
-      "js-yaml": "^4.3.0",
+      "js-yaml": "^4.3.1",
       "svgo": ">=4.0.2",
-      "fast-uri": "^3.1.4",
-      "postcss": "^8.5.18",
+      "fast-uri": "^3.1.5",
+      "postcss": "^8.5.22",
+      "nanoid": "^3.3.18",
       "sharp": "^0.35.0"
     }
   }

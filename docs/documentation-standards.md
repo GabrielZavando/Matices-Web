@@ -30,7 +30,7 @@ alwaysApply: false
 
 - **Código/comentarios/logs**: inglés.
 - **Docs de cliente y copy de UI**: español.
-- Commits: inglés, Conventional Commits.
+- Commits: inglés, Conventional Commits (formato, tipos permitidos y semver en [`ai-specs/reference/commits.md`](../ai-specs/reference/commits.md)).
 - Markdown con encabezados semánticos; mantener `docs/DESIGN.md` como sistema de tokens.
 
 ## 5. Mantenimiento

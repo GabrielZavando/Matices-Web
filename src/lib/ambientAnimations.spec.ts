@@ -44,4 +44,20 @@ describe('anim-ambient: floating ambient motion', () => {
     const html = readHtmlPage('index')
     expect(html).toContain('animate-float')
   })
+
+  it('floats every glassmorphism stat badge across all pages', () => {
+    const pages = ['index', 'formacion', 'psicologia', 'testing', 'talento', 'id']
+    const badgeClasses: string[] = []
+    for (const page of pages) {
+      const html = readHtmlPage(page)
+      // Stat badges are the only elements using max-w-[200px]; the wider
+      // ANID/FONDEF info card uses max-w-[280px] and is intentionally excluded.
+      const badges = html.match(/class="[^"]*max-w-\[200px\][^"]*"/g) ?? []
+      expect(badges.length, `${page} should render at least one stat badge`).toBeGreaterThan(0)
+      badgeClasses.push(...badges)
+    }
+    for (const badgeClass of badgeClasses) {
+      expect(badgeClass, `stat badge missing float animation: ${badgeClass}`).toContain('animate-float')
+    }
+  })
 })

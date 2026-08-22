@@ -1,0 +1,4 @@
+# Serve the custom Astro 404 page for unknown routes.
+# Astro's dev server handles this automatically; static hosting
+# (Apache/LiteSpeed on Hostinger) requires this directive.
+ErrorDocument 404 /404.html

@@ -7,6 +7,59 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **Specboot framework upgraded v0.1.0 → v0.1.2** (OpenSpec change
+  `upgrade-specboot-framework`; upstream `GabrielZavando/Specboot` @ `d781fb6`).
+  Summary of the sync:
+  - **Replaced (framework-owned):** `specboot.sh` (309 → 1083 lines; new
+    `init` / `update` / `--version` subcommands, integrates
+    `validate-specboot.sh`), `check-refs.sh` (also scans `.opencode/**`),
+    `AGENTS.md` (72 → 207 lines; bridge format with tag-based conditional
+    context loading and `docs/project/*` conditional prose), `Makefile`
+    (parametrized via `.specboot.json`), `opencode.json` (91 → 20 lines),
+    `docs/base-standards.md` (upstream neutral version; Matices context moved
+    to `docs/project/`), `ai-specs/` (4 new skills: `archive`, `verify`,
+    `explain`, `show-spec-working`; 2 new agents: `archive-agent`,
+    `verify-agent`; refreshed existing ones), selected `templates/ci/` files
+    (`eslintrc.backend.js`, `eslintrc.frontend.js`, `.dependency-cruiser.js`,
+    `.madge.config.json`, `package.ci.json`, `README.md`).
+  - **Created:** `.opencode/agents/*.md` (7) and `.opencode/commands/*.md` (10)
+    with YAML frontmatter (canonical OpenCode layout; `agent`/`command` inline
+    keys removed from `opencode.json`), `.specboot.json` project manifest
+    (`frameworkVersion: 0.1.2`, `services: ["."]`, `stack: ["node"]`),
+    `validate-specboot.sh`, `scripts/dogfood-check.sh`, 6 framework docs
+    (`docs/framework-contract.md`, `docs-standard.md`, `specboot-json-standard.md`,
+    `versioning-standard.md`, `git-workflow-standards.md`, `ci-standards.md`),
+    and `docs/project/{domain,stack,client}.md` (project-owned context migrated
+    from the former `base-standards.md` §8/§9).
+  - **Moved to canonical layout:** `docs/api-spec.yml` → `docs/api/api-spec.yml`
+    and `docs/data-model.md` → `docs/data-model/data-model.md`. Path references
+    updated in `docs/backend-standards.md`, `docs/documentation-standards.md`
+    and the active spec `openspec/specs/contact-lead-contract/spec.md`.
+  - **Removed:** `update.sh` (deprecated upstream in favor of `specboot update`;
+    unused by this project — 0 references).
+  - **CI:** new `specboot-ci` job in `.github/workflows/ci.yml` running
+    `bash check-refs.sh` + `bash specboot.sh --ci`.
+  - **package.json `version` 0.0.1 → 0.1.2:** acts as the framework version
+    marker. `validate-specboot.sh` resolves the "installed" framework version
+    via `specboot.sh --version`, which reads the root package.json (upstream
+    dogfooding precedence; site releases use git tags and never read this
+    field, so there is no functional impact). Upstream debt registered: the
+    precedence (1) shadows `node_modules/@gabrielzavando/specboot` — to fix in
+    the framework repo via its own SDD flow.
+- **Local adaptations preserved (intentional drift, documented):**
+  - `pnpm` everywhere in Makefile node targets (`# LOCAL` markers + `LOCAL
+    ADAPTATIONS` header block); `audit` keeps the strict gate (no `|| true`).
+  - `templates/ci/eslintrc.astro.js` stays as the project's ESLint 9 flat
+    config (upstream ships legacy eslintrc format for ESLint 8); **do not
+    overwrite on future `specboot update`**.
+  - `solid-lint` runs only the Astro ESLint config (no NestJS/Angular/
+    dependency-cruiser — stack has no such layers).
+  - `commitlint.config.js` (JS, function-based `ignores`) untouched; upstream's
+    `.commitlintrc.json` would reintroduce the cosmiconfig precedence bug.
+  - Python-only templates (`.importlinter`, `ruff.toml`) not adopted.
+
 ### Added
 - SOLID/POO mechanical checks (Specboot Ticket 4): synced `templates/ci/`; rewrote `templates/ci/eslintrc.astro.js` as an ESLint flat config (upstream ships legacy eslintrc format for ESLint 8); added devDependencies `eslint`, `@eslint/js`, `typescript-eslint`, `eslint-plugin-astro`; wired `make solid-lint` into the CI lint job.
 - On-demand context artifacts from upstream: `ai-specs/reference/commits.md`, `ai-specs/examples/enrich-us-auth-reset.md`, skill `plan-change` and agent `plan-agent`.

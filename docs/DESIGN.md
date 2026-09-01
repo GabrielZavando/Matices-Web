@@ -50,23 +50,23 @@ colors:
   surface-variant: '#e1e3e2'
 typography:
   display-lg:
-    fontFamily: Playfair Display
+    fontFamily: Antic
     fontSize: 56px
     fontWeight: '700'
     lineHeight: '1.1'
     letterSpacing: -0.02em
   headline-lg:
-    fontFamily: Playfair Display
+    fontFamily: Antic
     fontSize: 40px
     fontWeight: '600'
     lineHeight: '1.2'
   headline-lg-mobile:
-    fontFamily: Playfair Display
+    fontFamily: Antic
     fontSize: 32px
     fontWeight: '600'
     lineHeight: '1.2'
   headline-md:
-    fontFamily: Playfair Display
+    fontFamily: Antic
     fontSize: 28px
     fontWeight: '600'
     lineHeight: '1.3'
@@ -118,7 +118,7 @@ The palette is extracted from the corporate identity of Matices Consultoría Int
 ## Typography
 
 The typographic strategy balances two distinct personalities:
-1. **Playfair Display (Serif):** Used for headlines and display text to provide "Sophisticated Elegance." Its high contrast and classic letterforms evoke luxury and editorial authority.
+1. **Antic (Sans-Serif):** Used for headlines and display text to provide a clean, modern editorial feel. Antic is a single-weight (400) typeface; heading weights (600/700) rely on browser synthetic bold to preserve hierarchy.
 2. **Plus Jakarta Sans (Sans-Serif):** Used for body copy, UI labels, and inputs. Its soft, open terminals provide a "Modern Organic" feel that ensures high legibility and a friendly, approachable tone.
 
 Scale headlines aggressively on desktop to create a rhythmic "magazine" feel, while collapsing to more functional sizes on mobile to maintain readability.

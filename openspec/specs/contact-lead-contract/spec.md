@@ -5,8 +5,8 @@ TBD - created by archiving change fix-contact-form-contract. Update Purpose afte
 ## Requirements
 ### Requirement: Canonical Lead Payload Contract
 The contact form in `src/pages/contacto.astro` MUST submit a payload whose field `name`
-attributes exactly match the documented `B2BLeadPayload` contract in `docs/api-spec.yml`
-and `docs/data-model.md`. Required fields (`name`, `email`, `phone`) MUST be enforced.
+attributes exactly match the documented `B2BLeadPayload` contract in `docs/api/api-spec.yml`
+and `docs/data-model/data-model.md`. Required fields (`name`, `email`, `phone`) MUST be enforced.
 The `message` field is OPTIONAL: the UI MUST NOT mark it as required (no asterisk, no
 `required` attribute) and `getMissingRequired` MUST NOT report it when absent or blank.
 The `contact_preference` field is OPTIONAL and MUST NOT be required in the UI.

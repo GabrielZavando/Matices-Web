@@ -24,12 +24,12 @@ alwaysApply: false
   la clave en el repo: leerla de variables de entorno / configuración del formulario.
 - Validación en cliente (TypeScript tipado) + honeypot `_honeypot` (trampa anti-spam,
   debe quedar vacío).
-- El modelo de payload está definido en `docs/api-spec.yml` y `docs/data-model.md`.
+- El modelo de payload está definido en `docs/api/api-spec.yml` y `docs/data-model/data-model.md`.
 
 ## 3. Tipado y contratos
 
-- El payload del lead se modela como `B2BLead` (ver `docs/data-model.md`).
-- `docs/api-spec.yml` es el contrato OpenAPI 3.0.3 de salida (frontend → serverless).
+- El payload del lead se modela como `B2BLead` (ver `docs/data-model/data-model.md`).
+- `docs/api/api-spec.yml` es el contrato OpenAPI 3.0.3 de salida (frontend → serverless).
   Mantenerlo sincronizado con el formulario real.
 
 ## 4. Testing

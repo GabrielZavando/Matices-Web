@@ -26,9 +26,9 @@ alwaysApply: true
 
 Para estándares detallados, leer los archivos correspondientes:
 
-- [Backend Standards](docs/backend-standards.md) — API, base de datos, testing, seguridad
-- [Frontend Standards](docs/frontend-standards.md) — Componentes, UI/UX, estado
-- [Documentation Standards](docs/documentation-standards.md) — Estructura docs, OpenAPI, mantenimiento
+- [Backend Standards](backend-standards.md) — API, base de datos, testing, seguridad
+- [Frontend Standards](frontend-standards.md) — Componentes, UI/UX, estado
+- [Documentation Standards](documentation-standards.md) — Estructura docs, OpenAPI, mantenimiento
 
 ## 7. Actualización de artefactos OpenSpec ante cambios post-apply
 
@@ -41,37 +41,42 @@ Si aparece un fix o cambio nuevo después de `/apply` y antes de `/archive`:
 
 **No aplicar fixes directos en código sin actualizar OpenSpec primero.**
 
-## 8. Contexto del proyecto — Matices Consultoría Integral
+## 8. Contexto del proyecto (personalizar por proyecto)
 
-> Esta sección fue personalizada para este proyecto. No dejar placeholders sin reemplazar.
+> ⚠️ Esta sección no se completa aquí: `base-standards.md` es intocable (plantilla de
+> principios). El contexto específico del proyecto vive en `docs/project/` (plantillas del
+> framework): `docs/project/stack.md`, `docs/project/domain.md` y `docs/project/client.md`.
+> Ver `docs/docs-standard.md` para la frontera intocable/del proyecto en `docs/`.
 
-```
-Stack: Astro 6 (Static Site Generation) + TypeScript (astro/tsconfigs/strictest) + Tailwind CSS v4 (plugin @tailwindcss/vite) + Vitest. Sin backend propio: formulario serverless vía web3forms. hosting estático en Hostinger ($0 TCO).
-Arquitectura: SSG por componentes Astro reutilizables (src/components), mobile-first, sin frameworks SPA.
-Dominio: Consultoría B2B (reclutamiento y selección, evaluación psicológica, formación, gestión de talento, I+D, testing psicométrico). Generación de prospectos y venta consultiva.
-Cliente: Matices Consultoría Integral (Viña del Mar, Chile).
-Convenciones de commits: Conventional Commits (feat/ui, fix/form, docs/seo, refactor/style, ...).
-Lenguaje del código: English
-Lenguaje de documentación cliente: Español
-```
+El proyecto debe definir, en esos archivos:
 
-### 8.1 Reglas de prohibición (no negociables)
+- **Stack**: lenguajes, frameworks, bases de datos e infraestructura.
+- **Arquitectura**: estilo elegido por el proyecto (Clean Architecture, MVC, hexagonal, etc.).
+- **Dominio**: descripción del negocio y entidades centrales.
+- **Cliente / audiencia**: para quién se construye.
 
-- El tipo `any` o directivas de supresión de compilador (`@ts-ignore`, `@ts-nocheck`) están estrictamente prohibidos.
-- Estilos inline (`style=""`) o archivos `.css` globales están prohibidos. Todo el diseño se resuelve con clases utilitarias de Tailwind CSS.
-- Frameworks SPA pesados (React, Vue, Svelte) están prohibidos para proteger el tamaño del bundle (RNF1).
-- Imágenes: usar siempre el componente `<Image />` de `astro:assets` (WebP/AVIF); el tag `<img />` tradicional está prohibido.
+Convenciones transversales (aplican a todo proyecto):
+
+- Convenciones de commits: Conventional Commits
+- Lenguaje del código: English
+- Lenguaje de documentación cliente: Español
+
+Esto mantiene `base-standards.md` como plantilla pura de principios (SDD/TDD/SOLID) sin
+placeholders sin reemplazar.
 
 ## 9. Principios de Diseño No Negociables
 
 Todo el código generado para este proyecto debe respetar **SOLID** y priorizar
 **encapsulamiento y composición sobre herencia** como regla general rectora. La
 herencia solo se admite con justificación explícita en el código; por defecto se
-compone comportamiento inyectando abstracciones (funciones puras, props tipadas,
-módulos con una única responsabilidad).
+compone comportamiento inyectando abstracciones.
 
 Esta sección es solo el **principio rector a nivel de proyecto**. Las reglas
-**concretas y verificables** —umbrales de tamaño, convenciones de componentes,
-patrones de composición para Astro/TypeScript— viven en
-[Frontend Standards](docs/frontend-standards.md). No duplicar aquí contenido
-técnico: leer y aplicar el doc del stack correspondiente.
+**concretas y verificables** —umbrales numéricos, estructura de carpetas,
+patrones de inyección, ejemplos de violación por stack— viven en:
+
+- [Backend Standards](backend-standards.md) — sección _Principios de Diseño — Backend (NestJS)_
+- [Frontend Standards](frontend-standards.md) — secciones _Principios de Diseño — Frontend (Angular)_ y _Principios de Diseño — Astro_
+
+No duplicar aquí contenido técnico: leer y aplicar el doc del stack
+correspondiente.

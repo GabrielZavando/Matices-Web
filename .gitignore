@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 # builds and archives
 *.zip
+
+# Specboot update backups
+.specboot-backup-*

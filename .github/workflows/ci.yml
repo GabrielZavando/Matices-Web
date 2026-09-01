@@ -135,6 +135,24 @@ jobs:
       - name: Validate commits
         run: make commitlint
 
+  specboot-ci:
+    name: Specboot Framework CI
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Check {file:...} referential integrity
+        run: bash check-refs.sh
+
+      - name: Framework self-check (structure, manifest, placeholders)
+        run: bash specboot.sh --ci
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true

@@ -1,96 +1,200 @@
-# Makefile — Stack-agnostic CI interface for Zavando Specboot projects
+# Makefile — framework Makefile, parametrizado por .specboot.json
 #
-# Each stack implements the same set of targets (install, lint, test, build,
-# audit, commitlint). CI (.github/workflows/ci.yml) only invokes these targets,
-# never the underlying commands, so the pipeline stays identical across projects.
+# Intocable: el proyecto NO lo edita. Se parametriza vía `services` y `stack`
+# declarados en .specboot.json. El proyecto adapta el linting/validación por
+# servicio sin tocar este archivo.
 #
-# To customize for your stack, adjust the commands inside each target or add a
-# new branch to the STACK detection below.
+# Lectura de config: `node -e` (convención del framework, nunca `jq`).
+# `make ci` es el CI gate del PROYECTO (refs + solid-lint + lint + test + audit).
+# La validación del framework en sí (`specboot.sh --ci`) es un "framework
+# self-check" separado, NO un target de este Makefile.
 #
-# Local adaptations (intentional drift from upstream Specboot template):
-#   - node targets use pnpm (project lockfile is pnpm-lock.yaml)
-#   - solid-lint runs only the Astro ESLint config (no NestJS/Angular/dependency-cruiser)
+# ============================================================================
+# LOCAL ADAPTATIONS (intentional drift from upstream Specboot template)
+# ============================================================================
+# This project uses pnpm (lockfile is pnpm-lock.yaml) and Astro-only
+# solid-lint. Lines marked with `# LOCAL` deviate from the upstream targets:
+#   - install/lint/test/build/audit use pnpm instead of npm.
+#   - solid-lint runs ONLY the Astro ESLint flat config (templates/ci/
+#     eslintrc.astro.js, ESLint 9); no NestJS/Angular/dependency-cruiser.
+#   - audit keeps the strict gate (no `|| true`): it must fail CI on
+#     high-severity advisories.
+# See CHANGELOG.md → Specboot framework upgrade v0.1.2, and
+# docs/project/stack.md → "Adaptaciones locales del tooling".
+# ============================================================================
 
-.PHONY: help install lint test build audit commitlint refs solid-lint
+.PHONY: help install lint test build audit solid-lint commitlint refs validate-specboot ci
 
-# Detect the active stack from its manifest file.
-STACK := $(shell \
-  if [ -f package.json ]; then echo node; \
-  elif [ -f composer.json ]; then echo php; \
-  elif [ -f pyproject.toml ] || [ -f requirements.txt ]; then echo python; \
-  elif [ -f go.mod ]; then echo go; \
-  elif [ -f Cargo.toml ]; then echo rust; \
-  else echo unknown; fi)
+SPEC_FILE := .specboot.json
 
-help: ## Show available targets
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  %-12s %s\n", $$1, $$2}'
+# --- Lectura de .specboot.json con node -e (no jq) ---
 
-install: ## Install dependencies (stack-specific)
-	@case "$(STACK)" in \
-	  node)   pnpm install ;; \
-	  php)    composer install --no-interaction ;; \
-	  python) pip install -r requirements.txt ;; \
-	  go)     go mod download ;; \
-	  rust)   cargo fetch ;; \
-	  *)      echo "install: no stack detected — personalize the project and add install steps" ;; \
-	esac
+# Servicios: array de rutas relativas. Default ["."] si falta/vacío.
+SERVICES := $(shell node -e "try{var s=require('./$(SPEC_FILE)').services;if(Array.isArray(s)&&s.length)process.stdout.write(s.join(' '));else process.stdout.write('.');}catch(e){process.stdout.write('.');}" 2>/dev/null)
 
-lint: ## Lint and static analysis (stack-specific)
-	@case "$(STACK)" in \
-	  node)   pnpm run lint ;; \
-	  php)    composer lint ;; \
-	  python) ruff check . ;; \
-	  go)     go vet ./... ;; \
-	  rust)   cargo clippy -- -D warnings ;; \
-	  *)      bash specboot.sh --ci ;; \
-	esac
-	@$(MAKE) refs
+# Stack crudo: string o array. Vacío si no se declara.
+RAW_STACK := $(shell node -e "try{var s=require('./$(SPEC_FILE)').stack;if(Array.isArray(s))process.stdout.write(s.join(' '));else if(s)process.stdout.write(s);}catch(e){}" 2>/dev/null)
 
-test: ## Run the test suite (stack-specific)
-	@case "$(STACK)" in \
-	  node)   pnpm test ;; \
-	  php)    composer test ;; \
-	  python) pytest ;; \
-	  go)     go test ./... ;; \
-	  rust)   cargo test ;; \
-	  *)      echo "test: no stack detected — add your test command" ;; \
-	esac
-	@$(MAKE) refs
+# Stack autodetectado por presencia de manifiestos (cuando stack='auto' o no declarado).
+DETECT_STACK := $(shell for d in $(SERVICES); do \
+  [ -f "$$d/package.json" ] && echo "node"; \
+  { [ -f "$$d/pyproject.toml" ] || [ -f "$$d/requirements.txt" ]; } && echo "python"; \
+done | sort -u | tr '\n' ' ')
 
-build: ## Build the project (stack-specific)
-	@case "$(STACK)" in \
-	  node)   pnpm run build ;; \
-	  php)    composer install --no-dev --optimize-autoloader ;; \
-	  python) pip install -e . ;; \
-	  go)     go build ./... ;; \
-	  rust)   cargo build --release ;; \
-	  *)      echo "build: no stack detected — add your build command" ;; \
-	esac
+# Stack final: declarado, o autodetectado si está vacío o es "auto".
+FINAL_STACK := $(if $(RAW_STACK),$(if $(filter auto,$(RAW_STACK)),$(DETECT_STACK),$(RAW_STACK)),$(DETECT_STACK))
 
-audit: ## Security audit (stack-specific)
-	@case "$(STACK)" in \
-	  node)   pnpm audit --audit-level=high ;; \
-	  php)    composer audit ;; \
-	  python) pip-audit ;; \
-	  go)     go list -m -u ;; \
-	  rust)   cargo audit ;; \
-	  *)      echo "audit: no stack detected — add your audit command" ;; \
-	esac
+# Guardas de stack (no vacías cuando el stack aplica).
+HAS_NODE := $(findstring node,$(FINAL_STACK))
+HAS_PYTHON := $(findstring python,$(FINAL_STACK))
 
-commitlint: ## Lint commit messages (stack-independent)
+# --- Help ---
+
+help:
+	@echo ""
+	@echo "Targets del framework (parametrizados por .specboot.json):"
+	@echo "  install           Instalar dependencias (raíz y servicios)"
+	@echo "  lint              Linting propio del proyecto por servicio (pnpm run lint / ruff)"
+	@echo "  test              Tests por servicio (pnpm test / pytest)"
+	@echo "  build             Compilación por servicio (pnpm run build / python -m build)"
+	@echo "  audit             Auditoría de dependencias (pnpm audit / pip-audit)"
+	@echo "  solid-lint        SOLID/DIP (Astro ESLint — LOCAL adaptation)"
+	@echo "  commitlint        Validar commits Git"
+	@echo "  refs              Ejecutar check-refs.sh del proyecto"
+	@echo "  validate-specboot Validar .specboot.json del proyecto (si validate-specboot.sh existe)"
+	@echo "  ci                CI gate del proyecto: refs + solid-lint + lint + test + audit"
+	@echo "  help              Esta ayuda"
+	@echo ""
+	@echo "Servicios detectados: $(SERVICES)"
+	@echo "Stack detectado: $(FINAL_STACK)"
+	@echo ""
+	@echo "El Makefile es intocable: el proyecto no lo edita, solo declara services/stack."
+	@echo "(LOCAL ADAPTATIONS: pnpm + Astro-only solid-lint — ver header)."
+	@echo ""
+
+# --- install ---
+
+install:
+	@echo "⚙️  install (services: $(SERVICES), stack: $(FINAL_STACK))"
+	@for d in $(SERVICES); do \
+	  if [ ! -d "$$d" ] && [ "$$d" != "." ]; then echo "⚠️  $$d no existe, saltando"; continue; fi; \
+	  if [ -n "$(HAS_NODE)" ] && [ -f "$$d/package.json" ] && node -e "var p=require('./'+process.argv[1]+'/package.json');process.exit((p.dependencies||p.devDependencies)?0:1)" "$$d" 2>/dev/null; then \
+	    echo "⚙️  $$d: pnpm install"; (cd "$$d" && pnpm install); \
+	  elif [ -n "$(HAS_PYTHON)" ] && { [ -f "$$d/pyproject.toml" ] || [ -f "$$d/requirements.txt" ]; }; then \
+	    echo "⚙️  $$d: pip install"; (cd "$$d" && { [ -f requirements.txt ] && pip install -r requirements.txt || pip install -e .; }); \
+	  else echo "⚠️  $$d: sin stack/manifest aplicable, saltando"; fi; \
+	done
+
+# --- lint (lint PROPIO del proyecto) ---
+
+lint:
+	@echo "🔍 lint (services: $(SERVICES), stack: $(FINAL_STACK))"
+	@for d in $(SERVICES); do \
+	  if [ ! -d "$$d" ] && [ "$$d" != "." ]; then echo "⚠️  $$d no existe, saltando"; continue; fi; \
+	  if [ -n "$(HAS_NODE)" ] && [ -f "$$d/package.json" ]; then \
+	    if node -e "var p=require('./'+process.argv[1]+'/package.json');process.exit((p.scripts&&p.scripts.lint)?0:1)" "$$d" 2>/dev/null; then \
+	      echo "🔍 $$d: pnpm run lint"; (cd "$$d" && pnpm run lint); \
+	    else echo "⚠️  $$d: sin script 'lint', saltando"; fi; \
+	  elif [ -n "$(HAS_PYTHON)" ] && [ -f "$$d/pyproject.toml" ]; then \
+	    echo "🔍 $$d: ruff check ."; (cd "$$d" && ruff check .); \
+	  else echo "⚠️  $$d: sin stack/manifest aplicable, saltando"; fi; \
+	done
+
+# --- test ---
+
+test:
+	@echo "🧪 test (services: $(SERVICES), stack: $(FINAL_STACK))"
+	@for d in $(SERVICES); do \
+	  if [ ! -d "$$d" ] && [ "$$d" != "." ]; then echo "⚠️  $$d no existe, saltando"; continue; fi; \
+	  if [ -n "$(HAS_NODE)" ] && [ -f "$$d/package.json" ]; then \
+	    if node -e "var p=require('./'+process.argv[1]+'/package.json');process.exit((p.scripts&&p.scripts.test)?0:1)" "$$d" 2>/dev/null; then \
+	      echo "🧪 $$d: pnpm test"; (cd "$$d" && pnpm test); \
+	    else echo "⚠️  $$d: sin script 'test', saltando"; fi; \
+	  elif [ -n "$(HAS_PYTHON)" ] && [ -f "$$d/pyproject.toml" ]; then \
+	    echo "🧪 $$d: pytest"; (cd "$$d" && pytest); \
+	  else echo "⚠️  $$d: sin stack/manifest aplicable, saltando"; fi; \
+	done
+
+# --- build ---
+
+build:
+	@echo "🔨 build (services: $(SERVICES), stack: $(FINAL_STACK))"
+	@for d in $(SERVICES); do \
+	  if [ ! -d "$$d" ] && [ "$$d" != "." ]; then echo "⚠️  $$d no existe, saltando"; continue; fi; \
+	  if [ -n "$(HAS_NODE)" ] && [ -f "$$d/package.json" ]; then \
+	    if node -e "var p=require('./'+process.argv[1]+'/package.json');process.exit((p.scripts&&p.scripts.build)?0:1)" "$$d" 2>/dev/null; then \
+	      echo "🔨 $$d: pnpm run build"; (cd "$$d" && pnpm run build); \
+	    else echo "⚠️  $$d: sin script 'build', saltando"; fi; \
+	  elif [ -n "$(HAS_PYTHON)" ]; then \
+	    echo "🔨 $$d: python -m build"; (cd "$$d" && python -m build); \
+	  else echo "⚠️  $$d: sin stack/manifest aplicable, saltando"; fi; \
+	done
+
+# --- audit ---
+
+audit:
+	@echo "🔒 audit (services: $(SERVICES), stack: $(FINAL_STACK))"
+	@for d in $(SERVICES); do \
+	  if [ ! -d "$$d" ] && [ "$$d" != "." ]; then echo "⚠️  $$d no existe, saltando"; continue; fi; \
+	  if [ -n "$(HAS_NODE)" ] && [ -f "$$d/package.json" ]; then \
+	    echo "🔒 $$d: pnpm audit"; (cd "$$d" && pnpm audit --audit-level=high); \
+	  elif [ -n "$(HAS_PYTHON)" ] && { [ -f "$$d/pyproject.toml" ] || [ -f "$$d/requirements.txt" ]; }; then \
+	    echo "🔒 $$d: pip-audit"; (cd "$$d" && pip-audit || true); \
+	  else echo "⚠️  $$d: sin stack/manifest aplicable, saltando"; fi; \
+	done
+
+# --- solid-lint (SOLID/POO del framework) ---
+# LOCAL: Astro-only. The upstream node branch (eslint@8 backend/frontend
+# configs, madge, dependency-cruiser) does not apply to this stack; this
+# project's Astro ESLint flat config requires ESLint 9 (plain `npx eslint`).
+
+solid-lint:
+	@if [ -z "$(HAS_NODE)" ] && [ -z "$(HAS_PYTHON)" ]; then \
+	  echo "→ solid-lint: stack '$(FINAL_STACK)' no incluye node/python — saltando análisis de app (stack de framework/otro)."; \
+	  exit 0; \
+	fi; \
+	ran_any=0; \
+	for d in $(SERVICES); do \
+	  if [ ! -d "$$d" ] && [ "$$d" != "." ]; then echo "⚠️  $$d no existe, saltando"; continue; fi; \
+	  if [ -n "$(HAS_NODE)" ] && [ -d "$$d/src" ]; then \
+	    ran_any=1; \
+	    if [ -f templates/ci/eslintrc.astro.js ]; then \
+	      echo "  → $$d: Astro ESLint (flat config, ESLint 9)"; \
+	      npx eslint -c templates/ci/eslintrc.astro.js "$$d/src/**/*.{ts,astro}" || exit 1; \
+	    fi; \
+	  fi; \
+	done; \
+	if [ "$$ran_any" = "0" ]; then \
+	  echo "❌ solid-lint: application code found but no SOLID config applies."; \
+	  echo "   Add templates/ci/eslintrc.astro.js (Astro) or the stack-specific config."; \
+	  exit 1; \
+	fi; \
+	echo "→ SOLID/POO static analysis: PASS"
+
+# --- commitlint ---
+
+commitlint:
 	npx -p @commitlint/cli -p @commitlint/config-conventional commitlint --from HEAD~1 --to HEAD --verbose
 
-refs: ## Check referential integrity of {file:...} references
+# --- refs ---
+
+refs:
 	bash check-refs.sh
 
-solid-lint: ## Run SOLID/POO static analysis for Astro (Ticket 4). Skips silently if no package.json.
-	@if [ -f package.json ]; then \
-	  echo "→ SOLID/POO static analysis (ESLint — Astro)"; \
-	  if [ -f templates/ci/eslintrc.astro.js ] && [ -d src ]; then \
-	    echo "  → Astro ESLint"; \
-	    npx eslint -c templates/ci/eslintrc.astro.js 'src/**/*.{ts,astro}' || exit 1; \
-	  fi; \
-	  echo "→ SOLID/POO static analysis: PASS"; \
+# --- validate-specboot (opcional) ---
+
+validate-specboot:
+	@if [ -f validate-specboot.sh ]; then \
+	  echo "🔒 Validando .specboot.json del proyecto..."; \
+	  bash validate-specboot.sh; \
 	else \
-	  echo "→ solid-lint: no package.json found — skipping"; \
+	  echo "⚠️  validate-specboot.sh no disponible en este proyecto, saltando"; \
 	fi
+
+# --- ci (gate del proyecto consumidor) ---
+
+ci: refs solid-lint lint test audit
+	@echo ""
+	@echo "✅ CI del proyecto completado"
+	@echo "   Services: $(SERVICES)"
+	@echo "   Stack: $(FINAL_STACK)"

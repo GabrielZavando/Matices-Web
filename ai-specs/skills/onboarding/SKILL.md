@@ -145,8 +145,10 @@ project/
 │   ├── base-standards.md
 │   ├── backend-standards.md
 │   ├── frontend-standards.md
-│   ├── api-spec.yml         # API contracts
-│   └── data-model.md        # Database schema
+│   ├── api/
+│   │   └── api-spec.yml     # API contracts
+│   └── data-model/
+│       └── data-model.md    # Database schema
 ├── ai-specs/                # ⚙️ AI agent configuration
 │   ├── agents/
 │   ├── skills/

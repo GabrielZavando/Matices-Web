@@ -7,8 +7,9 @@ import CompanyLogos from '../components/global/CompanyLogos.astro';
 import EvidenceGallery from '../components/ui/EvidenceGallery.astro';
 import Reveal from '../components/ui/Reveal.astro';
 
-import heroBusiness from '../assets/hero-business.webp';
 import collaborativeDiscussion from '../assets/collaborative-discussion.webp';
+import teamPhoto from '../assets/team/team.jpeg';
+import teamPhotoTwo from '../assets/team/team-one.jpg';
 
 import mariaJose from '../assets/team/maria-jose.jpg'
 import cata from '../assets/team/cata.jpg'
@@ -133,16 +134,38 @@ const areas = [
         <!-- Hero Graphic Content: Collapses gracefully to bottom on Mobile -->
         <Reveal as="div" variant="scale-in" delay={120} class="lg:col-span-5 relative w-full flex justify-center">
           <div class="w-full max-w-md aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl relative border-4 border-white/40">
-            <Image 
-              src={heroBusiness} 
-              alt="Líder profesional B2B analizando estrategias corporativas en una oficina iluminada"
-              width={640}
-              height={800}
-              format="avif"
-              loading="eager"
-              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 640px"
-              class="w-full h-full object-cover"
-            />
+            <div class="hero-carousel-track">
+              <Image 
+                src={teamPhoto}
+                alt="Equipo Matices en una jornada de trabajo colaborativa"
+                width={640}
+                height={800}
+                format="avif"
+                loading="eager"
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 640px"
+                class="hero-carousel-slide"
+              />
+              <Image 
+                src={teamPhotoTwo}
+                alt="Miembros del equipo Matices durante una sesión de trabajo"
+                width={640}
+                height={800}
+                format="avif"
+                loading="eager"
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 640px"
+                class="hero-carousel-slide"
+              />
+              <Image 
+                src={teamPhoto}
+                alt="Equipo Matices en una jornada de trabajo colaborativa"
+                width={640}
+                height={800}
+                format="avif"
+                loading="eager"
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 640px"
+                class="hero-carousel-slide"
+              />
+            </div>
           </div>
           <!-- Glassmorphism Floating Badge -->
           <Reveal as="div" variant="fade-up" delay={320} class="absolute -bottom-6 -left-6 bg-white/70 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-verde-bosque/10 max-w-[200px] hidden sm:block animate-float">
@@ -346,3 +369,39 @@ const areas = [
 
   <Footer />
 </Layout>
+
+<style>
+  /* Hero team photo carousel: infinite horizontal loop over an A-B-A track.
+     Each photo stays visible 5 s, then slides in 0.5 s. Pure CSS, no JS.
+     Disabled under prefers-reduced-motion (first photo shown). */
+  .hero-carousel-track {
+    display: flex;
+    width: 300%;
+    height: 100%;
+    will-change: transform;
+    animation: hero-carousel 11s ease-in-out infinite;
+  }
+
+  .hero-carousel-slide {
+    width: 33.3333%;
+    height: 100%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  /* 11 s full cycle (A 5 s → 0.5 s slide → B 5 s → 0.5 s slide → copia A).
+     Al reiniciar, translateX(0) muestra A1, misma imagen y posición que A2. */
+  @keyframes hero-carousel {
+    0%     { transform: translateX(0); }         /* A visible */
+    45.45% { transform: translateX(0); }         /* fin pausa A (5 s) */
+    50%    { transform: translateX(-33.3333%); } /* B visible (0.5 s slide) */
+    95.45% { transform: translateX(-33.3333%); } /* fin pausa B (5 s) */
+    100%   { transform: translateX(-66.6667%); } /* copia A (0.5 s slide) → loop sin salto */
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-carousel-track {
+      animation: none;
+    }
+  }
+</style>

@@ -14,7 +14,7 @@
   --color-azul-celeste: var(--color-matices-blue);
   
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-heading: "Playfair Display", ui-serif, Georgia, serif;
+  --font-heading: "Antic", ui-sans-serif, system-ui, sans-serif;
 
   /* Animation tokens — Tailwind v4 generates the matching animate-* utilities */
   --animate-fade-up:  fade-up  0.6s cubic-bezier(0.16, 1, 0.3, 1) both;

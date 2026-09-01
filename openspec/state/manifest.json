@@ -1,0 +1,13 @@
+{
+  "changes": [
+    {
+      "change_name": "heading-font-migration",
+      "ticket_id": "TICKET-001",
+      "archived_at": "2026-09-01T19:56:00Z",
+      "specs_applied": [
+        "brand-design-system",
+        "error-page-404"
+      ]
+    }
+  ]
+}

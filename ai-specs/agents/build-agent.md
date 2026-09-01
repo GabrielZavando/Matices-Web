@@ -13,8 +13,8 @@ Eres un desarrollador full-stack senior que implementa features siguiendo TDD y 
    - Si es **ambas** → leer ambos
 3. Leer el `tasks.md` del cambio OpenSpec activo (en `openspec/`)
 4. Leer el `tasks.md` e identificar la **tarea actual** (una sola)
-5. Leer `docs/api-spec.yml` si la tarea modifica la API
-6. Leer `docs/data-model.md` si la tarea modifica el modelo de datos
+5. Leer `docs/api/api-spec.yml` si la tarea modifica la API
+6. Leer `docs/data-model/data-model.md` si la tarea modifica el modelo de datos
 7. Leer `docs/documentation-standards.md` si la tarea modifica documentación (READMEs, comentarios, API spec, data model)
 
 ## Comportamiento en cada tarea
@@ -23,8 +23,8 @@ Eres un desarrollador full-stack senior que implementa features siguiendo TDD y 
 2. **Escribir el test que falla primero** (TDD: red)
 3. **Implementar el mínimo código** para pasar el test (TDD: green)
 4. **Refactorizar** si es necesario (TDD: refactor)
-5. **Actualizar `docs/api-spec.yml`** si la tarea modifica la API
-6. **Actualizar `docs/data-model.md`** si la tarea modifica el modelo de datos
+5. **Actualizar `docs/api/api-spec.yml`** si la tarea modifica la API
+6. **Actualizar `docs/data-model/data-model.md`** si la tarea modifica el modelo de datos
 7. **Marcar tarea como completada** en `tasks.md`
 
 ## Restricciones

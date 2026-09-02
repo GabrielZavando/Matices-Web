@@ -22,22 +22,42 @@ const doubleCompanyList = [...companyList, ...companyList];
     </Reveal>
 
     {doubleCompanyList.length > 0 ? (
-      <div class="carousel-viewport w-full overflow-hidden relative @container">
-        <div class="carousel-track">
-          {doubleCompanyList.map((logo) => (
-            <div class="carousel-item">
-              <div class="carousel-item-inner">
-                <Image 
-                  src={logo} 
-                  alt="Empresa o institución aliada de Matices" 
-                  format="avif"
-                  loading="lazy"
-                  class="carousel-logo"
-                />
+      <div class="carousel-wrapper relative flex items-center gap-3 md:gap-5">
+        <button
+          type="button"
+          class="carousel-arrow carousel-arrow--left"
+          data-carousel-prev
+          aria-label="Mover logos a la izquierda"
+        >
+          &lt;
+        </button>
+
+        <div class="carousel-viewport flex-1 overflow-hidden relative" data-carousel-viewport>
+          <div class="carousel-track" data-carousel-track>
+            {doubleCompanyList.map((logo) => (
+              <div class="carousel-item">
+                <div class="carousel-item-inner">
+                  <Image 
+                    src={logo} 
+                    alt="Empresa o institución aliada de Matices" 
+                    format="avif"
+                    loading="lazy"
+                    class="carousel-logo"
+                  />
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
+
+        <button
+          type="button"
+          class="carousel-arrow carousel-arrow--right"
+          data-carousel-next
+          aria-label="Mover logos a la derecha"
+        >
+          &gt;
+        </button>
       </div>
     ) : (
       <div class="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center opacity-40 font-sans text-xs md:text-sm font-bold tracking-widest uppercase text-verde-bosque/50">
@@ -51,8 +71,11 @@ const doubleCompanyList = [...companyList, ...companyList];
 </section>
 
 <style>
-  .carousel-viewport {
+  .carousel-wrapper {
     container-type: inline-size;
+  }
+
+  .carousel-viewport {
     width: 100%;
     overflow: hidden;
     position: relative;
@@ -66,9 +89,27 @@ const doubleCompanyList = [...companyList, ...companyList];
     gap: var(--carousel-gap);
     width: max-content;
     animation: marquee 45s linear infinite;
+    /*
+     * --shift : desplazamiento manual mientras el usuario interactúa.
+     * --marquee-start : origen del keyframe. Se actualiza al reanudar
+     *                   para que la animación continúe desde donde
+     *                   quedó el track (sin salto visual al origen).
+     */
+    --shift: 0px;
+    --marquee-start: 0px;
+    transform: translate3d(var(--shift), 0, 0);
   }
 
-  .carousel-track:hover {
+  /*
+   * Pausa la animación cuando se hace hover o focus en cualquier flecha.
+   * - Vía CSS con :has() (degrada gracefully si el navegador no lo soporta).
+   * - Vía clase .is-paused que añade el JS en los listeners mouseenter/focus.
+   * La doble estrategia garantiza que la pausa funcione tanto en
+   * navegadores antiguos como en entornos donde el hover CSS se evalúa
+   * de forma perezosa (p.ej. tests headless).
+   */
+  .carousel-wrapper:has(.carousel-arrow:hover) .carousel-track,
+  .carousel-wrapper:has(.carousel-arrow:focus-visible) .carousel-track {
     animation-play-state: paused;
   }
 
@@ -107,30 +148,42 @@ const doubleCompanyList = [...companyList, ...companyList];
   }
 
   .carousel-logo {
-    height: 3.5rem;
+    height: 4.25rem;
     max-width: 140px;
     width: auto;
     object-fit: contain;
-    filter: grayscale(100%);
-    opacity: 0.7;
-    transition: filter 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
-                opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .carousel-item-inner:hover .carousel-logo {
-    filter: grayscale(0%);
+    /* Logos siempre en color */
+    filter: none;
     opacity: 1;
   }
 
 
-
   @keyframes marquee {
     0% {
-      transform: translate3d(0, 0, 0);
+      transform: translate3d(var(--marquee-start), 0, 0);
     }
     100% {
-      transform: translate3d(calc(-50% - var(--carousel-gap) / 2), 0, 0);
+      transform: translate3d(calc(var(--marquee-start) - 50% - var(--carousel-gap) / 2), 0, 0);
     }
+  }
+
+  /*
+   * Modo manual (controlado por JS): congelamos la animación y la variable
+   * --shift posiciona el track en el desplazamiento manual acumulado.
+   * Al reanudar, el JS aplica el equivalente a --shift sobre
+   * --marquee-start y desactiva data-manual.
+   */
+  .carousel-track[data-manual="true"] {
+    animation: none;
+  }
+
+  /*
+   * Pausa controlada por clase (añadida por JS en mouseenter/focus).
+   * Complementa la regla :has() de arriba para entornos donde el hover
+   * CSS no se evalúa de forma fiable.
+   */
+  .carousel-wrapper.is-paused .carousel-track {
+    animation-play-state: paused;
   }
 
   /* Breakpoints responsivos */
@@ -144,5 +197,158 @@ const doubleCompanyList = [...companyList, ...companyList];
       --items-visible: 5;
     }
   }
+
+  /* Estilos de los controles de navegación */
+  .carousel-arrow {
+    flex-shrink: 0;
+    width: 2.75rem;
+    height: 2.75rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    background-color: rgba(36, 59, 85, 0.06);
+    color: var(--color-verde-bosque, #243B55);
+    font-family: var(--font-sans, ui-sans-serif, system-ui, sans-serif);
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1;
+    border: 1px solid rgba(36, 59, 85, 0.12);
+    cursor: pointer;
+    transition: background-color 0.25s ease, color 0.25s ease,
+                border-color 0.25s ease, transform 0.25s ease;
+    user-select: none;
+  }
+
+  .carousel-arrow:hover,
+  .carousel-arrow:focus-visible {
+    background-color: var(--color-verde-lima, #98C245);
+    color: #ffffff;
+    border-color: var(--color-verde-lima, #98C245);
+    transform: scale(1.06);
+    outline: none;
+  }
+
+  .carousel-arrow:active {
+    transform: scale(0.96);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .carousel-arrow {
+      transition: none;
+    }
+  }
 </style>
 
+<script>
+  /**
+   * Lógica del carrusel de logos:
+   * - Estado normal: el track se anima con @keyframes marquee (CSS).
+   *   El keyframe arranca desde translate3d(var(--marquee-start), 0, 0),
+   *   lo que permite reanudar la animación sin saltos desde cualquier
+   *   posición cuando se actualiza esa variable.
+   * - Al hacer hover o focus en una flecha: el wrapper recibe la clase
+   *   .is-paused y la animación se congela (CSS).
+   * - Al hacer click en una flecha: el track entra en modo "manual"
+   *   (data-manual=true) y se desplaza un logo (ancho + gap).
+   *   La posición manual se acumula en --shift.
+   * - Al soltar el hover / focus (mouseleave / blur), la animación se
+   *   reanuda automáticamente: el valor actual de --shift se transfiere
+   *   a --marquee-start, data-manual se elimina y --shift se resetea.
+   *   Así el keyframe continúa desde donde el usuario lo dejó.
+   */
+  const wrappers = document.querySelectorAll<HTMLElement>('.carousel-wrapper');
+
+  wrappers.forEach((wrapper) => {
+    const track = wrapper.querySelector<HTMLElement>('[data-carousel-track]');
+    const prevBtn = wrapper.querySelector<HTMLButtonElement>('[data-carousel-prev]');
+    const nextBtn = wrapper.querySelector<HTMLButtonElement>('[data-carousel-next]');
+    const arrows = wrapper.querySelectorAll<HTMLElement>('.carousel-arrow');
+
+    if (!track || !prevBtn || !nextBtn) return;
+
+    // Estado del desplazamiento manual
+    let manualShift = 0;
+
+    // Calcula el ancho de un solo item (incluyendo el gap)
+    const getItemStep = (): number => {
+      const item = track.querySelector<HTMLElement>('.carousel-item');
+      if (!item) return 0;
+      const itemWidth = item.getBoundingClientRect().width;
+      const gapStr = getComputedStyle(track).columnGap || getComputedStyle(track).gap || '0px';
+      const gap = parseFloat(gapStr) || 0;
+      return itemWidth + gap;
+    };
+
+    // Aplica el desplazamiento manual al track (modo manual congelado)
+    const applyShift = (next: number) => {
+      manualShift = next;
+      track.style.setProperty('--shift', `${next}px`);
+      track.setAttribute('data-manual', 'true');
+    };
+
+    // Reanuda la animación automática desde la posición actual
+    const resumeAuto = () => {
+      if (manualShift === 0 && !track.hasAttribute('data-manual')) return;
+      // Transfiere el desplazamiento manual al origen del keyframe
+      // para que la animación continúe sin saltos.
+      track.style.setProperty('--marquee-start', `${manualShift}px`);
+      // Limpia el modo manual
+      track.removeAttribute('data-manual');
+      track.style.removeProperty('--shift');
+      manualShift = 0;
+    };
+
+    // Pausa/reanuda via clase. La clase .is-paused en el wrapper
+    // fuerza la pausa de la animación, redundante con la regla
+    // :has() de CSS. Esto garantiza comportamiento consistente
+    // en cualquier entorno (incluso headless sin hover real).
+    const pause = () => {
+      wrapper.classList.add('is-paused');
+    };
+    const unpause = () => {
+      wrapper.classList.remove('is-paused');
+      // Reanuda desde la posición actual
+      resumeAuto();
+    };
+
+    // Listeners de las flechas: click desplaza
+    prevBtn.addEventListener('click', () => {
+      const step = getItemStep();
+      if (step <= 0) return;
+      const oneSetWidth = track.scrollWidth / 2;
+      const next = manualShift - step;
+      const wrapped = next < -oneSetWidth ? next + oneSetWidth : next;
+      applyShift(wrapped);
+    });
+
+    nextBtn.addEventListener('click', () => {
+      const step = getItemStep();
+      if (step <= 0) return;
+      const oneSetWidth = track.scrollWidth / 2;
+      const next = manualShift + step;
+      const wrapped = next > 0 ? next - oneSetWidth : next;
+      applyShift(wrapped);
+    });
+
+    // Pausa via mouseenter/mouseleave + focus/blur sobre cada flecha
+    arrows.forEach((arrow) => {
+      arrow.addEventListener('mouseenter', pause);
+      arrow.addEventListener('mouseleave', unpause);
+      arrow.addEventListener('focus', pause);
+      arrow.addEventListener('blur', unpause);
+    });
+
+    // Recalcular en resize: si el usuario dejó un shift acumulado y
+    // cambia el breakpoint (cambia el ancho de los items), reseteamos
+    // el estado manual y dejamos que el keyframe arranque limpio.
+    window.addEventListener('resize', () => {
+      if (track.hasAttribute('data-manual') || manualShift !== 0) {
+        track.removeAttribute('data-manual');
+        track.style.removeProperty('--shift');
+        track.style.setProperty('--marquee-start', '0px');
+        manualShift = 0;
+      }
+    });
+  });
+</script>

@@ -28,6 +28,8 @@ jobs:
           version: '10'
 
       - name: Install dependencies
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: make install
 
       - name: Lint
@@ -54,6 +56,8 @@ jobs:
           version: '10'
 
       - name: Install dependencies
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: make install
 
       - name: Build static site
@@ -82,6 +86,8 @@ jobs:
           version: '10'
 
       - name: Install dependencies
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: make install
 
       - name: Build
@@ -113,6 +119,8 @@ jobs:
           version: '10'
 
       - name: Install dependencies
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: make install
 
       - name: Security audit

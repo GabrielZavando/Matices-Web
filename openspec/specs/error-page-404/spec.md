@@ -4,8 +4,11 @@
 Proporcionar una experiencia de usuario positiva cuando se accede a una URL inexistente, ofreciendo caminos claros de regreso y destacando servicios clave de Matices Consultoría Integral. La página se muestra sin Header ni Footer para mantener el foco en la recuperación de navegación.
 ## Requirements
 ### Requirement: Hero Section
+
 La página MUST mostrar un hero centrado con:
-- Número "404" en tipografía display usando `font-heading` (Playfair Display), tamaño grande (`text-8xl md:text-9xl`), peso `font-extrabold` y color `text-verde-lima` (#98C245)
+- Número "404" en tipografía display usando `font-heading` (ahora **Antic**),
+  tamaño grande (`text-8xl md:text-9xl`), peso `font-extrabold` y color
+  `text-verde-lima` (#98C245)
 - Subtítulo: "Parece que te has desviado del camino."
 - Descripción con tono amigable y orientador: "La página que buscas no está disponible o ha sido movida. Pero no te preocupes, estamos aquí para guiarte de vuelta hacia el crecimiento y el bienestar organizacional."
 - Botón "Volver al Inicio" con icono home (Material Symbols Outlined) y enlace a "/"
@@ -19,6 +22,11 @@ La página MUST mostrar un hero centrado con:
 - **Given** un usuario accede desde un dispositivo móvil
 - **When** la página 404 carga
 - **Then** el hero se apila verticalmente con tamaños de fuente adaptados (fuente base mobile-first)
+
+#### Scenario: "404" usa la fuente de cabeceras Antic
+- **Given** el token `--font-heading` migrado a Antic
+- **When** se inspecciona el elemento del número "404"
+- **Then** hereda `font-heading` (Antic) y mantiene `text-8xl md:text-9xl font-extrabold text-verde-lima`
 
 ### Requirement: Quick Links Section
 La página MUST mostrar 3 cards de servicios principales dispuestas en grid:

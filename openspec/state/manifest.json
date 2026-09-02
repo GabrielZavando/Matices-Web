@@ -1,0 +1,35 @@
+{
+  "changes": [
+    {
+      "change_name": "heading-font-migration",
+      "ticket_id": "TICKET-001",
+      "archived_at": "2026-09-01T19:56:00Z",
+      "specs_applied": [
+        "brand-design-system",
+        "error-page-404"
+      ]
+    },
+    {
+      "change_name": "hero-team-carousel",
+      "ticket_id": "TICKET-002",
+      "archived_at": "2026-09-01T21:15:00Z",
+      "specs_applied": [
+        "hero-team-carousel"
+      ]
+    },
+    {
+      "change_name": "add-privacy-page",
+      "ticket_id": "TICKET-003",
+      "archived_at": "2026-09-01T23:49:24Z",
+      "specs_applied": [
+        "privacy-policy-page"
+      ]
+    },
+    {
+      "change_name": "company-logos-controls",
+      "ticket_id": "TICKET-004",
+      "archived_at": "2026-09-01T21:25:00Z",
+      "specs_applied": []
+    }
+  ]
+}

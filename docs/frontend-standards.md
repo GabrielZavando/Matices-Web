@@ -43,7 +43,9 @@ alwaysApply: false
   tokens. Está documentado como ítem diferido y se reconciliará en un cambio posterior
   de purga de estilos inline (fuera de alcance aquí).
 - **Tipografía**:
-  - Cabeceras: **Playfair Display** (`font-heading`).
+  - Cabeceras: **Antic** (`font-heading`). Antic es una fuente de peso único
+    (400); los pesos `600/700/800` en cabeceras usan synthetic bold del
+    navegador (decisión de marca documentada en `docs/DESIGN.md`).
   - Cuerpo, labels, formularios: **Plus Jakarta Sans** (`font-sans`).
 - **Formas y elevaciones**:
   - Radios base de inputs/botones: `0.5rem` (`8px`).

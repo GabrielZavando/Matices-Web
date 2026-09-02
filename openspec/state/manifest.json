@@ -24,6 +24,12 @@
       "specs_applied": [
         "privacy-policy-page"
       ]
+    },
+    {
+      "change_name": "company-logos-controls",
+      "ticket_id": "TICKET-004",
+      "archived_at": "2026-09-01T21:25:00Z",
+      "specs_applied": []
     }
   ]
 }

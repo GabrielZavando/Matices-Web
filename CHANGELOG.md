@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- **`specboot-ci` job installs dependencies before the framework self-check.**
+  El job corría `bash specboot.sh --ci` sobre un checkout limpio sin
+  `node_modules/`, lo que rompía el gate del framework tras el upgrade a
+  v0.11.1 con 3 errores: (1) `validate-specboot.sh` caía al fallback del
+  `package.json` raíz del proyecto (`0.1.2`) y reportaba
+  `frameworkVersion (0.11.1) es mayor que la versión instalada (0.1.2)`;
+  (2) y (3) `check_permission_contracts` / `check_command_contracts` no
+  encontraban `validate-agent-permissions.mjs` ni `validate-command-contracts.mjs`
+  (viven en el paquete, no en el proyecto). El job ahora replica los pasos de
+  los demás jobs — `registry-url: https://npm.pkg.github.com`, pnpm 10 y
+  `make install` con `NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}` — de modo
+  que la versión instalada se resuelve node_modules-first y los validadores se
+  localizan en el paquete.
+
 ### Changed
 
 - **Specboot framework upgraded v0.1.2 → v0.11.1** (OpenSpec change

@@ -9,6 +9,43 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Specboot framework upgraded v0.1.2 → v0.11.1** (OpenSpec change
+  `specboot-upgrade`; ticket `SPECBOOT-UPGRADE-0111`; upstream
+  `GabrielZavando/Specboot` @ tag `v0.11.1`, commit `b252a63`). El upgrade se
+  ejecutó vía `pnpm install` + `bash node_modules/@gabrielzavando/specboot/
+  specboot.sh update --yes` (backup en `.specboot-backup-*/`). Resumen:
+  - **Dependencia:** `devDependencies["@gabrielzavando/specboot"]` `^0.1.2` → `^0.11.1`
+    (el nombre ya era `specboot`, sin typo `spewboot`); `pnpm-lock.yaml` resuelve
+    `0.11.1` desde `npm.pkg.github.com`.
+  - **0.11.0 (hardening):** `specboot update` con política tri-estado para el
+    `ci.yml` del consumidor (instala si falta / respalda y repara variantes
+    históricas conocidas / **preserva byte-a-byte** el `ci.yml` custom de este
+    proyecto — warning no bloqueante); `--ci`/`--init` validan el directorio de
+    invocación (el proyecto al correr desde `node_modules`); resolución de
+    versión node_modules-first (elimina el shadowing del `package.json` raíz
+    documentado en el upgrade 0.1.2); validadores de contratos de permisos de
+    agentes y de comandos en `--ci`; pre-flight reanudable de `/apply`;
+    configuración de proveedores de OpenCode vía `{env:VAR}` (FW-ENV).
+  - **0.11.1 (hotfix):** fix del YAML de `templates/github/workflows/
+    consumer-ci.yml` (`name` con `:` sin comillas). No afecta a este proyecto
+    (el `ci.yml` custom se conserva).
+  - **Nuevos artefactos del framework:** `release-bump.sh`,
+    `scripts/read-json-field.mjs`, `docs/openspec-tasks-mandatory-steps.md`,
+    `docs/tdd-failure-protocol.md`, `templates/github/*`, skill `sync-specs`,
+    agentes `commit`/`sdd-plan`/`sync-specs` (renombrado `plan.md` →
+    `sdd-plan.md`), comando `sync-specs`.
+  - **Local adaptations preserved (drift intencional, restaurados tras el
+    update):** `Makefile` con bloque `LOCAL ADAPTATIONS` (pnpm en
+    install/lint/test/build/audit estricto; solid-lint solo-Astro con flat
+    config) y `templates/ci/eslintrc.astro.js` flat config ESLint 9 (upstream
+    trae legacy eslint@8; **no sobrescribir en futuros updates**).
+  - **opencode.json:** `provider.omniroute.options.apiKey` pasa a
+    `"{env:OMNIROUTE_API_KEY}"` — la key literal `sk-aad2…` desaparece del repo
+    (definir `OMNIROUTE_API_KEY` en `.env`, ver `.env.example`); permisos
+    ampliados (bash scripts/specboot/check-refs, node, mkdir, date, python3).
+
+### Added
+
 - **Specboot framework upgraded v0.1.0 → v0.1.2** (OpenSpec change
   `upgrade-specboot-framework`; upstream `GabrielZavando/Specboot` @ `d781fb6`).
   Summary of the sync:

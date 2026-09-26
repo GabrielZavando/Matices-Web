@@ -40,8 +40,8 @@ importers:
         specifier: ^10.0.1
         version: 10.0.1(eslint@10.8.1(jiti@2.7.0))
       '@gabrielzavando/specboot':
-        specifier: ^0.1.2
-        version: 0.1.2
+        specifier: ^0.11.1
+        version: 0.11.1
       eslint:
         specifier: ^10.8.1
         version: 10.8.1(jiti@2.7.0)
@@ -426,8 +426,8 @@ packages:
     resolution: {integrity: sha512-+CNAzxglkrpNf/kKywqQfk74QjtceuOE7Qm+AF8miRvPF/wmmK5+OJOgVh3AVTT3RP2mH3+FOaxlE5v72owk0A==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
 
-  '@gabrielzavando/specboot@0.1.2':
-    resolution: {integrity: sha512-4Kh+r8Kw5iWMANVZrtOjJxzzQlj67UkhQLqupBhd5AZD+D1oLj2PrNhIoHhT+qIOF/RHVHi03wjqZ+T/zXWu7Q==, tarball: https://npm.pkg.github.com/download/@gabrielzavando/specboot/0.1.2/a91ae028f74a13378bcb3e1f39782b97d4a5889b}
+  '@gabrielzavando/specboot@0.11.1':
+    resolution: {integrity: sha512-atBLR4SvrL8tm3ZR9FWN17BYHLydSV9Kb7fijUSARPtnBZuWUloyuqSfqOXkv71+lcdnsBmusK/p46N96B/B4Q==, tarball: https://npm.pkg.github.com/download/@gabrielzavando/specboot/0.11.1/0c841a247601a324d45ccaf7fd86c03af42d7e6e}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -2977,7 +2977,9 @@ snapshots:
       '@eslint/core': 1.2.1
       levn: 0.4.1
 
-  '@gabrielzavando/specboot@0.1.2': {}
+  '@gabrielzavando/specboot@0.11.1':
+    dependencies:
+      js-yaml: 4.3.1
 
   '@humanfs/core@0.19.2':
     dependencies:

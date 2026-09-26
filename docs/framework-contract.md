@@ -14,7 +14,13 @@ Specboot es un framework de desarrollo SDD (Spec-Driven Development) que enjaula
 6. **Agentes y skills son fijos y definidos por el framework (prefabricados)**, aportan estándares (calidad, TDD, SOLID), no código.
 7. **Las MCP son del proyecto**; el framework solo declara dónde se conectan. Queda abierto un MCP transversal futuro definido por el framework.
 8. **Actualización opción A**: `specboot update` reemplaza los archivos del framework sin piedad; el dev no los toca (como `node_modules`); `docs/` es la única superficie de personalización.
-9. **Makefile y workflows los provee el framework (intocables)**; el proyecto los adapta vía `.specboot.json` + variables de entorno sin editarlos; los agentes los invocan según la tarea.
+9. **Makefile y plantillas de CI los provee el framework (intocables)**. Los workflows
+   del repositorio Specboot (`.github/workflows/**`) son **internos** del desarrollo del
+   framework y **no** se distribuyen ni se instalan. Los consumidores reciben vía
+   `templates/github/` únicamente el CI de consumidores (`consumer-ci.yml` →
+   `.github/workflows/ci.yml`) y el PR template; `deploy.example.yml` es una plantilla
+   opcional que `init`/`update` no instalan. `init`/`update` usan listas explícitas de
+   archivos, nunca copian `.github` completo y nunca instalan `release.yml`.
 10. **El paquete npm `@gabrielzavando/specboot` es la única forma de distribuir**; publicación automática por release (rama por cambio → merge a main → release cuando la versión esté lista); versionado SemVer.
 
 ## Arquitectura de distribución
@@ -34,11 +40,12 @@ en el tarball; cualquier archivo no listado queda fuera.
 
 - **Se publican**: comandos (`.opencode/commands/`), agentes (`.opencode/agents/`),
   `ai-specs/`, scripts de validación (`check-refs.sh`, `specboot.sh`,
-  `validate-specboot.sh`), `templates/ci/`, los **5 documentos estándar**
+  `validate-specboot.sh`), `templates/ci/`, los **7 documentos estándar**
   (`docs/base-standards.md`, `docs/framework-contract.md`, `docs/docs-standard.md`,
-  `docs/specboot-json-standard.md`, `docs/versioning-standard.md`), `opencode.json`,
-  `AGENTS.md`, `Makefile`, `.github/workflows/`, `LICENSE` y `README.md`.
-- **NO** se publica `docs/` del proyecto (salvo los 5 estándares): al filtrarse por
+  `docs/specboot-json-standard.md`, `docs/versioning-standard.md`,
+  `docs/openspec-tasks-mandatory-steps.md`), `opencode.json`,
+  `AGENTS.md`, `Makefile`, `templates/github/`, `LICENSE` y `README.md`.
+- **NO** se publica `docs/` del proyecto (salvo los 6 estándares): al filtrarse por
   `files`, el repositorio de desarrollo de Specboot conserva sus propios `docs/`
   (backend/frontend/documentation/deploy standards, `api/`, `data-model/`,
   `ci-standards.md`, `project/`) sin que estos lleguen a los consumidores. Esto evita
@@ -63,7 +70,7 @@ La siguiente tabla es la regla de verdad sobre qué puede y qué no puede editar
 
 | Intocable (del framework, inyectado, no editado por el dev) | Del proyecto (editado por el dev) |
 | --- | --- |
-| `AGENTS.md` (puente) | `docs/` (salvo `base-standards.md`) |
+| `AGENTS.md` (puente) | `docs/` (salvo los docs intocables del framework) |
 | `.opencode/commands/*` | `.specboot.json` |
 | `.opencode/agents/*` | código del proyecto (`backend/`, `frontend/`) |
 | `ai-specs/*` | variables de entorno / GitHub vars |
@@ -73,6 +80,7 @@ La siguiente tabla es la regla de verdad sobre qué puede y qué no puede editar
 | `templates/ci/*` | |
 | `.github/workflows/*` (del framework) | |
 | `docs/base-standards.md` | |
+| `docs/openspec-tasks-mandatory-steps.md` | |
 | `docs/versioning-standard.md` | |
 
 Regla: los archivos de la columna **Intocable** son inyectados y actualizados por el framework (vía `specboot update`). Si un desarrollador necesita cambiar su comportamiento, debe proponer el cambio a través del flujo SDD del propio Specboot (dogfooding), no editarlos localmente. Los archivos de la columna **Del proyecto** son responsabilidad y propiedad del desarrollador.
@@ -151,9 +159,9 @@ Specboot sigue la **opción A**: `specboot update` reemplaza los archivos del fr
 2. **Resolución del origen**: el comando resuelve la ubicación de los archivos del framework en este orden:
    - `--template <dir>` (si se pasa).
    - El directorio del propio `specboot.sh` (el paquete instalado en `node_modules/@gabrielzavando/specboot`, o el repo del framework en dogfooding).
-3. **Copia de archivos intocables**: copia los archivos del allowlist `files` de `package.json` (`.opencode/`, `ai-specs/`, `check-refs.sh`, `specboot.sh`, `validate-specboot.sh`, `templates/ci/`, los 5 documentos estándar, `opencode.json`, `AGENTS.md`, `Makefile`, `.github/`, `LICENSE`, `README.md`) al directorio actual. Los archivos que ya existen en el proyecto **no se sobrescriben** (se omiten con advertencia).
+3. **Copia de archivos intocables**: copia los archivos del allowlist `files` de `package.json` (`.opencode/`, `ai-specs/`, `check-refs.sh`, `specboot.sh`, `validate-specboot.sh`, `templates/ci/`, los 7 documentos estándar, `opencode.json`, `AGENTS.md`, `Makefile`, `.github/`, `LICENSE`, `README.md`) al directorio actual. Los archivos que ya existen en el proyecto **no se sobrescriben** (se omiten con advertencia).
 4. **Creación de `.specboot.json`**: genera `.specboot.json` con `frameworkVersion` (la versión del framework), `services: ["."]` y `stack: "framework"` por defecto; si se pasa `--interactive`, solicita nombre, stack y services al usuario.
-5. **Esqueleto de `docs/`**: crea las plantillas del proyecto (propiedad del dev) que no existan — `backend-standards.md`, `frontend-standards.md`, `ci-standards.md`, `deploy-standards.md`, `documentation-standards.md`, `project/{domain,stack,client}.md`, `api/api-spec.yml`, `data-model/data-model.md` — sin sobrescribir las existentes. Los 5 documentos intocables ya fueron copiados en el paso 3.
+5. **Esqueleto de `docs/`**: crea las plantillas del proyecto (propiedad del dev) que no existan — `backend-standards.md`, `frontend-standards.md`, `ci-standards.md`, `deploy-standards.md`, `documentation-standards.md`, `project/{domain,stack,client}.md`, `api/api-spec.yml`, `data-model/data-model.md` — sin sobrescribir las existentes. Los 7 documentos intocables ya fueron copiados en el paso 3 (incluido `openspec-tasks-mandatory-steps.md`, la checklist obligatoria que `plan-change` inyecta en todo `tasks.md`).
 
 ### Uso
 
@@ -180,8 +188,8 @@ Después de `init`, el proyecto ya tiene el puente `AGENTS.md`, los agentes/skil
 2. **Resolución del origen**: prefiere `--template <dir>` y cae por defecto al directorio del propio `specboot.sh` (el paquete instalado o el repo del framework en dogfooding). Si el origen resuelto es igual al directorio destino (dogfooding sobre sí mismo), avisa y no sincroniza.
 3. **Comparación de versiones**: lee `frameworkVersion` de `.specboot.json` y lo compara con la versión instalada del framework. Si la instalada es **menor**, rechaza con exit 1 (no se permite retroceder).
 4. **Salto major**: imprime `⚠️ Breaking change. Lee CHANGELOG/release notes de vX.Y.Z` y pide confirmación (o procede con `--yes`). En **minor/patch** el reemplazo es **silencioso**, sin advertencia.
-5. **Backup**: antes de reemplazar, copia los archivos actuales a `.specboot-backup-<timestamp>/` (salvo `--no-backup`) y añade el patrón `.specboot-backup-*` a `.gitignore` si existe.
-6. **Reemplazo sin piedad (opción A)** de `UPDATE_ITEMS[]`: `.opencode/commands`, `.opencode/agents`, `ai-specs`, `check-refs.sh`, `specboot.sh`, `validate-specboot.sh`, `templates/ci`, los 5 documentos estándar, `opencode.json`, `AGENTS.md`, `Makefile`, y los `.github/workflows/*` del framework (archivo por archivo). **Exclusiones deliberadas**: `README.md` y `LICENSE` del proyecto nunca se tocan; `.github/` se trata archivo por archivo para no borrar workflows del proyecto.
+5. **Backup**: antes de reemplazar, copia los archivos actuales a `.specboot-backup-<timestamp>/` (salvo `--no-backup`) y añade el patrón `.specboot-backup-*` a `.gitignore` si existe. `--no-backup` es un **opt-out explícito** (ver §5.1 de `versioning-standard.md`): no es una excepción silenciosa — el respaldo del framework y del `ci.yml` se omite solo por decisión explícita del usuario; la verificación del reemplazo del `ci.yml` (coincidencia con la plantilla esperada, SC-013/SC-015) sigue aplicando.
+6. **Reemplazo sin piedad (opción A)** de `UPDATE_ITEMS[]`: `.opencode/commands`, `.opencode/agents`, `ai-specs`, `check-refs.sh`, `specboot.sh`, `validate-specboot.sh`, `templates/ci`, los 7 documentos estándar, `opencode.json`, `AGENTS.md`, `Makefile`, y los `.github/workflows/*` del framework (archivo por archivo). **Exclusiones deliberadas**: `README.md` y `LICENSE` del proyecto nunca se tocan; `.github/` se trata archivo por archivo para no borrar workflows del proyecto.
 7. **Nunca toca `docs/` del proyecto** (salvo los 5 estándares) ni el código (`backend/`, `frontend/`…).
 8. **Reescritura de `.specboot.json`**: si la versión cambió, actualiza `frameworkVersion` preservando el resto de campos; si es igual, el archivo queda intacto (modo reparación de intocables editados a mano).
 9. **Post-validación**: corre `check-refs.sh` (estricto: exit 1 si hay referencia rota) y `specboot.sh --ci` (sólo avisa: la completitud del proyecto consumidor no bloquea).
@@ -251,6 +259,10 @@ framework), nunca `jq`.
 **Customización del proyecto:** el proyecto declara `services` y `stack` en
 `.specboot.json`. No edita el Makefile. Para infraestructura específica (VPS, Docker,
 etc.) usa variables de entorno de GitHub + configuración propia del proyecto.
+Para la estrategia Git, el proyecto consumidor puede adoptar la recomendación
+opcional de [`docs/consumer-git-workflow.md`](consumer-git-workflow.md) (GitHub
+Flow) — el estándar interno que gobierna el desarrollo del propio Specboot es
+`docs/git-workflow-standards.md` y tiene un alcance distinto.
 
 **Relación con `specboot update` / `update.sh`:** `specboot update` reemplaza el
 `Makefile` del framework como archivo intocable (opción A); `update.sh` mantiene solo
@@ -269,7 +281,13 @@ de GitHub (repo `vars` + `secrets`).
   step condicional (gated por `hashFiles('tests/*-test.sh')` a nivel de step), en
   loop idéntico al de `release.yml`. En un proyecto consumidor ese job es
   inofensivo y los self-tests se saltan limpiamente porque `tests/` no se publica
-  en el paquete npm.
+  en el paquete npm. El `ci.yml` incluye además el **wiring de autenticación de
+  GitHub Packages para consumidores** (`permissions: packages: read`, `env:
+  NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}` y `registry-url:
+  https://npm.pkg.github.com` en ambos jobs): en dogfooding es inerte (el repo no
+  instala dependencias de GitHub Packages) y en consumidores evita el E401 de
+  `npm install` — y como el archivo es intocable-reemplazable, cada `specboot
+  update` reinstala el wiring correcto en vez de reintroducir la regresión.
 - **`deploy.yml`**: gated por `if: vars.DEPLOY_ENABLED == 'true'`. Lee
   `vars.DOCKER_REPO`, `vars.DEPLOY_HOST`, `vars.DEPLOY_USER` y
   `secrets.DEPLOY_SSH_KEY`. El proyecto declara su infraestructura en GitHub, no
@@ -289,6 +307,16 @@ de GitHub (repo `vars` + `secrets`).
 **Customización:** el proyecto usa variables de entorno (GitHub vars/secrets) para
 adaptar el despliegue. Para infraestructura específica (VPS, Docker, repo distinto),
 se setea en GitHub, no en el archivo.
+
+**Trust model de la allowlist del primario (`opencode.json`):** los patrones
+`node *` y `python3 *` en allow permiten ejecución de código arbitrario
+(ej. `node -e "fs.rmSync(...)"`); es la misma superficie de confianza que ya
+ofrecen `npm *` y `npx *` (ejecutan scripts arbitrarios vía `package.json`).
+La decisión del mantenedor es **aceptarla y documentarla**: en un entorno
+dev-only con `edit: allow` ya permitido, acotar `node`/`python3` solo movería
+el riesgo a otro runner igual de capaz. Lo que permanece restringido son los
+comandos destructivos/exploratorios (`rm -rf *`, `find`, `sed -i` en `ask`), que
+sí generan confirmación puntual.
 
 **Relación con `update.sh`:** `update.sh` no toca workflows. `specboot update`
 reemplaza los workflows del framework como archivos intocables (archivo por archivo,

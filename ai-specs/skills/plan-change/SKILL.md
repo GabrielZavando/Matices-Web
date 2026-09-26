@@ -32,6 +32,29 @@ Extract three parts from the argument:
 
 If the ticket ID or title is missing, stop and show the expected input format.
 
+### Step 1½ — Create the ticket branch
+
+Branch creation is part of this skill (convention: `docs/git-workflow-standards.md`
+§1). Execute **before loading any context or writing artifacts**:
+
+1. **Clean git state**: run `git status --porcelain`. If there are uncommitted
+   or staged changes, abort listing the dirty files and ask the user to
+   commit or stash them first. Never create the branch over a dirty tree.
+2. **Derive the branch name**: `feature/{ticket-id-lowercase}-{short-name}`
+   (kebab-case, short description — e.g. `feature/proj-123-auth-reset`).
+   The provisional name is confirmed with the user together with the change
+   name (Step 4 output) or earlier if the user's flow requires it.
+3. **Create from HEAD**: `git checkout -b feature/...` (the new branch carries
+   the current history, per the accumulation rule in
+   `docs/git-workflow-standards.md`).
+4. **If the branch already exists**: ask the user whether to switch to it
+   (`git checkout feature/...`) or create a different one — never reuse it
+   silently.
+
+The plan agent's bash permissions (`git checkout/switch/branch/status/log`)
+already cover this step; `git commit` and `git push` stay denied (ownership
+of `/commit`).
+
 ### Step 2 — Resolve Context
 
 Load **only** the standards files indicated by the tag. `docs/base-standards.md` and `AGENTS.md` are always pre-loaded via `instructions[]` — never re-read them.
@@ -81,6 +104,22 @@ Examples:
 | PROJ-456: Agregar filtro de catálogo | `catalog-filter` |
 | PROJ-789: Exportar PDF de factura | `invoice-pdf-export` |
 
+### Step 4½ — Validación de coherencia de diseño (Opcional pero recomendado)
+
+Ejecutar validación preliminar antes de generar tareas, verificando consistencia con la arquitectura existente. La fuente de escenarios es el artefacto enriquecido (`openspec/tickets/{TICKET-ID}-enriched.md`) cuando existe, o los escenarios derivables del título cuando no — nunca un `scenarios.md` del change (todavía no existe; se genera en el Step 5):
+
+1. **Verificar entidades** en `docs/data-model/data-model.md`:
+   - Cada tabla/entidad mencionada en los escenarios debe existir en el data model
+   - Si no → advertir y no generar tareas hasta clarificar
+
+2. **Verificar endpoints** en `docs/api/api-spec.yml`:
+   - Cada endpoint referenciado en los escenarios (del artefacto enriquecido o derivados del título) debe existir en el API spec
+   - Si no → advertir y no generar tareas hasta clarificar
+
+3. **Documentar conflictos** en sección `Design Validation` del output:
+   - Conflictos críticos → detener generación, reportar al usuario
+   - Conflictos menores → anotar en `Design Validation` del output
+
 ### Step 5 — Generate Enriched Artifacts
 
 > ⚠️ Do NOT run `openspec new change` — that command does not exist in the installed CLI. The agent writes the artifact files directly. Use `openspec instructions <artifact>` to consult the expected artifact format if unsure.
@@ -88,35 +127,56 @@ Examples:
 Create the folder `openspec/changes/{derived-name}/` and write, enriched with the loaded context (not generic templates):
 
 1. **`proposal.md`** — origin ticket ID, title, tag, summary and motivation.
+   The template MUST carry the two sections `openspec archive` expects:
+   `## Why` (context and motivation, from the audit/enriched source) and
+   `## What Changes` (scope summary: what is included and what is out of
+   scope). Omitting either section triggers a non-blocking proposal warning on
+   every `openspec archive` run.
 
 2. **`scenarios.md`** — Gherkin scenarios that:
-   - If an enriched artifact exists: map its Acceptance Criteria scenarios 1:1 (do not regenerate from scratch).
-   - Otherwise: derive from the title, covering happy path, error cases, and edge cases.
+   - Must assign or preserve a unique stable ID formatted as `### SC-{NNN}: [Scenario Title]` for every scenario (e.g., `### SC-001: Usuario recupera contraseña`).
+   - If an enriched artifact exists: map its Acceptance Criteria scenarios 1:1, preserving their `SC-{NNN}` IDs.
+   - Otherwise: derive from the title, covering happy path, error cases, and edge cases with sequential `SC-{NNN}` IDs.
    - Reference **real entities from `docs/data-model/data-model.md`** and **real endpoints from `docs/api/api-spec.yml`** when those files are loaded; never invent table or endpoint names.
    - Apply non-functional rules from the loaded standards (e.g. security policies like "no email enumeration" from `backend-standards.md`).
 
 3. **`requirements.md`** — numbered requirements, each traceable to at least one scenario.
 
 4. **`tasks.md`** — tasks with subtasks, priority, layer, and estimate, using the project's layer nomenclature:
-    - Backend: `domain | application | infrastructure`
-    - Frontend: `smart | dumb`
-    - **Mono/multi-repo roots (`.specboot.json`):** if `.specboot.json` exists in the
-      project root, read its `services` glob (e.g. `["src", "services/*/src"]`) and its
-      `layers` map, and use those for the `Suggested Path` / `Test Path` and layer labels
-      instead of the single hardcoded `src/`. Each service is analyzed independently by
-      `make solid-lint` (see TICKET-C). If `.specboot.json` is absent, default to `src/`.
-    - If the enriched artifact declares a Diseño de Clases/Componentes, tasks must map to those classes/components — `/apply` will validate the implementation against that design.
-    - **Suggested Path**: `<service>/...` (implementation file; verify reads only this; replace `<service>` with each entry of `.specboot.json` `services`, or `src` by default)
-    - **Test Path**: `<service>/tests/...` or `tests/...` (test file; verify looks for matches here)
+     - Backend: `domain | application | infrastructure`
+     - Frontend: `smart | dumb`
+     - **Mono/multi-repo roots (`.specboot.json`):** if `.specboot.json` exists in the
+       project root, read its `services` glob (e.g. `["src", "services/*/src"]`) and its
+       `layers` map, and use those for the `Suggested Path` / `Test Path` and layer labels
+       instead of the single hardcoded `src/`. Each service is analyzed independently by
+       `make solid-lint` (see TICKET-C). If `.specboot.json` is absent, default to `src/`.
+     - If the enriched artifact declares a Diseño de Clases/Componentes, tasks must map to those classes/components — `/apply` will validate the implementation against that design.
+     - **Suggested Path**: `<service>/...` (implementation file; verify reads only this; replace `<service>` with each entry of `.specboot.json` `services`, or `src` by default) — **must be present in every task or marked "no aplica" explicitly**.
+      - **Test Path**: `<service>/tests/...` or `tests/...` (test file; verify looks for matches here) — **must be present in every task or marked "no aplica" explicitly**.
+      - **Mandatory Steps**: inject a `## Mandatory Steps` section into every
+        generated `tasks.md`, copying its content from
+        `docs/openspec-tasks-mandatory-steps.md` **read at generation time** —
+        never hardcode the steps into this skill (that document is the single
+        source of truth and may evolve). The injected checklist is mandatory,
+        not suggested; it covers the three phases defined in the document
+        (pre-implementation, during, post).
 
 ### Step 6 — Validate
 
 Checklist (apply before reporting):
 
+- [ ] Every scenario carries a unique SC-{NNN} identifier in header format `### SC-{NNN}: Title`
 - [ ] Every scenario has Given/When/Then
 - [ ] Happy path, error cases, and edge cases are covered
 - [ ] Requirements are numbered and traceable to scenarios
 - [ ] Every task has subtasks, priority, layer, and estimate
+- [ ] **Every task has `Suggested Path` or marked `no aplica` explicitly**
+- [ ] **Every task has `Test Path` or marked `no aplica` explicitly**
+- [ ] **`proposal.md` includes `## Why` and `## What Changes` sections** (required by `openspec archive`; absence triggers a proposal warning)
+- [ ] **`## Why` de `proposal.md` tiene ≤ 1000 caracteres** (SPECBOOT-HARDEN-02, REQ-009): contar la longitud de la sección `## Why` (entre `## Why` y `## What Changes`); si supera los 1000 caracteres, recortarla y NO informar éxito hasta que cumpla.
+- [ ] **tasks.md includes the `## Mandatory Steps` section** (injected per Step 5 from `docs/openspec-tasks-mandatory-steps.md`)
+- [ ] **Validación de diseño completada (Step 4½)**
+- [ ] **No hay conflictos críticos sin reportar**
 - [ ] Entities mentioned exist in `docs/data-model/data-model.md` (if loaded)
 - [ ] Endpoints mentioned exist in `docs/api/api-spec.yml` (if loaded)
 
@@ -149,6 +209,14 @@ If any check fails, regenerate the failing artifact with specific fix instructio
 
 ### Context loaded
 - [list of standards files actually read]
+
+### Design Validation
+
+- **Entities checked against data-model**: [list or "none"]
+- **API endpoints checked against api-spec.yml**: [list or "none"]
+- **Conflicts**: [list any, with severity: critical/minor/none]
+  - Critical: [blockers that prevent task generation]
+  - Minor: [suggestions or optional changes]
 
 ### Validation
 - Checklist: [N/6 passed]

@@ -1,6 +1,6 @@
 ---
-description: Create conventional commits and pull request
-agent: build
+description: "Create conventional commits and pull request (hard evidence gates: verify PASS + adversarial SHIP; --force registered escape hatch)"
+agent: commit
 ---
 
 {file:ai-specs/skills/commit/SKILL.md}

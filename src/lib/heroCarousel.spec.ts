@@ -54,12 +54,14 @@ describe('hero-team-carousel: home hero team photo carousel', () => {
     expect(css).toContain('hero-carousel-track');
     expect(css).toMatch(/width:\s*300%/);
     expect(css).toContain('@keyframes hero-carousel');
-    // 11s cycle: 5s hold + 0.5s slide + 5s hold + 0.5s slide
-    expect(css).toContain('hero-carousel 11s');
+    // 11s cycle: 5s hold + 0.5s slide + 5s hold + 0.5s slide.
+    // The Rust compiler (Astro 7) minifies the shorthand differently than Go.
+    expect(css).toMatch(/animation:\s*11s\s+ease-in-out\s+infinite\s+hero-carousel/);
   });
 
   it('disables carousel animation under prefers-reduced-motion', () => {
     // The bundler may group reduced-motion rules; assert the carousel is disabled.
-    expect(css).toMatch(/hero-carousel-track[^}]*animation:none/);
+    // Rust compiler output has different bracket placement than Go.
+    expect(css).toMatch(/hero-carousel-track\[data-astro-cid-[^\]]*\][^{]*\{animation:none/);
   });
 });

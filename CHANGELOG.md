@@ -7,6 +7,52 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Astro upgrade v6.4.6 → v7.3.5 (MAJOR)** — security fix de GHSA-26w7-cxv4-gfx2
+  (remote code execution via AVIF image optimization; `patched: >=7.2.8`, no
+  hay backport en 6.x, única vía cierre). Incluye resolución del breaking change
+  real observado durante la implementación.
+
+  - **astro**: `^6.4.6` → `^7.3.5` — el advisory cubre `<7.2.8`, la versión
+    fijada satisface `>=7.2.8` (última publicada en registry).
+  - **sharp**: `^0.35.0` → `^0.35.4` — cierra GHSA-rgj7-g3m4-5g8c sobre la
+    misma ruta que dispara el advisory (`sharp` es el backend de optimización
+    que procesa imágenes AVIF en `astro:assets`).
+  - **pnpm.overrides elevados**:
+    - `js-yaml`: `^4.3.1` → `^4.3.2` (GHSA-2883-xcg3-v3hh, moderado temporal)
+    - `fast-uri`: `^3.1.5` → `^3.1.6` (GHSA-5jgf / f65p / fph4 / jqff — transita
+      por `yaml-language-server` → `ajv`)
+    - `svgo`: `>=4.0.2` → `>=4.1.0` (GHSA-w27v — minor bump, validado por build
+      exitoso)
+    - `sharp`: `^0.35.0` → `^0.35.4` (alineado con Task 2)
+    - `smol-toml`: `>=1.7.1` (agregado; GHSA-7w5x — transitivo de Astro)
+  - **@astrojs/check**: `^0.9.9` → `^0.9.10` (aplicado manualmente tras
+    `pnpm dlx @astrojs/upgrade` — el motor pide `npm view` por `>=x-y` y lo
+    ejecutamos borrando el lockfile antes)
+
+  **Compatibilidad con Astro 7 (breaking change)**:
+  - El vendoring interno de Vite sube de Vite 7 → **Vite 8** (Astro 7.0 explícitamente
+    requiere `vite@^8.0`). El build anterior fallaba con `rollupOptions.input`
+    hasta eliminar el override `vite: ^7.3.5` (era el único paquete versionado por
+    el proyecto con cambio de major transitivo: Vite). Todo el resto simplemente
+    se basa en la compatibilidad pública de Vite 8.
+
+  **Ajuste en `astro.config.mjs`**:
+  - Nuevo: `compressHTML: true`. Astro 7 cambia el default a `'jsx'`, lo que
+    elimina espacios entre inline elements (HTML-aware whitespace). Los tests
+    de accesibilidad/checkbox (Scenario 4) y el carousel verificaban la
+    presencia de esos espacios (ej. `md:col-span-2"> <input`).
+    La config deja explícito el comportamiento viejo, en línea con la
+    recomendación de la propia guía ("To preserve the previous behavior, set
+    `compressHTML: true`"). No se cambió ningún otra opción.
+  - Todos los checks de Task 5 (`astro:assets`, 40+ instancias de `<Image>`,
+    `dist/` con assets optimizados) pasaron.
+
+  **Audit:** `pnpm audit --audit-level=high` reporta 0 `critical`/`high`. Los
+  4 `moderate` restantes son ekskurtes de desarrollo (`vitest 4.x`, `devalue`)
+  que no afectan la del sitio (solo se ejecutan en CI/test runs).oki.
+
 ### Fixed
 
 - **`specboot-ci` job installs dependencies before the framework self-check.**

@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
-  "change": "specboot-upgrade",
-  "ticket_id": "SPECBOOT-UPGRADE-0111",
+  "change": "upgrade-astro-7",
+  "ticket_id": "ASTRO-UPGRADE-001",
   "verdict": "SHIP",
-  "confidence": 0.95,
-  "timestamp": "2026-09-26T15:42:59Z",
+  "confidence": 0.78,
+  "timestamp": "2026-09-27T02:53:44Z",
   "findings": {
-    "total": 0,
+    "total": 5,
     "critical": 0,
-    "warnings": 0,
-    "info": 0,
-    "discarded": 0
+    "warnings": 2,
+    "info": 3,
+    "discarded": 4
   }
 }

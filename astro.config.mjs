@@ -11,6 +11,10 @@ export default defineConfig({
   prefetch: {
     prefetchAll: true
   },
+  // Mantener el comportamiento de v6: HTML-aware whitespace compression.
+  // Astro 7 cambia el default a "jsx" y puede eliminar espacios
+  // entre inline elements que los tests cubren.
+  compressHTML: true,
   vite: {
     plugins: [tailwindcss()]
   },

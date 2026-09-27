@@ -1,0 +1,11 @@
+{
+  "change": "upgrade-astro-7",
+  "ticket_id": "ASTRO-UPGRADE-001",
+  "branch": "feature/astro-upgrade-7",
+  "preflight": {
+    "branch_convention": "pass",
+    "foreign_changes": "pass",
+    "first_run": true,
+    "checked_at": "2026-09-26T21:45:00Z"
+  }
+}

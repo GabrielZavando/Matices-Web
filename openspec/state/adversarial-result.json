@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "change": "upgrade-astro-7",
+  "ticket_id": "ASTRO-UPGRADE-001",
+  "verdict": "SHIP",
+  "confidence": 0.78,
+  "timestamp": "2026-09-27T02:53:44Z",
+  "findings": {
+    "total": 5,
+    "critical": 0,
+    "warnings": 2,
+    "info": 3,
+    "discarded": 4
+  }
+}

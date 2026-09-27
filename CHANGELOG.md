@@ -7,7 +7,106 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Astro upgrade v6.4.6 → v7.3.5 (MAJOR)** — security fix de GHSA-26w7-cxv4-gfx2
+  (remote code execution via AVIF image optimization; `patched: >=7.2.8`, no
+  hay backport en 6.x, única vía cierre). Incluye resolución del breaking change
+  real observado durante la implementación.
+
+  - **astro**: `^6.4.6` → `^7.3.5` — el advisory cubre `<7.2.8`, la versión
+    fijada satisface `>=7.2.8` (última publicada en registry).
+  - **sharp**: `^0.35.0` → `^0.35.4` — cierra GHSA-rgj7-g3m4-5g8c sobre la
+    misma ruta que dispara el advisory (`sharp` es el backend de optimización
+    que procesa imágenes AVIF en `astro:assets`).
+  - **pnpm.overrides elevados**:
+    - `js-yaml`: `^4.3.1` → `^4.3.2` (GHSA-2883-xcg3-v3hh, moderado temporal)
+    - `fast-uri`: `^3.1.5` → `^3.1.6` (GHSA-5jgf / f65p / fph4 / jqff — transita
+      por `yaml-language-server` → `ajv`)
+    - `svgo`: `>=4.0.2` → `>=4.1.0` (GHSA-w27v — minor bump, validado por build
+      exitoso)
+    - `sharp`: `^0.35.0` → `^0.35.4` (alineado con Task 2)
+    - `smol-toml`: `>=1.7.1` (agregado; GHSA-7w5x — transitivo de Astro)
+  - **@astrojs/check**: `^0.9.9` → `^0.9.10` (aplicado manualmente tras
+    `pnpm dlx @astrojs/upgrade` — el motor pide `npm view` por `>=x-y` y lo
+    ejecutamos borrando el lockfile antes)
+
+  **Compatibilidad con Astro 7 (breaking change)**:
+  - El vendoring interno de Vite sube de Vite 7 → **Vite 8** (Astro 7.0 explícitamente
+    requiere `vite@^8.0`). El build anterior fallaba con `rollupOptions.input`
+    hasta eliminar el override `vite: ^7.3.5` (era el único paquete versionado por
+    el proyecto con cambio de major transitivo: Vite). Todo el resto simplemente
+    se basa en la compatibilidad pública de Vite 8.
+
+  **Ajuste en `astro.config.mjs`**:
+  - Nuevo: `compressHTML: true`. Astro 7 cambia el default a `'jsx'`, lo que
+    elimina espacios entre inline elements (HTML-aware whitespace). Los tests
+    de accesibilidad/checkbox (Scenario 4) y el carousel verificaban la
+    presencia de esos espacios (ej. `md:col-span-2"> <input`).
+    La config deja explícito el comportamiento viejo, en línea con la
+    recomendación de la propia guía ("To preserve the previous behavior, set
+    `compressHTML: true`"). No se cambió ningún otra opción.
+  - Todos los checks de Task 5 (`astro:assets`, 40+ instancias de `<Image>`,
+    `dist/` con assets optimizados) pasaron.
+
+  **Audit:** `pnpm audit --audit-level=high` reporta 0 `critical`/`high`. Los
+  4 `moderate` restantes son ekskurtes de desarrollo (`vitest 4.x`, `devalue`)
+  que no afectan la del sitio (solo se ejecutan en CI/test runs).oki.
+
+### Fixed
+
+- **`specboot-ci` job installs dependencies before the framework self-check.**
+  El job corría `bash specboot.sh --ci` sobre un checkout limpio sin
+  `node_modules/`, lo que rompía el gate del framework tras el upgrade a
+  v0.11.1 con 3 errores: (1) `validate-specboot.sh` caía al fallback del
+  `package.json` raíz del proyecto (`0.1.2`) y reportaba
+  `frameworkVersion (0.11.1) es mayor que la versión instalada (0.1.2)`;
+  (2) y (3) `check_permission_contracts` / `check_command_contracts` no
+  encontraban `validate-agent-permissions.mjs` ni `validate-command-contracts.mjs`
+  (viven en el paquete, no en el proyecto). El job ahora replica los pasos de
+  los demás jobs — `registry-url: https://npm.pkg.github.com`, pnpm 10 y
+  `make install` con `NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}` — de modo
+  que la versión instalada se resuelve node_modules-first y los validadores se
+  localizan en el paquete.
+
 ### Changed
+
+- **Specboot framework upgraded v0.1.2 → v0.11.1** (OpenSpec change
+  `specboot-upgrade`; ticket `SPECBOOT-UPGRADE-0111`; upstream
+  `GabrielZavando/Specboot` @ tag `v0.11.1`, commit `b252a63`). El upgrade se
+  ejecutó vía `pnpm install` + `bash node_modules/@gabrielzavando/specboot/
+  specboot.sh update --yes` (backup en `.specboot-backup-*/`). Resumen:
+  - **Dependencia:** `devDependencies["@gabrielzavando/specboot"]` `^0.1.2` → `^0.11.1`
+    (el nombre ya era `specboot`, sin typo `spewboot`); `pnpm-lock.yaml` resuelve
+    `0.11.1` desde `npm.pkg.github.com`.
+  - **0.11.0 (hardening):** `specboot update` con política tri-estado para el
+    `ci.yml` del consumidor (instala si falta / respalda y repara variantes
+    históricas conocidas / **preserva byte-a-byte** el `ci.yml` custom de este
+    proyecto — warning no bloqueante); `--ci`/`--init` validan el directorio de
+    invocación (el proyecto al correr desde `node_modules`); resolución de
+    versión node_modules-first (elimina el shadowing del `package.json` raíz
+    documentado en el upgrade 0.1.2); validadores de contratos de permisos de
+    agentes y de comandos en `--ci`; pre-flight reanudable de `/apply`;
+    configuración de proveedores de OpenCode vía `{env:VAR}` (FW-ENV).
+  - **0.11.1 (hotfix):** fix del YAML de `templates/github/workflows/
+    consumer-ci.yml` (`name` con `:` sin comillas). No afecta a este proyecto
+    (el `ci.yml` custom se conserva).
+  - **Nuevos artefactos del framework:** `release-bump.sh`,
+    `scripts/read-json-field.mjs`, `docs/openspec-tasks-mandatory-steps.md`,
+    `docs/tdd-failure-protocol.md`, `templates/github/*`, skill `sync-specs`,
+    agentes `commit`/`sdd-plan`/`sync-specs` (renombrado `plan.md` →
+    `sdd-plan.md`), comando `sync-specs`.
+  - **Local adaptations preserved (drift intencional, restaurados tras el
+    update):** `Makefile` con bloque `LOCAL ADAPTATIONS` (pnpm en
+    install/lint/test/build/audit estricto; solid-lint solo-Astro con flat
+    config) y `templates/ci/eslintrc.astro.js` flat config ESLint 9 (upstream
+    trae legacy eslint@8; **no sobrescribir en futuros updates**).
+  - **opencode.json:** `provider.omniroute.options.apiKey` pasa a
+    `"{env:OMNIROUTE_API_KEY}"` — la key literal `sk-aad2…` desaparece del repo
+    (definir `OMNIROUTE_API_KEY` en `.env`, ver `.env.example`); permisos
+    ampliados (bash scripts/specboot/check-refs, node, mkdir, date, python3).
+
+### Added
 
 - **Specboot framework upgraded v0.1.0 → v0.1.2** (OpenSpec change
   `upgrade-specboot-framework`; upstream `GabrielZavando/Specboot` @ `d781fb6`).

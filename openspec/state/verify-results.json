@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "change": "upgrade-astro-7",
+  "ticket_id": "ASTRO-UPGRADE-001",
+  "status": "PARTIAL",
+  "evidence_mode": "executable",
+  "timestamp": "2026-09-27T02:45:04Z",
+  "tasks": { "total": 9, "passed": 9, "failed": 0, "untested": 0 },
+  "scenarios": [
+    { "id": "SC-001", "test": "untested (scenario sin ID SC-NNN; evidencia: npx vitest run 69/69 PASS + make audit 0 critical/high)", "status": "UNTESTED" },
+    { "id": "SC-002", "test": "untested (evidencia: package.json astro ^7.3.5, lockfile resuelve 7.3.5)", "status": "UNTESTED" },
+    { "id": "SC-003", "test": "untested (evidencia: make build exit 0, 68 assets optimizados)", "status": "UNTESTED" },
+    { "id": "SC-004", "test": "untested (evidencia: overrides js-yaml 4.3.2/fast-uri 3.1.8/svgo 4.1.0/smol-toml 1.9.0/sharp 0.35.4 en lockfile)", "status": "UNTESTED" },
+    { "id": "SC-005", "test": "untested (evidencia: make build exit 0 con svgo 4.1.0)", "status": "UNTESTED" },
+    { "id": "SC-006", "test": "untested (evidencia: astro.config.mjs compressHTML:true; sitemap-index.xml en dist/)", "status": "UNTESTED" },
+    { "id": "SC-007", "test": "untested (evidencia: npx vitest run 13 files/69 tests PASS; make lint 0 errors)", "status": "UNTESTED" },
+    { "id": "SC-008", "test": "untested (evidencia: check-refs 0 err, specboot --ci 0 err, validate-specboot 0 err, openspec validate valid)", "status": "UNTESTED" },
+    { "id": "SC-009", "test": "untested (evidencia: CHANGELOG documenta flujo manual tras pnpm dlx interactivo)", "status": "UNTESTED" }
+  ]
+}

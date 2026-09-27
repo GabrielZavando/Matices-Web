@@ -175,13 +175,15 @@ else
   cmp_result=$(semver_cmp "$FRAMEWORK_VERSION" "$INSTALLED")
   case "$cmp_result" in
     gt)
-      fail "frameworkVersion ($FRAMEWORK_VERSION) es mayor que la versión instalada ($INSTALLED): proyecto requiere versión más nueva del framework."
+      # Pinned message text preserved; the installation hint covers the ironic
+      # case where the "versión más nueva" claim stems from a broken install.
+      fail "frameworkVersion ($FRAMEWORK_VERSION) es mayor que la versión instalada ($INSTALLED): proyecto requiere versión más nueva del framework. Si tu instalación está al día, verifícala con 'npm ls @gabrielzavando/specboot'."
       echo ""
       echo -e "  ${RED}✗${NC} Validación fallida."
       exit 1
       ;;
     lt)
-      warn "frameworkVersion ($FRAMEWORK_VERSION) es menor que la instalada ($INSTALLED): framework desactualizado, corre 'specboot update'."
+      warn "frameworkVersion ($FRAMEWORK_VERSION) es menor que la instalada ($INSTALLED): framework desactualizado, corre 'specboot update'. Verifica la instalación con 'npm ls @gabrielzavando/specboot' si no cuadra."
       ;;
     eq)
       pass "frameworkVersion ($FRAMEWORK_VERSION) coincide con la instalada ($INSTALLED)."
@@ -240,6 +242,23 @@ if [ "$LAYERS_JSON" != "null" ] && [ -n "$LAYERS_JSON" ]; then
     exit 1
   fi
   pass "layers es un objeto válido."
+fi
+
+# Case 7: stalenessPaths (if present) must be an array of strings
+if node -e "
+  const j=JSON.parse(require('fs').readFileSync('$CONFIG_FILE','utf8'));
+  const s=j.stalenessPaths;
+  if(s===undefined||s===null){process.exit(0);}
+  if(!Array.isArray(s)){process.exit(1);}
+  for(const x of s){ if(typeof x!=='string') process.exit(1); }
+  process.exit(0);
+" 2>/dev/null; then
+  pass "stalenessPaths es un array de strings válido (si está presente)."
+else
+  fail "stalenessPaths debe ser un array de strings."
+  echo ""
+  echo -e "  ${RED}✗${NC} Validación fallida."
+  exit 1
 fi
 
 echo ""

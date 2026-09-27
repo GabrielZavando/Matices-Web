@@ -1,7 +1,11 @@
 {
-  "frameworkVersion": "0.1.2",
+  "frameworkVersion": "0.11.1",
   "name": "matices-web",
   "description": "Sitio corporativo de Matices Consultoría Integral (Viña del Mar, Chile). Stack: Astro 6 SSG + Tailwind v4 + web3forms serverless.",
-  "services": ["."],
-  "stack": ["node"]
+  "services": [
+    "."
+  ],
+  "stack": [
+    "node"
+  ]
 }

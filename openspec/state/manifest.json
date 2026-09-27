@@ -30,6 +30,26 @@
       "ticket_id": "TICKET-004",
       "archived_at": "2026-09-01T21:25:00Z",
       "specs_applied": []
+    },
+    {
+      "change_name": "specboot-upgrade",
+      "ticket_id": "SPECBOOT-UPGRADE-0111",
+      "archived_at": "2026-09-26T21:23:15Z",
+      "specs_applied": [
+        "framework-tooling-sync",
+        "opencode-layout",
+        "specboot-manifest"
+      ],
+      "verification": {
+        "status": "PARTIAL",
+        "timestamp": "2026-09-26T15:08:18Z",
+        "source": "openspec/state/verify-results.json"
+      },
+      "adversarial": {
+        "verdict": "SHIP",
+        "timestamp": "2026-09-26T15:42:59Z",
+        "source": "openspec/state/adversarial-result.json"
+      }
     }
   ]
 }

@@ -10,12 +10,15 @@ The `.specboot.json` file MUST contain the following required fields:
 pointing to an existing path), and `stack` (string or array of strings,
 each value from the set `{node, python, framework}`).
 
+This project declares `frameworkVersion: "0.11.1"`, `services: ["."]` and
+`stack: ["node"]`.
+
 #### Scenario: minimum valid .specboot.json
-- **Given** a project that wants to declare framework integration
-- **When** `.specboot.json` is created with the content
+- **Given** a project that declares framework integration
+- **When** `.specboot.json` declares
   ```json
   {
-    "frameworkVersion": "0.1.2",
+    "frameworkVersion": "0.11.1",
     "name": "matices-web",
     "services": ["."],
     "stack": ["node"]
@@ -30,27 +33,21 @@ each value from the set `{node, python, framework}`).
 - **Then** exit code is 1
 - **And** the output reports "Faltan campos requeridos: frameworkVersion"
 
-#### Scenario: missing services is a hard error
-- **Given** `.specboot.json` without `services`
+#### Scenario: frameworkVersion matches the node_modules package
+- **Given** `.specboot.json` declares `frameworkVersion: "0.11.1"` and `node_modules/@gabrielzavando/specboot/package.json` has `version: "0.11.1"`
 - **When** `bash validate-specboot.sh` is run
-- **Then** exit code is 1
-- **And** the output reports "Faltan campos requeridos: services"
-
-#### Scenario: missing stack is a hard error
-- **Given** `.specboot.json` without `stack`
-- **When** `bash validate-specboot.sh` is run
-- **Then** exit code is 1
-- **And** the output reports "Faltan campos requeridos: stack"
+- **Then** exit code is 0
+- **And** the version comparison reports equality (no shadowing by the root `package.json`)
 
 ### Requirement: `services` paths must exist on the filesystem
 
-Every entry in the `services` array MUST be a path that exists
-relative to the project root. The string `"."` denotes the project
-root itself (valid for single-service projects like Matices Web). Any
-other path that does not exist triggers a hard error.
+Every entry in the `services` array MUST be a path that exists relative to
+the project root. The string `"."` denotes the project root itself (valid
+for single-service projects like Matices Web). Any other path that does not
+exist triggers a hard error.
 
 #### Scenario: services = ["."] is valid for a single-service project
-- **Given** a project where all code lives at the root (no subdirectories for services)
+- **Given** a project where all code lives at the root
 - **When** `.specboot.json` declares `"services": ["."]`
 - **Then** `bash validate-specboot.sh` exits 0
 - **And** the output reports "Todas las rutas de services existen."

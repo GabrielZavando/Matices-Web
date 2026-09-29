@@ -1,0 +1,9 @@
+{
+  "change": "add-dockerfile",
+  "ticket": "DEPLOY-DOCKERFILE-001",
+  "branch": "feature/deploy-dockerfile-001-add-dockerfile",
+  "date": "2026-09-27",
+  "preflight": "PASS",
+  "firstRunDirt": "plan-artifacts-only (openspec/changes/add-dockerfile/)",
+  "note": "Resumed /apply runs re-verify branch and foreign changes only."
+}

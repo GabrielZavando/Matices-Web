@@ -1,0 +1,13 @@
+# .dockerignore — Matices Web (add-dockerfile / DEPLOY-DOCKERFILE-001)
+# Minimizes the Docker build context. NOTE: .npmrc is intentionally NOT
+# excluded — the Dockerfile copies it before `pnpm install`.
+
+.git
+node_modules
+dist
+.env
+.env.*
+.specboot-backup-*
+openspec
+ai-specs
+docs

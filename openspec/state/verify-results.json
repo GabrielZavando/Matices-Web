@@ -1,20 +1,18 @@
 {
   "schema_version": 1,
-  "change": "upgrade-astro-7",
-  "ticket_id": "ASTRO-UPGRADE-001",
-  "status": "PARTIAL",
+  "change": "add-dockerfile",
+  "ticket_id": "DEPLOY-DOCKERFILE-001",
+  "status": "PASS",
   "evidence_mode": "executable",
-  "timestamp": "2026-09-27T02:45:04Z",
-  "tasks": { "total": 9, "passed": 9, "failed": 0, "untested": 0 },
+  "timestamp": "2026-09-28T03:35:20Z",
+  "tasks": { "total": 5, "passed": 5, "failed": 0, "untested": 0 },
   "scenarios": [
-    { "id": "SC-001", "test": "untested (scenario sin ID SC-NNN; evidencia: npx vitest run 69/69 PASS + make audit 0 critical/high)", "status": "UNTESTED" },
-    { "id": "SC-002", "test": "untested (evidencia: package.json astro ^7.3.5, lockfile resuelve 7.3.5)", "status": "UNTESTED" },
-    { "id": "SC-003", "test": "untested (evidencia: make build exit 0, 68 assets optimizados)", "status": "UNTESTED" },
-    { "id": "SC-004", "test": "untested (evidencia: overrides js-yaml 4.3.2/fast-uri 3.1.8/svgo 4.1.0/smol-toml 1.9.0/sharp 0.35.4 en lockfile)", "status": "UNTESTED" },
-    { "id": "SC-005", "test": "untested (evidencia: make build exit 0 con svgo 4.1.0)", "status": "UNTESTED" },
-    { "id": "SC-006", "test": "untested (evidencia: astro.config.mjs compressHTML:true; sitemap-index.xml en dist/)", "status": "UNTESTED" },
-    { "id": "SC-007", "test": "untested (evidencia: npx vitest run 13 files/69 tests PASS; make lint 0 errors)", "status": "UNTESTED" },
-    { "id": "SC-008", "test": "untested (evidencia: check-refs 0 err, specboot --ci 0 err, validate-specboot 0 err, openspec validate valid)", "status": "UNTESTED" },
-    { "id": "SC-009", "test": "untested (evidencia: CHANGELOG documenta flujo manual tras pnpm dlx interactivo)", "status": "UNTESTED" }
+    { "id": "SC-001", "test": "REQ-001/SC-001/SC-004: declares builder and runner stages in that order", "status": "PASS" },
+    { "id": "SC-002", "test": "REQ-003/SC-002: builder receives NODE_AUTH_TOKEN as a build secret (ARG)", "status": "PASS" },
+    { "id": "SC-003", "test": "REQ-003/SC-003: no hardcoded (literal) registry auth token anywhere in the Dockerfile", "status": "PASS" },
+    { "id": "SC-004", "test": "REQ-004/SC-004: runner exposes port 80 and runs nginx in the foreground", "status": "PASS" },
+    { "id": "SC-005", "test": ".dockerignore contract (REQ-005 / SC-005, SC-006) > excludes .git from the build context", "status": "PASS" },
+    { "id": "SC-006", "test": "[SC-006] build context carries no .env files, so the build works without one present", "status": "PASS" },
+    { "id": "SC-007", "test": "[SC-007] REQ-007: declares Dockerfile and .dockerignore as project-owned intocable files", "status": "PASS" }
   ]
 }

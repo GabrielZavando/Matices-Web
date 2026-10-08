@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
-  "change": "add-dockerfile",
-  "ticket_id": "DEPLOY-DOCKERFILE-001",
+  "change": "add-scouthem-section",
+  "ticket_id": "TICKET-005",
   "verdict": "SHIP",
-  "confidence": 0.8,
-  "timestamp": "2026-09-28T13:13:44Z",
+  "confidence": 0.85,
+  "timestamp": "2026-10-08T17:01:29Z",
   "findings": {
-    "total": 7,
+    "total": 4,
     "critical": 0,
-    "warnings": 2,
-    "info": 5,
+    "warnings": 3,
+    "info": 1,
     "discarded": 0
   }
 }

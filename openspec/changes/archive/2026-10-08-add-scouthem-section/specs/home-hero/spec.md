@@ -1,8 +1,5 @@
-# home-hero Specification
+## MODIFIED Requirements
 
-## Purpose
-TBD - created by archiving change fix-home-form-cta. Update Purpose after archive.
-## Requirements
 ### Requirement: SCOUTHEM CTA Without Link Underline
 The SCOUTHEM CTA button MUST NOT use the `link-underline` utility, so no
 animated underline line is drawn across it on hover or focus. Its remaining
@@ -29,4 +26,3 @@ CTA lives inside the home Scouthem showcase section (capability
 - **When** its CTA group is inspected
 - **Then** no link labelled "Conoce nuestra plataforma SCOUTHEM" is present
 - **And** the hero keeps only the "Comenzar Proceso" CTA
-

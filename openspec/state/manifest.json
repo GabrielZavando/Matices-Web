@@ -69,6 +69,25 @@
         "timestamp": "2026-09-27T02:53:44Z",
         "source": "openspec/state/adversarial-result.json"
       }
+    },
+    {
+      "change_name": "add-scouthem-section",
+      "ticket_id": "TICKET-005",
+      "archived_at": "2026-10-08T17:54:44Z",
+      "specs_applied": [
+        "home-hero",
+        "home-scouthem-section"
+      ],
+      "verification": {
+        "status": "PASS",
+        "timestamp": "2026-10-08T16:23:40Z",
+        "source": "openspec/state/verify-results.json"
+      },
+      "adversarial": {
+        "verdict": "SHIP",
+        "timestamp": "2026-10-08T17:01:29Z",
+        "source": "openspec/state/adversarial-result.json"
+      }
     }
   ]
 }

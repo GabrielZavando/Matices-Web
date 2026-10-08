@@ -1,0 +1,11 @@
+{
+  "change": "add-scouthem-section",
+  "ticket_id": "TICKET-005",
+  "branch": "feature/ticket-005-home-scouthem-section",
+  "preflight_at": "2026-10-08T13:54:24Z",
+  "first_run": true,
+  "allowed_dirty": [
+    "openspec/changes/add-scouthem-section/"
+  ],
+  "foreign_changes": []
+}

@@ -6,6 +6,7 @@ import { Image } from 'astro:assets';
 import CompanyLogos from '../components/global/CompanyLogos.astro';
 import EvidenceGallery from '../components/ui/EvidenceGallery.astro';
 import Reveal from '../components/ui/Reveal.astro';
+import ScouthemShowcase from '../components/ui/ScouthemShowcase.astro';
 
 import collaborativeDiscussion from '../assets/collaborative-discussion.webp';
 import teamPhoto from '../assets/team/team.jpeg';
@@ -121,13 +122,6 @@ const areas = [
                 <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
             </a>
-            <a 
-              target="_blank"
-              href="https://scouthem.com/es/pagina-de-inicio/" 
-              class="border border-verde-bosque/20 text-verde-bosque text-center font-semibold py-4 px-8 rounded-xl hover:bg-verde-bosque/5 transition-all"
-            >
-              Conoce nuestra plataforma SCOUTHEM
-            </a>
           </Reveal>
         </div>
 
@@ -185,6 +179,9 @@ const areas = [
 
       </div>
     </section>
+
+    <!-- Section: Scouthem platform showcase (TICKET-005) -->
+    <ScouthemShowcase />
 
     <!-- Section: Nuestros Servicios Bento Grid -->
     <section id="servicios" class="w-full py-20 bg-white/40 border-y border-verde-bosque/5">

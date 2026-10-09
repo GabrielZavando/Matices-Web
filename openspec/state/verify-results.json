@@ -1,18 +1,71 @@
 {
   "schema_version": 1,
-  "change": "add-dockerfile",
-  "ticket_id": "DEPLOY-DOCKERFILE-001",
+  "change": "fix-deps-audit-high",
+  "ticket_id": "DEPS-AUDIT-001",
   "status": "PASS",
   "evidence_mode": "executable",
-  "timestamp": "2026-09-28T03:35:20Z",
-  "tasks": { "total": 5, "passed": 5, "failed": 0, "untested": 0 },
+  "timestamp": "2026-10-09T15:17:41Z",
+  "tasks": {
+    "total": 5,
+    "passed": 5,
+    "failed": 0,
+    "untested": 0
+  },
   "scenarios": [
-    { "id": "SC-001", "test": "REQ-001/SC-001/SC-004: declares builder and runner stages in that order", "status": "PASS" },
-    { "id": "SC-002", "test": "REQ-003/SC-002: builder receives NODE_AUTH_TOKEN as a build secret (ARG)", "status": "PASS" },
-    { "id": "SC-003", "test": "REQ-003/SC-003: no hardcoded (literal) registry auth token anywhere in the Dockerfile", "status": "PASS" },
-    { "id": "SC-004", "test": "REQ-004/SC-004: runner exposes port 80 and runs nginx in the foreground", "status": "PASS" },
-    { "id": "SC-005", "test": ".dockerignore contract (REQ-005 / SC-005, SC-006) > excludes .git from the build context", "status": "PASS" },
-    { "id": "SC-006", "test": "[SC-006] build context carries no .env files, so the build works without one present", "status": "PASS" },
-    { "id": "SC-007", "test": "[SC-007] REQ-007: declares Dockerfile and .dockerignore as project-owned intocable files", "status": "PASS" }
+    {
+      "id": "SC-001",
+      "test": "pnpm audit --audit-level=high exit 0 + config inspection: overrides devalue >=5.9.3 <6, lockfile devalue@5.9.4",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-002",
+      "test": "pnpm audit --audit-level=high exit 0 + config inspection: overrides brace-expansion >=5.0.12, source-map-js >=1.2.2",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-003",
+      "test": "config inspection: dependencies.sharp = overrides.sharp = ^0.35.5; pnpm audit exit 0",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-004",
+      "test": "pnpm audit full run: 0 non-ignored moderate/low + lockfile: vitest@4.1.11, yaml@2.9.0, postcss-selector-parser@7.1.6",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-005",
+      "test": "config inspection: auditConfig.ignoreGhsas=[GHSA-ch52-4w7c-c8xp]; acceptance documented in proposal.md + CHANGELOG.md",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-006",
+      "test": "git status: Makefile unmodified; audit target = pnpm audit --audit-level=high without || true",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-007",
+      "test": "pnpm audit --audit-level=high -> exit 0 (1 high, 1 ignored: GHSA-ch52-4w7c-c8xp)",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-008",
+      "test": "pnpm build -> exit 0 (9 pages, 70 images, sitemap)",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-009",
+      "test": "npm test (vitest run) -> 15 files / 103 tests passed",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-010",
+      "test": "CHANGELOG.md inspection: ### Security entry with 7 closed advisories + risk acceptance documented",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-011",
+      "test": "git status --porcelain: only CHANGELOG.md, package.json, pnpm-lock.yaml modified + openspec/changes/fix-deps-audit-high/ untracked; no untouchable files",
+      "status": "PASS"
+    }
   ]
 }

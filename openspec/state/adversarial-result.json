@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
-  "change": "add-dockerfile",
-  "ticket_id": "DEPLOY-DOCKERFILE-001",
+  "change": "fix-deps-audit-high",
+  "ticket_id": "DEPS-AUDIT-001",
   "verdict": "SHIP",
-  "confidence": 0.8,
-  "timestamp": "2026-09-28T13:13:44Z",
+  "confidence": 0.9,
+  "timestamp": "2026-10-09T16:16:49Z",
   "findings": {
-    "total": 7,
+    "total": 3,
     "critical": 0,
-    "warnings": 2,
-    "info": 5,
-    "discarded": 0
+    "warnings": 1,
+    "info": 2,
+    "discarded": 1
   }
 }

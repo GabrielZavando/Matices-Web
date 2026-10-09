@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "change": "add-scouthem-section",
-  "ticket_id": "TICKET-005",
+  "change": "fix-deps-audit-high",
+  "ticket_id": "DEPS-AUDIT-001",
   "status": "PASS",
   "evidence_mode": "executable",
-  "timestamp": "2026-10-08T16:23:40Z",
+  "timestamp": "2026-10-09T15:17:41Z",
   "tasks": {
     "total": 5,
     "passed": 5,
@@ -14,58 +14,58 @@
   "scenarios": [
     {
       "id": "SC-001",
-      "test": "SC-001 (REQ-001): is the 2nd <section> of <main>, between hero and \"Nuestros Servicios\"",
+      "test": "pnpm audit --audit-level=high exit 0 + config inspection: overrides devalue >=5.9.3 <6, lockfile devalue@5.9.4",
       "status": "PASS"
     },
     {
       "id": "SC-002",
-      "test": "SC-002 (REQ-002): the hero drops the SCOUTHEM link and keeps \"Comenzar Proceso\"",
+      "test": "pnpm audit --audit-level=high exit 0 + config inspection: overrides brace-expansion >=5.0.12, source-map-js >=1.2.2",
       "status": "PASS"
     },
     {
       "id": "SC-003",
-      "test": "SC-003 (REQ-003): exactly one SCOUTHEM CTA in the home, inside the new section, with contract attrs",
+      "test": "config inspection: dependencies.sharp = overrides.sharp = ^0.35.5; pnpm audit exit 0",
       "status": "PASS"
     },
     {
       "id": "SC-004",
-      "test": "SC-004 (REQ-003): the SCOUTHEM CTA preserves the home-hero link contract",
+      "test": "pnpm audit full run: 0 non-ignored moderate/low + lockfile: vitest@4.1.11, yaml@2.9.0, postcss-selector-parser@7.1.6",
       "status": "PASS"
     },
     {
       "id": "SC-005",
-      "test": "SC-005 (REQ-004): reproduces the approved mock copy literally",
+      "test": "config inspection: auditConfig.ignoreGhsas=[GHSA-ch52-4w7c-c8xp]; acceptance documented in proposal.md + CHANGELOG.md",
       "status": "PASS"
     },
     {
       "id": "SC-006",
-      "test": "SC-006 (REQ-005): mobile-first — single column with text before panel, 2 columns at lg:",
+      "test": "git status: Makefile unmodified; audit target = pnpm audit --audit-level=high without || true",
       "status": "PASS"
     },
     {
       "id": "SC-007",
-      "test": "SC-007 (REQ-006): visual panel uses bg-verde-bosque with a reserved aspect ratio, no hex colors",
+      "test": "pnpm audit --audit-level=high -> exit 0 (1 high, 1 ignored: GHSA-ch52-4w7c-c8xp)",
       "status": "PASS"
     },
     {
       "id": "SC-008",
-      "test": "SC-008 (REQ-007): the panel hosts exactly one optimized, accessible <Image>",
+      "test": "pnpm build -> exit 0 (9 pages, 70 images, sitemap)",
       "status": "PASS"
     },
     {
       "id": "SC-009",
-      "test": "SC-009 (REQ-008): <section> with a single <h2> and content wrapped in reveal--fade-up",
+      "test": "npm test (vitest run) -> 15 files / 103 tests passed",
       "status": "PASS"
     },
     {
       "id": "SC-010",
-      "test": "untested",
-      "status": "UNTESTED"
+      "test": "CHANGELOG.md inspection: ### Security entry with 7 closed advisories + risk acceptance documented",
+      "status": "PASS"
     },
     {
       "id": "SC-011",
-      "test": "untested",
-      "status": "UNTESTED"
+      "test": "git status --porcelain: only CHANGELOG.md, package.json, pnpm-lock.yaml modified + openspec/changes/fix-deps-audit-high/ untracked; no untouchable files",
+      "status": "PASS"
     }
   ]
 }

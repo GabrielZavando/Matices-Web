@@ -1,8 +1,19 @@
-# dependency-security Specification
+# dependency-security Specification (delta)
 
 ## Purpose
-TBD - created by archiving change upgrade-astro-7. Update Purpose after archive.
-## Requirements
+
+Este delta cubre el caso que el contrato actual no contempla: un advisory
+`high` que declara **Patched: None** (no existe versión alguna que lo
+corrija), donde no hay upgrade posible. GHSA-ch52-4w7c-c8xp (CVE-2026-93748,
+`http-cache-semantics <=4.2.0`) es el caso: la explotación requiere un shared
+cache server en runtime y este proyecto es SSG 100% estático (dependencia
+transitiva de Astro, build-time only) → explotabilidad nula. La única vía
+sancionada es la aceptación explícita y grabada por el human owner, con el
+umbral del gate intacto. Además, los floors de `pnpm.overrides` se elevan a
+los parches publicados desde el change anterior (`upgrade-astro-7`).
+
+## MODIFIED Requirements
+
 ### Requirement: Vulnerabilities with no patched line require a major upgrade
 
 The project MUST NOT defer a `critical` or `high` dependency vulnerability whose
@@ -111,4 +122,3 @@ effect of a security change; the security diff stays scoped.
 - **Then** a full build runs and confirms the consuming toolchain still works
 - **And** if the bump breaks the consuming toolchain, the pin is reverted to the
   last patchable version in the previous line and the remaining debt is recorded
-

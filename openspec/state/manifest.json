@@ -88,6 +88,24 @@
         "timestamp": "2026-10-08T17:01:29Z",
         "source": "openspec/state/adversarial-result.json"
       }
+    },
+    {
+      "change_name": "fix-deps-audit-high",
+      "ticket_id": "DEPS-AUDIT-001",
+      "archived_at": "2026-10-09T17:31:14Z",
+      "specs_applied": [
+        "dependency-security"
+      ],
+      "verification": {
+        "status": "PASS",
+        "timestamp": "2026-10-09T15:17:41Z",
+        "source": "openspec/state/verify-results.json"
+      },
+      "adversarial": {
+        "verdict": "SHIP",
+        "timestamp": "2026-10-09T16:16:49Z",
+        "source": "openspec/state/adversarial-result.json"
+      }
     }
   ]
 }

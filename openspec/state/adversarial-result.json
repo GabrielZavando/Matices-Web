@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
-  "change": "add-scouthem-section",
-  "ticket_id": "TICKET-005",
+  "change": "fix-deps-audit-high",
+  "ticket_id": "DEPS-AUDIT-001",
   "verdict": "SHIP",
-  "confidence": 0.85,
-  "timestamp": "2026-10-08T17:01:29Z",
+  "confidence": 0.9,
+  "timestamp": "2026-10-09T16:16:49Z",
   "findings": {
-    "total": 4,
+    "total": 3,
     "critical": 0,
-    "warnings": 3,
-    "info": 1,
-    "discarded": 0
+    "warnings": 1,
+    "info": 2,
+    "discarded": 1
   }
 }

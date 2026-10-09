@@ -17,7 +17,7 @@
     "@astrojs/sitemap": "^3.7.4",
     "@tailwindcss/vite": "^4.3.0",
     "astro": "^7.3.5",
-    "sharp": "^0.35.4",
+    "sharp": "^0.35.5",
     "tailwindcss": "^4.3.0"
   },
   "devDependencies": {
@@ -29,7 +29,7 @@
     "happy-dom": "^20.11.0",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.67.0",
-    "vitest": "^4.1.7"
+    "vitest": "^4.1.11"
   },
   "pnpm": {
     "overrides": {
@@ -38,8 +38,18 @@
       "fast-uri": "^3.1.6",
       "postcss": "^8.5.22",
       "nanoid": "^3.3.18",
-      "sharp": "^0.35.4",
-      "smol-toml": ">=1.7.1"
+      "sharp": "^0.35.5",
+      "smol-toml": ">=1.7.1",
+      "brace-expansion": ">=5.0.12",
+      "devalue": ">=5.9.3 <6",
+      "source-map-js": ">=1.2.2",
+      "yaml": ">=2.8.3",
+      "postcss-selector-parser": ">=7.1.6"
+    },
+    "auditConfig": {
+      "ignoreGhsas": [
+        "GHSA-ch52-4w7c-c8xp"
+      ]
     }
   }
 }

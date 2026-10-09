@@ -7,6 +7,42 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Security
+
+- **Gate `Security Audit` de CI restaurado: 7 de las 8 vulnerabilidades
+  `high` de `pnpm audit` cerradas** (OpenSpec change `fix-deps-audit-high`,
+  ticket `DEPS-AUDIT-001`; rojo del CI en PR #14). Bumps same-major vía
+  `dependencies`/`devDependencies`/`pnpm.overrides`, verificados con
+  `pnpm build` y `pnpm test` (15 files / 103 tests):
+
+  | Advisory | Paquete | Floor aplicado | Vía |
+  | --- | --- | --- | --- |
+  | GHSA-qhr7-859c-m2p7 | `brace-expansion` | `>=5.0.12` | override |
+  | GHSA-6j4f-fj2g-mc7p | `brace-expansion` | `>=5.0.12` | override |
+  | GHSA-j22f-vq7h-c4qm | `devalue` | `>=5.9.3 <6` | override |
+  | GHSA-mcm9-63f2-9j32 | `devalue` | `>=5.9.3 <6` | override |
+  | GHSA-x5rw-q4pp-hg5g | `devalue` | `>=5.9.3 <6` | override |
+  | GHSA-68fv-2mgg-jv7q | `source-map-js` | `>=1.2.2` | override |
+  | GHSA-wq5f-xc86-pv6w (CVE-2026-96889) | `sharp` | `^0.35.5` | dep + override |
+
+  Cierre: `pnpm audit --audit-level=high` → exit 0 (`make audit` verde).
+
+  - El cap `<6>` de `devalue` es deliberado: sin él, `>=5.9.3` resuelve `6.x`,
+    fuera del rango `^5.8.1` que astro declara.
+  - De paso se cierran 3 moderates same-major: `vitest` `^4.1.7` → `^4.1.11`
+    (GHSA-82fw-gwwq-j7x9, dev-only), `yaml >=2.8.3` (GHSA-48c2-rrv3-qjmp) y
+    `postcss-selector-parser >=7.1.6` (GHSA-rj75-hqrm-r3gf).
+
+- **Aceptación de riesgo documentada — `http-cache-semantics`
+  (GHSA-ch52-4w7c-c8xp / CVE-2026-93748): `Patched: None`.** No existe
+  versión que lo corrija. Su explotación requiere un *shared cache server*
+  que procese `max-stale` en runtime; aquí es transitiva de Astro y solo
+  participa en build (sitio SSG 100% estático, sin servidor de caché) →
+  **explotabilidad nula**. Decisión de aceptación del human owner registrada
+  en el change `fix-deps-audit-high` (proposal/scenarios) y aplicada vía
+  `pnpm.auditConfig.ignoreGhsas` en `package.json`. El umbral del gate
+  (`--audit-level=high`) y el target `audit` del `Makefile` quedan intactos.
+
 ### Added
 
 - **Astro upgrade v6.4.6 → v7.3.5 (MAJOR)** — security fix de GHSA-26w7-cxv4-gfx2

@@ -106,6 +106,25 @@
         "timestamp": "2026-10-09T16:16:49Z",
         "source": "openspec/state/adversarial-result.json"
       }
+    },
+    {
+      "change_name": "add-dockerfile",
+      "ticket_id": "DEPLOY-DOCKERFILE-001",
+      "archived_at": "2026-10-10T14:30:00Z",
+      "specs_applied": [
+        "deployment-config",
+        "framework-tooling-sync"
+      ],
+      "verification": {
+        "status": "PASS",
+        "timestamp": "2026-10-10T13:45:00Z",
+        "source": "openspec/state/verify-results.json"
+      },
+      "adversarial": {
+        "verdict": "SHIP",
+        "timestamp": "2026-10-10T14:18:24Z",
+        "source": "openspec/state/adversarial-result.json"
+      }
     }
   ]
 }

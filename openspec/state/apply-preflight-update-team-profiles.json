@@ -1,0 +1,41 @@
+{
+  "change": "update-team-profiles",
+  "ticket_id": "TICKET-006",
+  "branch": "feature/ticket-006-update-team-profiles",
+  "preflight_at": "2026-10-26T16:07:07Z",
+  "first_run": true,
+  "allowed_dirty": [
+    "openspec/changes/update-team-profiles/"
+  ],
+  "preserved_human_changes": [
+    {
+      "path": "src/pages/index.astro",
+      "reason": "Human already updated the team image imports to the new .jpeg filenames. Related to this change and must be preserved; only the team array/markup will be edited."
+    },
+    {
+      "path": "src/assets/team/catalina.jpeg",
+      "reason": "Human-provided portrait replacement, untracked. Must not be modified, restored, deleted or checked out by the agent."
+    },
+    {
+      "path": "src/assets/team/cristian.jpeg",
+      "reason": "Human-provided portrait replacement, untracked. Must not be modified, restored, deleted or checked out by the agent."
+    },
+    {
+      "path": "src/assets/team/lorenzo.jpeg",
+      "reason": "Human-provided portrait replacement, untracked. Must not be modified, restored, deleted or checked out by the agent."
+    },
+    {
+      "path": "src/assets/team/cata.jpg",
+      "reason": "Human-intended deletion of the superseded portrait. Must not be restored."
+    },
+    {
+      "path": "src/assets/team/cristian.jpg",
+      "reason": "Human-intended deletion of the superseded portrait. Must not be restored."
+    },
+    {
+      "path": "src/assets/team/lorenzo.traverso.jpg",
+      "reason": "Human-intended deletion of the superseded portrait. Must not be restored."
+    }
+  ],
+  "foreign_changes": []
+}

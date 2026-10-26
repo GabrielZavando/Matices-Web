@@ -148,7 +148,7 @@ describe('framework-tooling-sync delta — project-owned intocables (REQ-007 / S
 
   beforeAll(() => {
     deltaSpec = readRepoFile(
-      'openspec/changes/add-dockerfile/specs/framework-tooling-sync/spec.md'
+      'openspec/specs/framework-tooling-sync/spec.md'
     );
   });
 

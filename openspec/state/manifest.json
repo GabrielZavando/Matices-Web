@@ -125,6 +125,24 @@
         "timestamp": "2026-10-10T14:18:24Z",
         "source": "openspec/state/adversarial-result.json"
       }
+    },
+    {
+      "change_name": "update-team-profiles",
+      "ticket_id": "TICKET-006",
+      "archived_at": "2026-10-26T16:35:41Z",
+      "specs_applied": [
+        "home-team-section"
+      ],
+      "verification": {
+        "status": "PASS",
+        "timestamp": "2026-10-26T16:26:54Z",
+        "source": "openspec/state/verify-results.json"
+      },
+      "adversarial": {
+        "verdict": "SHIP",
+        "timestamp": "2026-10-26T16:31:03Z",
+        "source": "openspec/state/adversarial-result.json"
+      }
     }
   ]
 }

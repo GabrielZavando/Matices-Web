@@ -26,7 +26,7 @@
     "@gabrielzavando/specboot": "^0.11.1",
     "eslint": "^10.8.1",
     "eslint-plugin-astro": "^3.1.0",
-    "happy-dom": "^20.11.0",
+    "happy-dom": "^21.0.4",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.67.0",
     "vitest": "^4.1.11"
@@ -44,7 +44,10 @@
       "devalue": ">=5.9.3 <6",
       "source-map-js": ">=1.2.2",
       "yaml": ">=2.8.3",
-      "postcss-selector-parser": ">=7.1.6"
+      "postcss-selector-parser": ">=7.1.6",
+      "undici": ">=8.12.2",
+      "vite": ">=8.3.3",
+      "zod": ">=4.6.6"
     },
     "auditConfig": {
       "ignoreGhsas": [

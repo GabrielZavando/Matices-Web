@@ -13,33 +13,37 @@ import teamPhoto from '../assets/team/team.jpeg';
 import teamPhotoTwo from '../assets/team/team-one.jpg';
 
 import mariaJose from '../assets/team/maria-jose.jpg'
-import cata from '../assets/team/cata.jpg'
-import cristian from '../assets/team/cristian.jpg'
-import lorenzo from '../assets/team/lorenzo.traverso.jpg'
+import cata from '../assets/team/catalina.jpeg'
+import cristian from '../assets/team/cristian.jpeg'
+import lorenzo from '../assets/team/lorenzo.jpeg'
 
 const team = [
   {
     name: 'María José Jimenez',
     role: 'Directora y Consultora Principal',
-    description: 'Psicóloga y Magister en Neurociencias (c), con más de 20 años de experiencia asesorando organizaciones en materias de gestión del talento, ex gerente general de editora multinacional de test en Chile, directora de la consultora Matices',
+    description: 'Psicóloga y Magister en Neurociencias (c) (Universidad internacional de la Rioja), con más de 20 años de experiencia asesorando organizaciones en materias de gestión del talento, ex Gerente General de editora multinacional de test en Chile, directora de Matices Consultora.',
+    linkedin: 'https://www.linkedin.com/in/mar%C3%ADa-jos%C3%A9-jim%C3%A9nez-520a8823/',
     image: mariaJose
-  },
-  {
-    name: 'Catalina Aguilera',
-    role: 'Psicóloga organizacional',
-    description: 'Psicóloga Organizacional y Gestora de Inclusión, con Magíster en Psicología de las Organizaciones. Más de 15 años de experiencia en el área de gestión de personas, Desarrollo Organizacional y Salud Ocupacional.',
-    image: cata
   },
   {
     name: 'Cristian Nova',
     role: 'Psicólogo laboral',
-    description: 'Psicólogo laboral y Magíster en Política Social, Trabajo y Bienestar, con trayectoria en estudios territoriales, ciencia de datos y gestión de proyectos. Ha trabajado en procesos de reclutamiento y selección de personal, y cuenta con experiencia en dirección de eventos académicos.',
+    description: 'Psicólogo laboral y Magíster en Políticas Sociales, Trabajo y Bienestar (Universidad Autónoma de Barcelona), con trayectoria en estudios territoriales, ciencia de datos y gestión de proyectos. Ha trabajado en procesos de reclutamiento y selección de personal en diversas organizaciones, contando con experiencia en investigación académica.',
+    linkedin: 'https://www.linkedin.com/in/cristiannova/',
     image: cristian
+  },
+  {
+    name: 'Catalina Aguilera',
+    role: 'Psicóloga organizacional',
+    description: 'Psicóloga Organizacional y Gestora de Inclusión, con Magíster en Psicología de las Organizaciones (Universidad Adolfo Ibáñez). Más de 15 años de experiencia en el área de gestión de personas, desarrollo organizacional y salud ocupacional.',
+    linkedin: 'https://www.linkedin.com/in/catalinaaguileradorrhhconsultoriasotalentobienestargestionorganizacionalreclutamientoyseleccion/',
+    image: cata
   },
   {
     name: 'Lorenzo Traverso',
     role: 'Ingeniero Comercial',
-    description: ' Ingeniero Comercial, con Magíster en Innovación y Emprendimiento, con más de 6 años de experiencia en áreas de desarrollo comercial, análisis de mercado, optimización de procesos y gestión de canales digitales.',
+    description: 'Ingeniero Comercial, con Magíster en Innovación y Emprendimiento (Universidad Adolfo Ibáñez), con más de 6 años de experiencia en áreas de desarrollo comercial, análisis de mercado, optimización de procesos y gestión de canales digitales.',
+    linkedin: 'https://www.linkedin.com/in/lorenzotraverso/',
     image: lorenzo
   }
 ]
@@ -325,10 +329,36 @@ const areas = [
                       transition-transform duration-500"
                   />
                 </div>
-                <h3 class="font-heading text-xl font-bold text-verde-bosque
-                  mb-2">
-                  {member.name}
-                </h3>
+                <div class="flex items-center gap-2 mb-2">
+                  <h3 class="font-heading text-xl font-bold text-verde-bosque">
+                    {member.name}
+                  </h3>
+                  <a
+                    href={member.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Perfil de LinkedIn de ${member.name}`}
+                    class="text-verde-lima hover:text-verde-bosque transition-colors rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-verde-bosque"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="h-5 w-5"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2
+                           2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+                      />
+                      <rect width="4" height="12" x="2" y="9" />
+                      <circle cx="4" cy="4" r="2" />
+                    </svg>
+                  </a>
+                </div>
                 <p class="font-sans text-xs font-semibold text-verde-lima
                   uppercase tracking-wider mb-3">
                   {member.role}

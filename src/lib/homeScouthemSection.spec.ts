@@ -19,7 +19,7 @@ import { dirname, join } from 'node:path';
 const distDir = join(dirname(fileURLToPath(import.meta.url)), '../../dist');
 const homePath = join(distDir, 'index.html');
 
-const SCOUTHEM_CTA_LABEL = 'Conoce nuestra plataforma SCOUTHEM';
+const SCOUTHEM_CTA_LABEL = 'Conoce la plataforma SCOUTHEM';
 const SCOUTHEM_CTA_HREF = 'https://scouthem.com/es/pagina-de-inicio/';
 const SCOUTHEM_BADGE = 'PLATAFORMA DE RECLUTAMIENTO Y SELECCIÓN';
 const SCOUTHEM_HEADLINE = 'Revoluciona tu';

@@ -45,17 +45,21 @@ describe('anim-ambient: floating ambient motion', () => {
     expect(html).toContain('animate-float')
   })
 
-  it('floats every glassmorphism stat badge across all pages', () => {
+  it('[SC-014] (REQ-010): floats every glassmorphism stat badge across all pages, without requiring badges per page', () => {
     const pages = ['index', 'formacion', 'psicologia', 'testing', 'talento', 'id']
     const badgeClasses: string[] = []
     for (const page of pages) {
       const html = readHtmlPage(page)
       // Stat badges are the only elements using max-w-[200px]; the wider
       // ANID/FONDEF info card uses max-w-[280px] and is intentionally excluded.
+      // Every page is scanned, but no page is required to render a stat badge:
+      // the contract constrains the badges that exist (a page without stat
+      // badges is compliant, e.g. /testing after its hero was removed).
       const badges = html.match(/class="[^"]*max-w-\[200px\][^"]*"/g) ?? []
-      expect(badges.length, `${page} should render at least one stat badge`).toBeGreaterThan(0)
       badgeClasses.push(...badges)
     }
+    // Guard against a vacuous pass: the badge set must not be empty overall.
+    expect(badgeClasses.length, 'the site should render at least one stat badge').toBeGreaterThan(0)
     for (const badgeClass of badgeClasses) {
       expect(badgeClass, `stat badge missing float animation: ${badgeClass}`).toContain('animate-float')
     }

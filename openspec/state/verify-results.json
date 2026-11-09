@@ -1,61 +1,96 @@
 {
   "schema_version": 1,
-  "change": "update-team-profiles",
-  "ticket_id": "TICKET-006",
+  "change": "restructure-page-content",
+  "ticket_id": "TICKET-007",
   "status": "PASS",
   "evidence_mode": "executable",
-  "timestamp": "2026-10-26T16:26:54Z",
+  "timestamp": "2026-11-09T02:46:17Z",
   "tasks": {
-    "total": 5,
-    "passed": 5,
+    "total": 18,
+    "passed": 18,
     "failed": 0,
     "untested": 0
   },
   "scenarios": [
     {
       "id": "SC-001",
-      "test": "[SC-001] (REQ-001): team cards render in the agreed DOM order",
+      "test": "SC-001 (REQ-001): the home page renders no Scouthem section and no Scouthem CTA",
       "status": "PASS"
     },
     {
       "id": "SC-002",
-      "test": "[SC-002] (REQ-002): each member card has exactly one LinkedIn link next to the name with the exact URL",
+      "test": "SC-002 (REQ-001): the showcase is the 1st <section> of <main> on /testing, followed by the psicometría section",
       "status": "PASS"
     },
     {
       "id": "SC-003",
-      "test": "[SC-003] (REQ-002): LinkedIn links open in a new tab with noopener and noreferrer",
+      "test": "SC-003 (REQ-001): the \"Rigor Técnico & Diagnóstico\" hero is gone from /testing",
       "status": "PASS"
     },
     {
       "id": "SC-004",
-      "test": "[SC-004] (REQ-003): LinkedIn icons are inline decorative SVGs with no external image",
+      "test": "SC-004 (REQ-002): /testing exposes exactly one visually hidden <h1>, and the showcase keeps a single <h2>",
       "status": "PASS"
     },
     {
       "id": "SC-005",
-      "test": "[SC-005] (REQ-003): every LinkedIn link exposes a unique accessible name with the member name",
+      "test": "SC-005 (REQ-003): exactly one Scouthem CTA in the site, inside the /testing showcase, with the agreed attributes",
       "status": "PASS"
     },
     {
       "id": "SC-006",
-      "test": "[SC-006] (REQ-004): biographies match the approved literal copy and old copy is gone",
+      "test": "SC-006 (REQ-004): the logos section is the 2nd <section> of <main>, between the hero and \"Nuestros Servicios\"",
       "status": "PASS"
     },
     {
       "id": "SC-007",
-      "test": "[SC-007] (REQ-005): each card keeps exactly one optimized portrait with a descriptive alt",
+      "test": "SC-007 (REQ-004): the whole home section order is hero → logos → services → banner → specialists → team → gallery",
       "status": "PASS"
     },
     {
       "id": "SC-008",
-      "test": "untested",
-      "status": "UNTESTED"
+      "test": "SC-008 (REQ-005): the hero image uses a 3:2 full-width frame with optimized astro:assets attributes",
+      "status": "PASS"
     },
     {
       "id": "SC-009",
-      "test": "untested",
-      "status": "UNTESTED"
+      "test": "SC-009 (REQ-006): the floating badge over the hero image shows \"Proyecto FONDEF\" / \"Innova I+D\"",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-010",
+      "test": "SC-010 (REQ-007): the \"Plataforma de Talento Inteligente\" paragraph matches the approved copy exactly",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-011",
+      "test": "SC-011 (REQ-007): the \"CONOCER SCOUTHEM\" CTA points to the internal /testing route without target or rel",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-012",
+      "test": "git status --porcelain (sin entradas bajo src/assets/) + src/assets/hero-business.webp presente en disco + grep hero-business|heroBusiness en src/pages/testing.astro → 0 coincidencias",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-013",
+      "test": "npm test (18 files / 119 tests) + npm run lint (0 errores / 0 warnings) + npm run build (9 páginas) + src/lib/sections.spec.ts (>=7 reveal--fade-up en dist/index.html, >=6 en dist/testing/index.html) + src/lib/homeScouthemSection.spec.ts eliminado (git status: D)",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-014",
+      "test": "[SC-014] (REQ-010): floats every glassmorphism stat badge across all pages, without requiring badges per page",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-015",
+      "test": "[SC-015] (REQ-011): renders both team photos (team.jpeg and team-one.jpg) scoped to the hero section",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-016",
+      "test": "[SC-016] (REQ-001): the showcase exposes the id=\"scouthem\" anchor",
+      "status": "PASS"
     }
   ]
 }

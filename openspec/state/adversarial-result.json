@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
-  "change": "update-team-profiles",
-  "ticket_id": "TICKET-006",
+  "change": "restructure-page-content",
+  "ticket_id": "TICKET-007",
   "verdict": "SHIP",
   "confidence": 0.82,
-  "timestamp": "2026-10-26T16:31:03Z",
+  "timestamp": "2026-11-09T02:13:17Z",
   "findings": {
-    "total": 5,
+    "total": 9,
     "critical": 0,
     "warnings": 3,
-    "info": 2,
-    "discarded": 0
+    "info": 6,
+    "discarded": 3
   }
 }

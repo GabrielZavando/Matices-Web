@@ -19,6 +19,31 @@ function readHomeHtml(): string {
   return readFileSync(file, 'utf8');
 }
 
+/**
+ * The hero markup: the first `<section>` child of `<main>`.
+ *
+ * The scope must be the hero itself and not a proxy range such as "everything
+ * before 'Nuestros Servicios'": with the client logos section now rendered
+ * right below the hero, that proxy range also collects the logos' own image
+ * sources (REQ-011/SC-015). The carousel markup, mask and animation are
+ * untouched by this change.
+ */
+function getHeroSectionHtml(html: string): string {
+  const mainIndex = html.indexOf('<main');
+  const firstSectionIndex = html.indexOf('<section', mainIndex);
+  const sectionPattern = /<section\b|<\/section>/g;
+  sectionPattern.lastIndex = firstSectionIndex;
+  let depth = 0;
+  let match: RegExpExecArray | null;
+  while ((match = sectionPattern.exec(html)) !== null) {
+    depth += match[0].startsWith('</') ? -1 : 1;
+    if (depth === 0) {
+      return html.slice(mainIndex, match.index + match[0].length);
+    }
+  }
+  throw new Error('Could not delimit the first <section> of <main> in dist/index.html');
+}
+
 // Astro inlines component-scoped <style> blocks into the page HTML (selectors
 // like [data-astro-cid-*]), while global CSS lives in dist/_astro/*.css.
 // Concatenate both so keyframes/utilities from either source are found.
@@ -29,13 +54,14 @@ function getAllCss(): string {
 const css = getAllCss();
 
 describe('hero-team-carousel: home hero team photo carousel', () => {
-  it('renders both team photos (team.jpeg and team-one.jpg) in the home hero', () => {
+  it('[SC-015] (REQ-011): renders both team photos (team.jpeg and team-one.jpg) scoped to the hero section', () => {
     const html = readHomeHtml();
     // The hero carousel track is a flex row; astro:assets emits hashed avif srcs.
     // The track duplicates each photo once, so the four <img> inside the hero
-    // must resolve to exactly two distinct hashed sources. We scope the match to
-    // the hero section (before the services section) to avoid other images on the page.
-    const heroHtml = html.slice(0, html.indexOf('Nuestros Servicios'));
+    // must resolve to exactly two distinct hashed sources. The inspected range
+    // is the hero section itself (the first <section> of <main>), so the client
+    // logos section rendered below it does not contribute its own sources.
+    const heroHtml = getHeroSectionHtml(html);
     const imgSrcs = heroHtml.match(/src="\/_astro\/[^"]+\.avif"/g) ?? [];
     // Track has 3 slides (A-B-A): each of the 2 unique photos appears at least once.
     expect(imgSrcs.length).toBeGreaterThanOrEqual(3);

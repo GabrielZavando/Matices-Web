@@ -3,35 +3,6 @@
 ## Purpose
 TBD - created by archiving change add-scouthem-section. Update Purpose after archive.
 ## Requirements
-### Requirement: Scouthem section renders right after the home hero
-
-The home page (`src/pages/index.astro`) MUST render a `<section>` for the
-Scouthem showcase as the second section of `<main>`, immediately after the
-"Reclutamiento y Selección Estratégica" hero and before the "Nuestros
-Servicios" section. The hero MUST NOT render the SCOUTHEM CTA: its CTA group
-keeps only "Comenzar Proceso". The page MUST contain exactly one link labelled
-"Conoce nuestra plataforma SCOUTHEM", living inside this new section, pointing
-to `https://scouthem.com/es/pagina-de-inicio/` with `target="_blank"`.
-
-#### Scenario: section sits between hero and services
-- **Given** the built home page `/`
-- **When** the `<section>` elements inside `<main>` are inspected
-- **Then** the Scouthem section is the second one, right after the hero and
-  before "Nuestros Servicios"
-
-#### Scenario: hero renders only the primary CTA
-- **Given** the home hero is rendered
-- **When** its CTA group is inspected
-- **Then** only "Comenzar Proceso" remains and no link labelled "Conoce
-  nuestra plataforma SCOUTHEM" is present in the hero
-
-#### Scenario: exactly one SCOUTHEM CTA with preserved destination
-- **Given** the built home page
-- **When** links labelled "Conoce nuestra plataforma SCOUTHEM" are counted
-- **Then** there is exactly one, inside the Scouthem section
-- **And** it links to `https://scouthem.com/es/pagina-de-inicio/` with
-  `target="_blank"` and `rel="noopener"`
-
 ### Requirement: Section content matches the approved mock
 
 The section MUST reproduce `docs/assets/design/nueva-seccion.jpeg` literally:
@@ -66,7 +37,6 @@ horizontal overflow at any breakpoint.
   text block on the right
 
 ### Requirement: Navy visual panel reserves space regardless of asset presence
-
 The visual panel MUST use the canonical token `bg-verde-bosque` (no hardcoded
 hex, per `brand-design-system`) with a reserved aspect ratio, and MUST render
 even when `src/assets/scouthem-section.*` is absent, without breaking
@@ -74,9 +44,21 @@ even when `src/assets/scouthem-section.*` is absent, without breaking
 `import.meta.glob('../../assets/scouthem-section.*', { eager: true })` (from
 `src/components/ui/`, resolving to `src/assets/`): when a
 match exists the image is served with `<Image>` from `astro:assets` (explicit
-`width`/`height`/`format`/`loading="lazy"`/`sizes` and a descriptive `alt`,
+`width`/`height`/`format`/`loading="eager"`/`sizes` and a descriptive `alt`,
 never a native `<img>`); an unprocessable asset MUST fail the build with a
 clear `astro:assets` error instead of publishing broken markup.
+
+**Reason**: The showcase is no longer the second section of the home page: it
+is the FIRST section of the testing page (`/testing`), so its panel image is the
+Largest Contentful Paint (LCP) candidate of that page. Lazy loading it delays
+the LCP element, so the image MUST be requested eagerly. `loading="eager"` does
+not apply to the asset glob resolution (`{ eager: true }`), which already
+resolved the asset at build time.
+
+**Migration**: The `loading` attribute of the panel image changes from `lazy` to
+`eager`; every other attribute (`width`, `height`, `format`, `sizes`, `alt`) and
+the reserved aspect ratio remain unchanged. The contract test
+(`src/lib/testingScouthemSection.spec.ts`) asserts the new value.
 
 #### Scenario: panel reserved with canonical token, build stays green
 - **Given** the section renders whether or not the asset
@@ -90,7 +72,7 @@ clear `astro:assets` error instead of publishing broken markup.
 - **Given** the asset exists
 - **When** the section HTML is inspected
 - **Then** the image is served via `<Image>` of `astro:assets` with explicit
-  `width`, `height`, `format`, `loading="lazy"` and `sizes`, plus a
+  `width`, `height`, `format`, `loading="eager"` and `sizes`, plus a
   descriptive `alt`
 - **And** the panel keeps its aspect ratio without layout shift
 

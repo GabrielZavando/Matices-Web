@@ -143,6 +143,29 @@
         "timestamp": "2026-10-26T16:31:03Z",
         "source": "openspec/state/adversarial-result.json"
       }
+    },
+    {
+      "change_name": "restructure-page-content",
+      "ticket_id": "TICKET-007",
+      "archived_at": "2026-11-09T04:02:55Z",
+      "specs_applied": [
+        "floating-badges",
+        "home-hero",
+        "home-scouthem-section",
+        "home-section-order",
+        "id-page-innovation",
+        "testing-page-structure"
+      ],
+      "verification": {
+        "status": "PASS",
+        "timestamp": "2026-11-09T02:46:17Z",
+        "source": "openspec/state/verify-results.json"
+      },
+      "adversarial": {
+        "verdict": "SHIP",
+        "timestamp": "2026-11-09T02:13:17Z",
+        "source": "openspec/state/adversarial-result.json"
+      }
     }
   ]
 }

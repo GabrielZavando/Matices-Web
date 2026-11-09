@@ -1,0 +1,11 @@
+{
+  "change": "restructure-page-content",
+  "ticket_id": "TICKET-007",
+  "branch": "feature/ticket-007-restructure-page-content",
+  "preflight_at": "2026-11-08T20:15:29Z",
+  "first_run": true,
+  "allowed_dirty": [
+    "openspec/changes/restructure-page-content/"
+  ],
+  "foreign_changes": []
+}

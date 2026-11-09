@@ -2,13 +2,10 @@
 import Layout from '../layouts/Layout.astro'
 import Header from '../components/global/Header.astro'
 import Footer from '../components/global/Footer.astro'
-import { Image } from 'astro:assets'
 import CompanyLogos from '../components/global/CompanyLogos.astro'
 import Reveal from '../components/ui/Reveal.astro'
 import EvidenceGallery from '../components/ui/EvidenceGallery.astro'
-
-// Optimized image import
-import heroBusiness from '../assets/hero-business.webp'
+import ScouthemShowcase from '../components/ui/ScouthemShowcase.astro'
 
 interface TestType {
   title: string
@@ -85,67 +82,11 @@ const testApplications: TestApplication[] = [
   <Header activePath="/testing" />
 
   <main class="w-full">
-    <!-- Hero Section -->
-    <section
-      class="relative w-full overflow-hidden pt-12 pb-24 md:pt-20 md:pb-32 bg-radial from-verde-lima/5 to-transparent"
-    >
-      <div class="absolute -top-10 -left-10 h-48 w-48 rounded-full bg-verde-lima/10 blur-3xl -z-10 pointer-events-none animate-float"></div>
-      <div
-        class="max-w-[1280px] mx-auto px-4 md:px-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
-      >
-        <!-- Hero Copy -->
-        <div class="lg:col-span-7 space-y-6 z-10 text-left">
-          <Reveal as="span" variant="fade-up" delay={0} class="inline-block px-4 py-1.5 rounded-full bg-verde-lima/10 text-verde-bosque font-sans text-xs font-semibold tracking-wider uppercase">
-            Rigor Técnico &amp; Diagnóstico
-          </Reveal>
-          <Reveal as="h1" variant="fade-up" delay={80} class="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-verde-bosque leading-tight">
-            Pruebas y <span class="text-verde-lima font-normal italic"
-              >Testing Organizacional</span
-            >
-          </Reveal>
-          <Reveal as="p" variant="fade-up" delay={160} class="font-sans text-lg text-verde-bosque/80 max-w-xl leading-relaxed">
-            Garantizamos la precisión y el encaje en la selección mediante
-            evaluaciones y pruebas psicométricas avanzadas, diseñadas con el
-            más alto rigor científico en psicología laboral.
-          </Reveal>
-          <Reveal as="div" variant="fade-up" delay={240} class="flex flex-col sm:flex-row gap-4 pt-2">
-            <a
-              href="https://docs.google.com/forms/d/e/1FAIpQLScIS32V6Eg03xK6Ad9Ww_YZ0B0niyUTksvn2QknjvL0BOG5-g/viewform"
-              target="_blank"
-              class="bg-verde-bosque text-white font-sans text-center font-semibold py-4 px-8 rounded-xl hover:opacity-90 active:scale-95 transition-all text-sm block"
-            >
-              Solicita tu Demo
-            </a>
-          </Reveal>
-        </div>
+    <!-- Page heading (visually hidden): keeps a single h1 after the hero removal -->
+    <h1 class="sr-only">Pruebas y Testing Organizacional</h1>
 
-        <!-- Graphic Content -->
-        <Reveal as="div" variant="scale-in" delay={120} class="lg:col-span-5 relative w-full flex justify-center">
-          <div
-            class="w-full max-w-md aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl relative border-4 border-white/40"
-          >
-            <Image
-              src={heroBusiness}
-              alt="Profesional analizando reportes psicométricos en oficina"
-              width={640}
-              height={800}
-              format="avif"
-              loading="eager"
-              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 640px"
-              class="w-full h-full object-cover"
-            />
-          </div>
-          <Reveal as="div" variant="fade-up" delay={320} class="absolute -bottom-6 -right-6 bg-white/70 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-verde-bosque/10 max-w-[200px] hidden sm:block animate-float">
-            <p class="font-heading text-xl font-bold text-verde-bosque mb-1">
-              100%
-            </p>
-            <p class="text-sm font-semibold text-verde-bosque/70 leading-tight">
-              Rigor científico en cada perfilamiento.
-            </p>
-          </Reveal>
-        </Reveal>
-      </div>
-    </section>
+    <!-- Section: Scouthem platform showcase (TICKET-007) -->
+    <ScouthemShowcase />
 
     <!-- Section: Evaluación Psicométrica y Tipos de Test -->
     <section class="w-full py-20 bg-white/40 border-t border-verde-bosque/5">

@@ -1,7 +1,12 @@
 ---
 /**
  * ScouthemShowcase — presentational section promoting the Scouthem platform
- * (TICKET-005, change `add-scouthem-section`, task T-002).
+ * (TICKET-007, change `restructure-page-content`).
+ *
+ * Rendered by the testing page (`src/pages/testing.astro`) as the FIRST
+ * `<section>` child of `<main>`: the section was introduced on the home page
+ * in TICKET-005 and relocated to `/testing` in TICKET-007, so it no longer
+ * belongs to the home page.
  *
  * Layer: dumb. Pure markup: no state, no <script>. Copy is literal from the
  * approved mock `docs/assets/design/nueva-seccion.jpeg` (REQ-004/SC-005).
@@ -40,11 +45,13 @@ const dashboardSrcsetWidths = dashboardImage
   ? [Math.round(dashboardImage.width / 2), dashboardImage.width]
   : [];
 
-/** External destination agreed for the single home CTA (REQ-003). */
+/** External destination agreed for the single site-wide SCOUTHEM CTA (REQ-003). */
 const SCOUTHEM_HREF = 'https://scouthem.com/es/pagina-de-inicio/';
 ---
 
-<section class:list={['w-full py-20 md:py-24 bg-crema-calido/20', extraClasses]}>
+<!-- The `id="scouthem"` anchor is the target of the internal link
+     `/testing#scouthem` rendered by the `/talento` page (REQ-001/SC-016). -->
+<section id="scouthem" class:list={['w-full py-20 md:py-24 bg-crema-calido/20', extraClasses]}>
   <div
     class="max-w-[1280px] mx-auto px-4 md:px-16 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center"
   >
@@ -90,9 +97,11 @@ const SCOUTHEM_HREF = 'https://scouthem.com/es/pagina-de-inicio/';
     </div>
 
     <!-- Visual panel: below the text on mobile; left column at lg: via order.
-         The image ships as webp (allowed by docs/frontend-standards.md §1);
-         an avif output would break the hero-carousel contract test, which
-         counts avif srcs in dist/index.html before the services section. -->
+         The image ships as webp (allowed by docs/frontend-standards.md §1).
+         The former rationale — an avif output would break the home
+         hero-carousel contract test, which counts the avif sources of the home
+         hero — no longer applies, because the section does not live on the
+         home page any more; `format="webp"` is kept unchanged in this change. -->
     <Reveal as="div" variant="fade-up" delay={320} class="lg:order-1">
       <div class="w-full aspect-[4/3] rounded-[2rem] bg-verde-bosque overflow-hidden">
         {
@@ -104,7 +113,7 @@ const SCOUTHEM_HREF = 'https://scouthem.com/es/pagina-de-inicio/';
               height={dashboardImage.height}
               widths={dashboardSrcsetWidths}
               format="webp"
-              loading="lazy"
+              loading="eager"
               sizes="(max-width: 1024px) 100vw, 50vw"
               class="w-full h-full object-cover"
             />
